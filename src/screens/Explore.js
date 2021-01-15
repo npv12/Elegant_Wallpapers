@@ -16,7 +16,7 @@ import Modal from 'react-native-modal';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Explore = () => {
+const Explore = ({navigation}) => {
 
   const [data, setData] = useState([])
   const [bottomMenuVisible, setBottomMenuVisible] = useState(false)
@@ -69,7 +69,9 @@ const renderItem = ({ item }) => {
   return (
     <Item
       item={item}
-      onPress={() => console.log("Press")}
+      onPress={() => navigation.navigate('Wall',{
+        item:item
+      })}
     />
   );
 };

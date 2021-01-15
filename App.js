@@ -12,6 +12,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Explore from './src/screens/Explore';
 import Collections from './src/screens/Collections';
 import { NavigationContainer } from '@react-navigation/native';
+import SetWallpaper from './src/screens/SetWallpaper';
 
 const Tab = createMaterialTopTabNavigator();
 function TopTabs() {
@@ -39,6 +40,7 @@ function App () {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={TopTabs} options={{headerShown: false}}/>
+        <Stack.Screen name="Wall" component={SetWallpaper} options={{headerShown: false}}/>
     </Stack.Navigator>  
     </NavigationContainer>
     </>
