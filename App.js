@@ -17,8 +17,16 @@ const Tab = createMaterialTopTabNavigator();
 function TopTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Explore" component={Explore} />
-      <Tab.Screen name="Collections" component={Collections} />
+      <Tab.Screen name="Explore" component={Explore} tabBarOptions={{
+                                                      labelStyle: { fontSize: 18},
+                                                      tabStyle: { width: 100 },
+                                                      style: { backgroundColor: 'powderblue' },
+                                                    }}/>
+      <Tab.Screen name="Collections" component={Collections} tabBarOptions={{
+                                                      labelStyle: { fontSize: 12 },
+                                                      tabStyle: { width: 100 },
+                                                      style: { backgroundColor: 'black' },
+                                                    }}/>
     </Tab.Navigator>
   );
 }

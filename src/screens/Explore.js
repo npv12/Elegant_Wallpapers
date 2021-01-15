@@ -45,6 +45,8 @@ const Explore = () => {
     {
       return <View style={{paddingHorizontal:10}}>
               <FlatList
+              showsVerticalScrollIndicator ={false}
+              showsHorizontalScrollIndicator={false}
               data={data}
               renderItem={renderItem}
               keyExtractor={(item) => item.url}
@@ -55,7 +57,7 @@ const Explore = () => {
     return <Text>Loading</Text>
   }
 
-  const Item = ({ item, onPress, style }) => (
+  const Item = ({ item, onPress }) => (
     <View style={styles.wallBoundary}>
       <TouchableOpacity onPress={onPress} >
         <Image source={{uri:item.url}} style={styles.Wall}/>
@@ -68,7 +70,6 @@ const renderItem = ({ item }) => {
     <Item
       item={item}
       onPress={() => console.log("Press")}
-      style={{height:10 }}
     />
   );
 };
@@ -76,7 +77,7 @@ const renderItem = ({ item }) => {
   return (
     <>
     <StatusBar showHideTransition/>
-        <View style={{...styles.container, backgroundColor:{bgColor}}}>
+        <View style={{...styles.container, backgroundColor:{bgColor}, marginTop:18}}>
             {renderWalls()}
         </View>
         <View style={styles.bottomTab}>
@@ -171,14 +172,16 @@ const styles = StyleSheet.create({
       elevation: 5
   },
   Wall:{
-    width:windowWidth/2*0.92,
+    width:windowWidth/2*0.88,
     height:250,
     borderRadius:5,
     borderTopRightRadius:5,
   },
   wallBoundary:{
     flex:1,
-    margin:4
+    margin:8,
+    justifyContent:'center',
+    alignItems:'center',
   },
   openButton: {
     backgroundColor: "#F194FF",
