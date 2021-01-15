@@ -8,10 +8,10 @@ import {
   FlatList,
   Image,
   Dimensions,
-  Modal,
+  TouchableOpacity
  } from 'react-native';
 import { Icon } from 'react-native-elements'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import Modal from 'react-native-modal';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -20,6 +20,7 @@ const Explore = () => {
 
   const [data, setData] = useState([])
   const [bottomMenuVisible, setBottomMenuVisible] = useState(false)
+  const [bgColor, setBgColor] = useState('')
 
   async function getData(){
     fetch('https://jahir.dev/frames/frames.json', {
@@ -75,12 +76,14 @@ const renderItem = ({ item }) => {
   return (
     <>
     <StatusBar showHideTransition/>
-        <View style={styles.container}>
+        <View style={{...styles.container, backgroundColor:{bgColor}}}>
             {renderWalls()}
         </View>
         <View style={styles.bottomTab}>
             <View style={{flex:1, flexDirection:'row', alignItems:'center', paddingLeft:"3%"}}>
-                <TouchableOpacity onPress={()=>setBottomMenuVisible(true)}>
+                <TouchableOpacity onPress={()=>{
+                        setBgColor('rgba(0,0,0,0.5)')
+                        setBottomMenuVisible(true)}}>
                   <Icon name="align-justify" type='feather' size={25} style={styles.icon}/>
                 </TouchableOpacity>
                 <Icon name="hearto" type='antdesign' size={25} style={styles.icon}/>
@@ -92,24 +95,31 @@ const renderItem = ({ item }) => {
             </View>
         </View>
         <Modal
-          animationType="slide"
+          animationType="fade"
           transparent={true}
           visible={bottomMenuVisible}
+          animationOut="slideOutDown"
+          onBackdropPress={() => setBottomMenuVisible(false)}
+          swipeDirection={['up', 'left', 'right', 'down']}
+          style={{justifyContent:'flex-end', margin:0,backgroundColor:'rgba(0,0,0,0.5)'}}
         >
-          <View style={{...styles.bottomTab, height:235}}>
-
+          <View style={{...styles.bottomTab, height:155}}>
+            <View style={styles.pil}></View>
             <TouchableOpacity onPress={()=>setBottomMenuVisible(false)}>
               <View style={styles.modalItem}>
+                <Icon name="shopping-bag" type="feather" size={25} style={styles.icon}/>
                 <Text style={styles.modalText}>Upgrade to Pro</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
               <View style={styles.modalItem}>
+                <Icon name="settings" type="feather" size={25} style={styles.icon}/>
                 <Text style={styles.modalText}>Settings</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
               <View style={styles.modalItem}>
+                <Icon name="info" type="feather" size={25} style={styles.icon}/>
                 <Text style={styles.modalText}>About</Text>
               </View>
             </TouchableOpacity>
@@ -189,6 +199,12 @@ const styles = StyleSheet.create({
     paddingLeft:25,
     flexDirection:'row',
     justifyContent:'center',
+    marginVertical:5
+  },
+  pill:{
+    backgroundColor:'#898989',
+    height:50,
+    width:30
   }
 });
 
