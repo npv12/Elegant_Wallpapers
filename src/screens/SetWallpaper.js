@@ -6,11 +6,16 @@ import {
     TouchableOpacity,
     Image,
     Dimensions,
-    Animated
+    Animated,
+    Platform,
+    PermissionsAndroid,
+    Alert
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
 import Modal from 'react-native-modal';
+import CameraRoll from '@react-native-community/cameraroll';
+import RNFetchBlob from 'rn-fetch-blob';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -86,12 +91,13 @@ const SetWallpaper = ({route}) => {
     function renderBottomTab()
     {
       return(
+        <>
         <Animated.View style={styles.bottomTab}>
           <View style={{flexDirection:'row', justifyContent:'space-between'}} >
             <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={toggleAnimation}>
               <Icon name="info" type='feather' size={25}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.icon}>
+            <TouchableOpacity style={styles.icon} onPress={handleDownload}>
               <Icon name="download" type='feather' size={25}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={()=>setShowApplyModal(true)}>
@@ -101,14 +107,13 @@ const SetWallpaper = ({route}) => {
               <Icon name="heart" type='feather' size={25}/>
             </TouchableOpacity>
           </View>
+          </Animated.View>
           <Modal
           animationType="fade"
           transparent={true}
           visible={showApplyModal}
-          animationOut="slideOutDown"
           onBackdropPress={() => setShowApplyModal(false)}
-          swipeDirection={['up', 'left', 'right', 'down']}
-          style={{backgroundColor:'rgba(0,0,0,0.5)'}}
+          style={{}}
         >
           <View style={styles.modal}>
             <TouchableOpacity onPress={setHomeWall}>
@@ -131,9 +136,68 @@ const SetWallpaper = ({route}) => {
             </TouchableOpacity>
           </View>
         </Modal>
-        </Animated.View>
+        </>
       )
     }
+
+    const getPermissionAndroid = async () => {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Image Download Permission',
+            message: 'Your permission is required to save images to your device',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          return true;
+        }
+        Alert.alert(
+          'Save remote Image',
+          'Grant Me Permission to save Image',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+          {cancelable: false},
+        );
+      } catch (err) {
+        Alert.alert(
+          'Save remote Image',
+          'Failed to save Image: ' + err.message,
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+          {cancelable: false},
+        );
+      }
+    };
+
+    async function handleDownload() {
+      if (Platform.OS === 'android') {
+        const granted = await getPermissionAndroid();
+        if (!granted) {
+          return;
+        }
+      }
+
+      RNFetchBlob.config({
+        fileCache: true,
+        appendExt: 'png',
+      })
+        .fetch('GET', item.url)
+        .then(res => {
+          console.log(res.data)
+          CameraRoll.save(res.data, 'photo')
+            .then(res => {
+              Alert.alert(
+                'Save remote Image',
+                'Save Complete ',
+                [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+                {cancelable: false},
+              );
+            })
+            .catch(err => console.log(err))
+        })
+        .catch(error => console.log("error: ",error));
+    };
 
   return (
     <View style={styles.container}>

@@ -86,7 +86,7 @@ const renderItem = ({ item }) => {
         <View style={styles.bottomTab}>
             <View style={{flex:1, flexDirection:'row', alignItems:'center', paddingLeft:"3%"}}>
                 <TouchableOpacity onPress={()=>{
-                        setBgColor('rgba(0,0,0,0.5)')
+                        //setBgColor('rgba(0,0,0,0.5)')
                         setBottomMenuVisible(true)}}>
                   <Icon name="align-justify" type='feather' size={25} style={styles.icon}/>
                 </TouchableOpacity>
@@ -102,12 +102,12 @@ const renderItem = ({ item }) => {
           animationType="fade"
           transparent={true}
           visible={bottomMenuVisible}
-          animationOut="slideOutDown"
           onBackdropPress={() => setBottomMenuVisible(false)}
-          swipeDirection={['up', 'left', 'right', 'down']}
+          swipeDirection={['down']}
+          useNativeDriver={true} 
           style={{justifyContent:'flex-end', margin:0,backgroundColor:'rgba(0,0,0,0.5)'}}
         >
-          <View style={{...styles.bottomTab, height:155}}>
+          <View style={{...styles.bottomTab, height:165}}>
             <View style={styles.pill}></View>
             <TouchableOpacity onPress={()=>setBottomMenuVisible(false)}>
               <View style={styles.modalItem}>
@@ -209,8 +209,10 @@ const styles = StyleSheet.create({
   },
   pill:{
     backgroundColor:'#898989',
-    height:50,
-    width:30
+    height:5,
+    width:30,
+    marginBottom:15,
+    alignSelf:'center'
   }
 });
 
