@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     Image,
     Dimensions,
+    Animated
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
@@ -17,6 +18,31 @@ const windowHeight = Dimensions.get('window').height;
 const SetWallpaper = ({route}) => {
     const {item} = route.params
     const [showApplyModal, setShowApplyModal] = useState(false)
+    const [animatedValue, setAnimatedValue] = useState(new Animated.Value(100))
+    const [viewAnimation, setViewAnimation] = useState(true)
+
+    function toggleAnimation()
+    {
+      if(viewAnimation)
+      {
+        console.log("animating")
+        Animated.timing(animatedValue, {
+          toValue:300,
+          timing:1500,
+          useNativeDriver:true
+        }).start(()=>setViewAnimation(false))
+      }
+      else{
+        console.log("no")
+        Animated.timing(animatedValue,{
+          toValue: 100,
+          timing:1500,
+          useNativeDriver:true
+        }).start(()=>{
+          setViewAnimation(true)
+        })
+      }
+    }
 
     function callback()
     {
@@ -32,6 +58,7 @@ const SetWallpaper = ({route}) => {
         callback,
         TYPE.HOME
       )
+      
     }
 
     function setLockWall ()
@@ -59,9 +86,9 @@ const SetWallpaper = ({route}) => {
     function renderBottomTab()
     {
       return(
-        <View style={styles.bottomTab}>
-          <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-            <TouchableOpacity style={{...styles.icon, marginLeft:30}}>
+        <Animated.View style={styles.bottomTab}>
+          <View style={{flexDirection:'row', justifyContent:'space-between'}} >
+            <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={toggleAnimation}>
               <Icon name="info" type='feather' size={25}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon}>
@@ -104,7 +131,7 @@ const SetWallpaper = ({route}) => {
             </TouchableOpacity>
           </View>
         </Modal>
-        </View>
+        </Animated.View>
       )
     }
 
