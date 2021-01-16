@@ -12,6 +12,7 @@ import {
  } from 'react-native';
 import { Icon } from 'react-native-elements'
 import Modal from 'react-native-modal';
+import { secret_key } from '../../constants';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -23,10 +24,10 @@ const Explore = ({navigation}) => {
   const [bgColor, setBgColor] = useState('')
 
   async function getData(){
-    fetch('https://jahir.dev/frames/frames.json', {
+    fetch('https://api.jsonbin.io/b/60026ecc4f42973a289d8284', {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'secret-key': secret_key,
       },
     })
       .then((response) => response.json())
@@ -107,7 +108,7 @@ const renderItem = ({ item }) => {
           style={{justifyContent:'flex-end', margin:0,backgroundColor:'rgba(0,0,0,0.5)'}}
         >
           <View style={{...styles.bottomTab, height:155}}>
-            <View style={styles.pil}></View>
+            <View style={styles.pill}></View>
             <TouchableOpacity onPress={()=>setBottomMenuVisible(false)}>
               <View style={styles.modalItem}>
                 <Icon name="shopping-bag" type="feather" size={25} style={styles.icon}/>
