@@ -7,7 +7,8 @@ import {
   StatusBar,
   Dimensions,
   TouchableOpacity,
-  Image 
+  Image,
+  Linking
 } from 'react-native';
 import _ from 'lodash'
 import { FlatList } from 'react-native-gesture-handler';
@@ -86,6 +87,9 @@ const Collections = ({navigation}) => {
     <View style={styles.wallBoundary}>
       <TouchableOpacity onPress={onPress} >
         <Image source={{uri:item.url}} style={styles.Wall}/>
+        <View style={styles.header}>
+        <Text style={styles.headerText}>{item.collections.toUpperCase()}</Text>
+        </View>
       </TouchableOpacity>
     </View>
 );
@@ -146,19 +150,25 @@ function renderItem  ({ item }) {
         >
           <View style={{...styles.bottomTab, height:165}}>
             <View style={styles.pill}></View>
-            <TouchableOpacity onPress={()=>setBottomMenuVisible(false)}>
+            <TouchableOpacity onPress={()=>Linking.openURL('https://play.google.com/store/apps/details?id=com.madness.wallz.pro')}>
               <View style={styles.modalItem}>
                 <Icon name="shopping-bag" type="feather" size={25} style={styles.icon}/>
                 <Text style={styles.modalText}>Upgrade to Pro</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+              setBottomMenuVisible(false)
+              navigation.navigate('Settings')
+              }}>
               <View style={styles.modalItem}>
                 <Icon name="settings" type="feather" size={25} style={styles.icon}/>
                 <Text style={styles.modalText}>Settings</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+              setBottomMenuVisible(false)
+              navigation.navigate('About')
+              }}>
               <View style={styles.modalItem}>
                 <Icon name="info" type="feather" size={25} style={styles.icon}/>
                 <Text style={styles.modalText}>About</Text>
@@ -183,6 +193,22 @@ const styles = StyleSheet.create({
     borderRadius:5,
     borderTopRightRadius:5,
   },
+  headerText:{
+    fontSize:25,
+    color:'white',
+    alignItems:'center',
+    alignSelf:'center',
+    textAlign:'center'
+  },  
+  header:{
+    fontSize:25,
+    position:'absolute',
+    top:150,
+    left:25,
+    justifyContent:'center',
+    alignItems:'center',
+    alignSelf:'center',
+  },  
   wallBoundary:{
     flex:1,
     margin:8,

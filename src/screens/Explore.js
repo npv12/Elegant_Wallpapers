@@ -116,13 +116,19 @@ const renderItem = ({ item }) => {
                 <Text style={styles.modalText}>Upgrade to Pro</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+              navigation.navigate('Settings')
+              setBottomMenuVisible(false)
+              }}>
               <View style={styles.modalItem}>
                 <Icon name="settings" type="feather" size={25} style={styles.icon}/>
                 <Text style={styles.modalText}>Settings</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+              setBottomMenuVisible(false)
+              navigation.navigate('About')
+              }}>
               <View style={styles.modalItem}>
                 <Icon name="info" type="feather" size={25} style={styles.icon}/>
                 <Text style={styles.modalText}>About</Text>

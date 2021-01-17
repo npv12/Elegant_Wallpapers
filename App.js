@@ -14,6 +14,8 @@ import Collections from './src/screens/Collections';
 import { NavigationContainer } from '@react-navigation/native';
 import SetWallpaper from './src/screens/SetWallpaper';
 import SpecificCollection from './src/screens/SpecificCollection';
+import About from './src/screens/About';
+import Settings from './src/screens/Settings'
 
 const Tab = createMaterialTopTabNavigator();
 function TopTabs() {
@@ -43,6 +45,8 @@ function App () {
         <Stack.Screen name="Home" component={TopTabs} options={{headerShown: false}}/>
         <Stack.Screen name="Wall" component={SetWallpaper} options={{headerShown: false}}/>
         <Stack.Screen name="Collection" component={SpecificCollection} options={{headerShown:false}}/>
+        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="About" component={About} />
     </Stack.Navigator>  
     </NavigationContainer>
     </>
