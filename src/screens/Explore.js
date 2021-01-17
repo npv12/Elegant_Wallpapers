@@ -8,7 +8,8 @@ import {
   FlatList,
   Image,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
  } from 'react-native';
 import { Icon } from 'react-native-elements'
 import Modal from 'react-native-modal';
@@ -109,7 +110,7 @@ const renderItem = ({ item }) => {
         >
           <View style={{...styles.bottomTab, height:165}}>
             <View style={styles.pill}></View>
-            <TouchableOpacity onPress={()=>setBottomMenuVisible(false)}>
+            <TouchableOpacity onPress={()=>Linking.openURL('https://play.google.com/store/apps/details?id=com.madness.wallz.pro')}>
               <View style={styles.modalItem}>
                 <Icon name="shopping-bag" type="feather" size={25} style={styles.icon}/>
                 <Text style={styles.modalText}>Upgrade to Pro</Text>

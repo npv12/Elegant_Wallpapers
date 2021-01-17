@@ -113,7 +113,6 @@ const SetWallpaper = ({route}) => {
           transparent={true}
           visible={showApplyModal}
           onBackdropPress={() => setShowApplyModal(false)}
-          style={{}}
         >
           <View style={styles.modal}>
             <TouchableOpacity onPress={setHomeWall}>
