@@ -91,7 +91,9 @@ const renderItem = ({ item }) => {
                         setBottomMenuVisible(true)}}>
                   <Icon name="align-justify" type='feather' size={25} style={styles.icon}/>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.navigate('Fav')}>
                 <Icon name="hearto" type='antdesign' size={25} style={styles.icon}/>
+                </TouchableOpacity>
             </View>
             <View style={styles.searchBox}>
                 <TouchableOpacity onPress={()=>console.log("Searching")}>
@@ -100,11 +102,10 @@ const renderItem = ({ item }) => {
             </View>
         </View>
         <Modal
-          animationType="fade"
+          animationType="slidein"
           transparent={true}
           visible={bottomMenuVisible}
           onBackdropPress={() => setBottomMenuVisible(false)}
-          swipeDirection={['down']}
           useNativeDriver={true} 
           style={{justifyContent:'flex-end', margin:0,backgroundColor:'rgba(0,0,0,0.5)'}}
         >
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
       elevation: 5
   },
   Wall:{
-    width:windowWidth/2*0.88,
+    width:(windowWidth/2)*0.88,
     height:250,
     borderRadius:5,
     borderTopRightRadius:5,

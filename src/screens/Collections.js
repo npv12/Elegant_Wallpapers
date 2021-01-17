@@ -8,6 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
+  Touchable,
   Linking
 } from 'react-native';
 import _ from 'lodash'
@@ -70,7 +71,7 @@ const Collections = ({navigation}) => {
               collections:temp[j],
               url:data[i].url,
               thumbnail:data[i].thumbnail,
-              key:key
+              key:key.toString()
             }
             c.push(temp[j])
             fin.push(t)
@@ -126,7 +127,9 @@ function renderItem  ({ item }) {
         </View>
         <View style={styles.bottomTab}>
             <View style={{flex:1, flexDirection:'row', alignItems:'center', paddingLeft:"3%"}}>
-                <TouchableOpacity onPress={()=>{
+                <TouchableOpacity 
+                delayPressIn={0}
+                onPressIn={()=>{
                         //setBgColor('rgba(0,0,0,0.5)')
                         setBottomMenuVisible(true)}}>
                   <Icon name="align-justify" type='feather' size={25} style={styles.icon}/>
@@ -140,11 +143,11 @@ function renderItem  ({ item }) {
             </View>
         </View>
         <Modal
-          animationType="fade"
           transparent={true}
+          animationIn="fadeInUpBig"
+          animationInTiming={10000}
           visible={bottomMenuVisible}
           onBackdropPress={() => setBottomMenuVisible(false)}
-          swipeDirection={['down']}
           useNativeDriver={true} 
           style={{justifyContent:'flex-end', margin:0,backgroundColor:'rgba(0,0,0,0.5)'}}
         >

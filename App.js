@@ -16,6 +16,7 @@ import SetWallpaper from './src/screens/SetWallpaper';
 import SpecificCollection from './src/screens/SpecificCollection';
 import About from './src/screens/About';
 import Settings from './src/screens/Settings'
+import Fav from './src/screens/favorite';
 
 const Tab = createMaterialTopTabNavigator();
 function TopTabs() {
@@ -47,6 +48,7 @@ function App () {
         <Stack.Screen name="Collection" component={SpecificCollection} options={{headerShown:false}}/>
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="About" component={About} />
+        <Stack.Screen name="Fav" component={Fav} options={{headerShown:false}}/>
     </Stack.Navigator>  
     </NavigationContainer>
     </>

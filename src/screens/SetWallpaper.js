@@ -16,6 +16,7 @@ import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
 import Modal from 'react-native-modal';
 import CameraRoll from '@react-native-community/cameraroll';
 import RNFetchBlob from 'rn-fetch-blob';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -88,6 +89,24 @@ const SetWallpaper = ({route}) => {
       )
     }
 
+    async function addToFav()
+    {
+      await AsyncStorage.getItem('favs').then(async (res)=>{
+        var temp = JSON.parse(res)
+        console.log(temp)
+        if(!temp)
+        {
+          var temp2 = []
+          temp2.push(item)
+          await AsyncStorage.setItem('favs', JSON.stringify(temp2) )
+        }
+        else{
+          temp.push(item)
+          await AsyncStorage.setItem('favs', JSON.stringify(temp) )
+        }
+      })
+    }
+
     function renderBottomTab()
     {
       return(
@@ -103,15 +122,15 @@ const SetWallpaper = ({route}) => {
             <TouchableOpacity style={styles.icon} onPress={()=>setShowApplyModal(true)}>
               <Icon name="arrow-up-circle" type='feather' size={25}/>
             </TouchableOpacity>
-            <TouchableOpacity style={{...styles.icon, marginRight:30}}>
+            <TouchableOpacity style={{...styles.icon, marginRight:30}} onPress={()=>{addToFav()}}>
               <Icon name="heart" type='feather' size={25}/>
             </TouchableOpacity>
           </View>
           </Animated.View>
           <Modal
-          animationType="fade"
-          transparent={true}
+          animationIn="fadeInDown"
           visible={showApplyModal}
+          useNativeDriver={true}
           onBackdropPress={() => setShowApplyModal(false)}
         >
           <View style={styles.modal}>
