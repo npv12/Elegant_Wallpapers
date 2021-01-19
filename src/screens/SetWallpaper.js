@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { 
     View, 
     Text, 
@@ -17,6 +17,7 @@ import Modal from 'react-native-modal';
 import CameraRoll from '@react-native-community/cameraroll';
 import RNFetchBlob from 'rn-fetch-blob';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import _ from 'lodash';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -26,6 +27,28 @@ const SetWallpaper = ({route}) => {
     const [showApplyModal, setShowApplyModal] = useState(false)
     const [animatedValue, setAnimatedValue] = useState(new Animated.Value(100))
     const [viewAnimation, setViewAnimation] = useState(true)
+    const [isFav, setIsFav] = useState(false)
+
+    useEffect(() => {
+      retrieveData()
+    },[]);
+
+    async function retrieveData()
+    {
+      await AsyncStorage.getItem('favs').then((r)=>{
+        var res = JSON.parse(r)
+        if(!res)
+          return
+        for(var i=0;i<res.length;i++)
+        {
+          if(_.isEqual(res[i],item))
+          {
+            setIsFav(true)
+            break;
+          }
+        }
+      })
+    }
 
     function toggleAnimation()
     {
@@ -91,20 +114,52 @@ const SetWallpaper = ({route}) => {
 
     async function addToFav()
     {
-      await AsyncStorage.getItem('favs').then(async (res)=>{
-        var temp = JSON.parse(res)
-        console.log(temp)
-        if(!temp)
-        {
-          var temp2 = []
-          temp2.push(item)
-          await AsyncStorage.setItem('favs', JSON.stringify(temp2) )
-        }
-        else{
-          temp.push(item)
-          await AsyncStorage.setItem('favs', JSON.stringify(temp) )
-        }
-      })
+      console.log(isFav)
+      if(isFav)
+      {
+        var temp = []
+        await AsyncStorage.getItem('favs').then(async (r)=>{
+          var res = JSON.parse(r)
+          if(!res)
+            return
+          for(var i=0;i<res.length;i++)
+          {
+            if(_.isEqual(res[i],item))
+            {
+              continue
+            }
+            temp.push(res[i])
+          }
+          await AsyncStorage.setItem('favs',JSON.stringify(temp))
+        })
+        setIsFav(false)
+      }
+      else
+      {
+        await AsyncStorage.getItem('favs').then(async (res)=>{
+          var temp = JSON.parse(res)
+          if(!temp)
+          {
+            var temp2 = []
+            temp2.push(item)
+            await AsyncStorage.setItem('favs', JSON.stringify(temp2) )
+          }
+          else{
+            temp.push(item)
+            await AsyncStorage.setItem('favs', JSON.stringify(temp) )
+          }
+        })
+        setIsFav(true)
+      }
+    }
+
+    function renderHeart()
+    {
+      if(isFav)
+      {
+        return <Icon name="heart" type='antdesign' size={25}/>
+      }
+      return <Icon name="hearto" type='antdesign' size={25}/>
     }
 
     function renderBottomTab()
@@ -123,7 +178,7 @@ const SetWallpaper = ({route}) => {
               <Icon name="arrow-up-circle" type='feather' size={25}/>
             </TouchableOpacity>
             <TouchableOpacity style={{...styles.icon, marginRight:30}} onPress={()=>{addToFav()}}>
-              <Icon name="heart" type='feather' size={25}/>
+              {renderHeart()}
             </TouchableOpacity>
           </View>
           </Animated.View>

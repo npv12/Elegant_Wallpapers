@@ -213,7 +213,9 @@ const styles = StyleSheet.create({
     paddingLeft:25,
     flexDirection:'row',
     justifyContent:'center',
-    marginVertical:5
+    marginVertical:5,
+    width:windowWidth,
+    justifyContent:'flex-start'
   },
   pill:{
     backgroundColor:'#898989',
