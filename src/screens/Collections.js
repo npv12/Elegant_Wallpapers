@@ -126,15 +126,15 @@ function renderItem  ({ item }) {
             <View style={styles.bodyContainer} />
         </View>
         <View style={styles.bottomTab}>
-            <View style={{flex:1, flexDirection:'row', alignItems:'center', paddingLeft:"3%"}}>
-                <TouchableOpacity 
-                delayPressIn={0}
-                onPressIn={()=>{
+        <View style={{flex:1, flexDirection:'row', alignItems:'center', paddingLeft:"3%"}}>
+                <TouchableOpacity onPress={()=>{
                         //setBgColor('rgba(0,0,0,0.5)')
                         setBottomMenuVisible(true)}}>
                   <Icon name="align-justify" type='feather' size={25} style={styles.icon}/>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.navigate('Fav')}>
                 <Icon name="hearto" type='antdesign' size={25} style={styles.icon}/>
+                </TouchableOpacity>
             </View>
             <View style={styles.searchBox}>
                 <TouchableOpacity onPress={()=>console.log("Searching")}>
@@ -143,9 +143,8 @@ function renderItem  ({ item }) {
             </View>
         </View>
         <Modal
+          animationType="slidein"
           transparent={true}
-          animationIn="fadeInUpBig"
-          animationInTiming={10000}
           visible={bottomMenuVisible}
           onBackdropPress={() => setBottomMenuVisible(false)}
           useNativeDriver={true} 
@@ -160,8 +159,8 @@ function renderItem  ({ item }) {
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>{
-              setBottomMenuVisible(false)
               navigation.navigate('Settings')
+              setBottomMenuVisible(false)
               }}>
               <View style={styles.modalItem}>
                 <Icon name="settings" type="feather" size={25} style={styles.icon}/>
