@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator,CardStyleInterpolators, } from '@react-navigation/stack';
 import Explore from './src/screens/Explore';
 import Collections from './src/screens/Collections';
 import { NavigationContainer } from '@react-navigation/native';
@@ -16,16 +16,8 @@ const Tab = createMaterialTopTabNavigator();
 function TopTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Explore" component={Explore} tabBarOptions={{
-                                                      labelStyle: { fontSize: 18},
-                                                      tabStyle: { width: 100 },
-                                                      style: { backgroundColor: 'powderblue' },
-                                                    }}/>
-      <Tab.Screen name="Collections" component={Collections} tabBarOptions={{
-                                                      labelStyle: { fontSize: 12 },
-                                                      tabStyle: { width: 100 },
-                                                      style: { backgroundColor: 'black' },
-                                                    }}/>
+      <Tab.Screen name="Explore" component={Explore}/>
+      <Tab.Screen name="Collections" component={Collections}/>
     </Tab.Navigator>
   );
 }
@@ -37,7 +29,9 @@ function App () {
     <>
     <ThemeManager>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Home" headerMode="none" screenOptions={{
+      cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid
+    }}>
           <Stack.Screen name="Home" component={TopTabs} options={{headerShown: false}}/>
           <Stack.Screen name="Wall" component={SetWallpaper} options={{headerShown: false}}/>
           <Stack.Screen name="Collection" component={SpecificCollection} options={{headerShown:false}}/>
