@@ -4,7 +4,7 @@ import { Switch,Text } from 'react-native'
 import styled from 'styled-components/native'
 
 const Container = styled.View`
-  background: ${props => props.theme.backgroundAlt};
+  background: ${props => props.theme.background};
 `
 
 const Title = styled.Text`

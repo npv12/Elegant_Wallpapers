@@ -15,11 +15,12 @@ import Modal from 'react-native-modal';
 import CameraRoll from '@react-native-community/cameraroll';
 import RNFetchBlob from 'rn-fetch-blob';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTheme } from '../themes'
 import _ from 'lodash';
 import styled from 'styled-components/native'
 
 const View = styled.View`
-  background: ${props => props.theme.backgroundAlt};
+  background: ${props => props.theme.background};
 `
 
 const Text = styled.Text`
@@ -30,11 +31,18 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const SetWallpaper = ({route}) => {
+    const theme = useTheme()
     const {item} = route.params
     const [showApplyModal, setShowApplyModal] = useState(false)
     const [animatedValue, setAnimatedValue] = useState(new Animated.Value(100))
     const [viewAnimation, setViewAnimation] = useState(true)
     const [isFav, setIsFav] = useState(false)
+    const [iconColor, setIconColor] = useState(false)
+
+    if(theme.mode=='dark' && !iconColor)
+    setIconColor(true)
+  else if(theme.mode=='light' && iconColor)
+    setIconColor(false)
 
     useEffect(() => {
       retrieveData()
@@ -164,25 +172,25 @@ const SetWallpaper = ({route}) => {
     {
       if(isFav)
       {
-        return <Icon name="heart" type='antdesign' size={25}/>
+        return <Icon name="heart" type='antdesign' size={25} color={!iconColor?'white':'black'}/>
       }
-      return <Icon name="hearto" type='antdesign' size={25}/>
+      return <Icon name="hearto" type='antdesign' size={25} color={!iconColor?'white':'black'}/>
     }
 
     function renderBottomTab()
     {
       return(
         <>
-        <View style={styles.bottomTab}>
-          <View style={{flexDirection:'row', justifyContent:'space-between'}} >
+        <View style={{...styles.bottomTab, backgroundColor:iconColor?'white':'black'}}>
+          <View style={{flexDirection:'row', justifyContent:'space-between', backgroundColor:iconColor?'white':'black'}} >
             <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={toggleAnimation}>
-              <Icon name="info" type='feather' size={25}/>
+              <Icon name="info" type='feather' size={25} color={!iconColor?'white':'black'}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={handleDownload}>
-              <Icon name="download" type='feather' size={25}/>
+              <Icon name="download" type='feather' size={25} color={!iconColor?'white':'black'}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={()=>setShowApplyModal(true)}>
-              <Icon name="arrow-up-circle" type='feather' size={25}/>
+              <Icon name="arrow-up-circle" type='feather' size={25} color={!iconColor?'white':'black'}/>
             </TouchableOpacity>
             <TouchableOpacity style={{...styles.icon, marginRight:30}} onPress={()=>{addToFav()}}>
               {renderHeart()}
@@ -198,19 +206,19 @@ const SetWallpaper = ({route}) => {
           <View style={styles.modal}>
             <TouchableOpacity onPress={setHomeWall}>
               <View style={{...styles.modalItem, marginTop:30}}>
-                <Icon name="shopping-bag" type="feather" size={25} style={styles.icon}/>
+                <Icon name="shopping-bag" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Set Homescreen wallpaper</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={setLockWall}>
               <View style={styles.modalItem}>
-                <Icon name="settings" type="feather" size={25} style={styles.icon}/>
+                <Icon name="settings" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Set Lockscreen wallpaper</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={setBothWall}>
               <View style={{...styles.modalItem, marginBottom:30}}>
-                <Icon name="info" type="feather" size={25} style={styles.icon}/>
+                <Icon name="info" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Set Both</Text>
               </View>
             </TouchableOpacity>
@@ -315,7 +323,6 @@ const styles = StyleSheet.create({
   },
   modal:{
     height:210,
-    backgroundColor:'white',
     width:"80%",
     justifyContent:'space-between',
     alignSelf:'center',

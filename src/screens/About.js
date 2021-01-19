@@ -3,7 +3,7 @@ import {StyleSheet } from 'react-native';
 import styled from 'styled-components/native'
 
 const View = styled.View`
-  background: ${props => props.theme.backgroundAlt};
+  background: ${props => props.theme.background};
 `
 
 const Text = styled.Text`

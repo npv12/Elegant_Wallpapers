@@ -12,10 +12,11 @@ import {
 import { Icon } from 'react-native-elements'
 import Modal from 'react-native-modal';
 import { secret_key } from '../../constants';
+import { useTheme } from '../themes'
 import styled from 'styled-components/native'
 
 const View = styled.View`
-  background: ${props => props.theme.backgroundAlt};
+  background: ${props => props.theme.background};
 `
 
 const Text = styled.Text`
@@ -25,10 +26,15 @@ const Text = styled.Text`
 const windowWidth = Dimensions.get('window').width;
 
 const Explore = ({navigation}) => {
-
+  const theme = useTheme()
   const [data, setData] = useState([])
   const [bottomMenuVisible, setBottomMenuVisible] = useState(false)
-  const [bgColor, setBgColor] = useState('')
+  const [iconColor, setIconColor] = useState(false)
+
+  if(theme.mode=='dark' && !iconColor)
+    setIconColor(true)
+  else if(theme.mode=='light' && iconColor)
+    setIconColor(false)
 
   async function getData(){
     fetch('https://api.jsonbin.io/b/60026ecc4f42973a289d8284', {
@@ -94,15 +100,15 @@ const renderItem = ({ item }) => {
             <View style={{flex:1, flexDirection:'row', alignItems:'center', paddingLeft:"3%"}}>
                 <TouchableOpacity onPress={()=>{
                         setBottomMenuVisible(true)}}>
-                  <Icon name="align-justify" type='feather' size={25} style={styles.icon}/>
+                  <Icon name="align-justify" type='feather' size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>navigation.navigate('Fav')}>
-                <Icon name="hearto" type='antdesign' size={25} style={styles.icon}/>
+                <Icon name="hearto" type='antdesign' size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 </TouchableOpacity>
             </View>
-            <View style={styles.searchBox}>
+            <View style={{...styles.searchBox,backgroundColor:iconColor?'white':'black'}}>
                 <TouchableOpacity onPress={()=>console.log("Searching")}>
-                    <Icon name='search' type='feather'size={25} style={{color:'red'}}/> 
+                    <Icon name='search' type='feather'size={25} color={!iconColor?'white':'black'}/> 
                 </TouchableOpacity>
             </View>
         </View>
@@ -118,7 +124,7 @@ const renderItem = ({ item }) => {
             <View style={styles.pill}></View>
             <TouchableOpacity onPress={()=>Linking.openURL('https://play.google.com/store/apps/details?id=com.madness.wallz.pro')}>
               <View style={styles.modalItem}>
-                <Icon name="shopping-bag" type="feather" size={25} style={styles.icon}/>
+                <Icon name="shopping-bag" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Upgrade to Pro</Text>
               </View>
             </TouchableOpacity>
@@ -127,7 +133,7 @@ const renderItem = ({ item }) => {
               setBottomMenuVisible(false)
               }}>
               <View style={styles.modalItem}>
-                <Icon name="settings" type="feather" size={25} style={styles.icon}/>
+                <Icon name="settings" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Settings</Text>
               </View>
             </TouchableOpacity>
@@ -136,7 +142,7 @@ const renderItem = ({ item }) => {
               navigation.navigate('About')
               }}>
               <View style={styles.modalItem}>
-                <Icon name="info" type="feather" size={25} style={styles.icon}/>
+                <Icon name="info" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>About</Text>
               </View>
             </TouchableOpacity>
@@ -154,7 +160,6 @@ const styles = StyleSheet.create({
     paddingHorizontal:10,
   },    
   searchBox:{
-    backgroundColor:'lightblue',
     justifyContent:'center',
     height:50,
     width:50,

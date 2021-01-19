@@ -4,7 +4,7 @@ const light = {
       border: '#bdbdbd',
       backgroundAlt: '#eaeaeb',
       borderAlt: '#bdbdbd',
-      text: '#171717'
+      text: '#171717',
     }
   }
   
