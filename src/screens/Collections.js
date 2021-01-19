@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Image,
   Touchable,
-  Linking
+  Linking,
+  View
 } from 'react-native';
 import _ from 'lodash'
 import { FlatList } from 'react-native-gesture-handler';
@@ -17,7 +18,7 @@ import { secret_key } from '../../constants';
 import { useTheme } from '../themes'
 import styled from 'styled-components/native'
 
-const View = styled.View`
+const SView = styled.View`
   background: ${props => props.theme.background};
 `
 
@@ -134,13 +135,13 @@ function renderItem  ({ item }) {
 
   return (
     <>
-        <View style={styles.container}>
-            <View style={styles.headerContainer} />
+        <SView style={styles.container}>
+            <SView style={styles.headerContainer} />
                 {renderCollections()}
-            <View style={styles.bodyContainer} />
-        </View>
-        <View style={styles.bottomTab}>
-        <View style={{flex:1, flexDirection:'row', alignItems:'center', paddingLeft:"3%"}}>
+            <SView style={styles.bodyContainer} />
+        </SView>
+        <SView style={styles.bottomTab}>
+        <SView style={{flex:1, flexDirection:'row', alignItems:'center', paddingLeft:"3%"}}>
                 <TouchableOpacity onPress={()=>{
                         //setBgColor('rgba(0,0,0,0.5)')
                         setBottomMenuVisible(true)}}>
@@ -149,13 +150,13 @@ function renderItem  ({ item }) {
                 <TouchableOpacity onPress={()=>navigation.navigate('Fav')}>
                 <Icon name="hearto" type='antdesign' size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 </TouchableOpacity>
-            </View>
-            <View style={{...styles.searchBox,backgroundColor:iconColor?'white':'black'}}>
+            </SView>
+            <SView style={{...styles.searchBox,backgroundColor:iconColor?'white':'black'}}>
                 <TouchableOpacity onPress={()=>console.log("Searching")}>
                     <Icon name='search' type='feather'size={25} style={{color:'red'}} color={!iconColor?'white':'black'}/> 
                 </TouchableOpacity>
-            </View>
-        </View>
+            </SView>
+        </SView>
         <Modal
           animationType="slidein"
           transparent={true}
@@ -164,33 +165,33 @@ function renderItem  ({ item }) {
           useNativeDriver={true} 
           style={{justifyContent:'flex-end', margin:0,backgroundColor:'rgba(0,0,0,0.5)'}}
         >
-          <View style={{...styles.bottomTab, height:165}}>
-            <View style={styles.pill}></View>
+          <SView style={{...styles.bottomTab, height:165}}>
+            <SView style={styles.pill}></SView>
             <TouchableOpacity onPress={()=>Linking.openURL('https://play.google.com/store/apps/details?id=com.madness.wallz.pro')}>
-              <View style={styles.modalItem}>
+              <SView style={styles.modalItem}>
                 <Icon name="shopping-bag" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Upgrade to Pro</Text>
-              </View>
+              </SView>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>{
               navigation.navigate('Settings')
               setBottomMenuVisible(false)
               }}>
-              <View style={styles.modalItem}>
+              <SView style={styles.modalItem}>
                 <Icon name="settings" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Settings</Text>
-              </View>
+              </SView>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>{
               setBottomMenuVisible(false)
               navigation.navigate('About')
               }}>
-              <View style={styles.modalItem}>
+              <SView style={styles.modalItem}>
                 <Icon name="info" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>About</Text>
-              </View>
+              </SView>
             </TouchableOpacity>
-          </View>
+          </SView>
         </Modal>
     </>
   );
@@ -231,7 +232,6 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   searchBox:{
-    backgroundColor:'lightblue',
     justifyContent:'center',
     height:50,
     width:50,
