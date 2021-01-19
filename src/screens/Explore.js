@@ -1,7 +1,5 @@
 import React, { useState,useEffect } from 'react';
 import { 
-  View, 
-  Text, 
   StyleSheet,
   StatusBar,
   SafeAreaView, 
@@ -14,9 +12,17 @@ import {
 import { Icon } from 'react-native-elements'
 import Modal from 'react-native-modal';
 import { secret_key } from '../../constants';
+import styled from 'styled-components/native'
+
+const View = styled.View`
+  background: ${props => props.theme.backgroundAlt};
+`
+
+const Text = styled.Text`
+  color: ${props => props.theme.text};
+`
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 const Explore = ({navigation}) => {
 
@@ -81,13 +87,12 @@ const renderItem = ({ item }) => {
   return (
     <>
     <StatusBar showHideTransition/>
-        <View style={{...styles.container, backgroundColor:{bgColor}, marginTop:18}}>
+        <View style={{...styles.container, paddingTop:18}}>
             {renderWalls()}
         </View>
         <View style={styles.bottomTab}>
             <View style={{flex:1, flexDirection:'row', alignItems:'center', paddingLeft:"3%"}}>
                 <TouchableOpacity onPress={()=>{
-                        //setBgColor('rgba(0,0,0,0.5)')
                         setBottomMenuVisible(true)}}>
                   <Icon name="align-justify" type='feather' size={25} style={styles.icon}/>
                 </TouchableOpacity>
@@ -144,7 +149,6 @@ const renderItem = ({ item }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'white'
   },
   icon:{
     paddingHorizontal:10,
@@ -164,7 +168,6 @@ const styles = StyleSheet.create({
   },
   headerContainer: {},
   bottomTab:{
-      backgroundColor:'white',
       justifyContent:'center',
       alignItems:'flex-start',
       shadowOpacity: 1,

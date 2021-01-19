@@ -1,5 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {StyleSheet } from 'react-native';
+import styled from 'styled-components/native'
+
+const View = styled.View`
+  background: ${props => props.theme.backgroundAlt};
+`
+
+const Text = styled.Text`
+  color: ${props => props.theme.text};
+`
 
 const About = () => {
   return (

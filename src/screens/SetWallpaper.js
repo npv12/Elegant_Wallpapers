@@ -1,7 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { 
-    View, 
-    Text, 
+import {  
     StyleSheet, 
     TouchableOpacity,
     Image,
@@ -18,6 +16,15 @@ import CameraRoll from '@react-native-community/cameraroll';
 import RNFetchBlob from 'rn-fetch-blob';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import _ from 'lodash';
+import styled from 'styled-components/native'
+
+const View = styled.View`
+  background: ${props => props.theme.backgroundAlt};
+`
+
+const Text = styled.Text`
+  color: ${props => props.theme.text};
+`
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -166,7 +173,7 @@ const SetWallpaper = ({route}) => {
     {
       return(
         <>
-        <Animated.View style={styles.bottomTab}>
+        <View style={styles.bottomTab}>
           <View style={{flexDirection:'row', justifyContent:'space-between'}} >
             <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={toggleAnimation}>
               <Icon name="info" type='feather' size={25}/>
@@ -181,7 +188,7 @@ const SetWallpaper = ({route}) => {
               {renderHeart()}
             </TouchableOpacity>
           </View>
-          </Animated.View>
+          </View>
           <Modal
           animationIn="fadeInDown"
           visible={showApplyModal}
@@ -292,7 +299,6 @@ const styles = StyleSheet.create({
       position:'absolute'
   },
   bottomTab:{
-    backgroundColor:'white', 
     width:"80%", 
     height:50, 
     bottom:0, 

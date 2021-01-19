@@ -1,7 +1,5 @@
 import React, { useState,useEffect } from 'react';
 import { 
-  View, 
-  Text, 
   StyleSheet,
   SafeAreaView,
   StatusBar,
@@ -16,6 +14,15 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Icon } from 'react-native-elements'
 import Modal from 'react-native-modal';
 import { secret_key } from '../../constants';
+import styled from 'styled-components/native'
+
+const View = styled.View`
+  background: ${props => props.theme.backgroundAlt};
+`
+
+const Text = styled.Text`
+  color: ${props => props.theme.text};
+`
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -185,7 +192,6 @@ function renderItem  ({ item }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'#FFF'
   },
   headerContainer: {
   },
@@ -231,7 +237,6 @@ const styles = StyleSheet.create({
     right:40,
   },
   bottomTab:{
-    backgroundColor:'white',
     justifyContent:'center',
     alignItems:'flex-start',
     shadowOpacity: 1,

@@ -1,8 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React,{useEffect,useState} from 'react';
 import { 
-    View, 
-    Text, 
     StyleSheet,
     StatusBar,
     SafeAreaView, 
@@ -11,9 +9,17 @@ import {
     Dimensions,
     TouchableOpacity,
    } from 'react-native';
+import styled from 'styled-components/native'
+
+const View = styled.View`
+  background: ${props => props.theme.backgroundAlt};
+`
+
+const Text = styled.Text`
+  color: ${props => props.theme.text};
+`
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 const Fav = () => {
 

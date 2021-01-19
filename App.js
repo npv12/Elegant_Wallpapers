@@ -1,12 +1,4 @@
 import React from 'react';
-import {
-  StyleSheet,
-} from 'react-native';
-
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import Explore from './src/screens/Explore';
@@ -17,6 +9,8 @@ import SpecificCollection from './src/screens/SpecificCollection';
 import About from './src/screens/About';
 import Settings from './src/screens/Settings'
 import Fav from './src/screens/favorite';
+import Test from './src/screens/test';
+import ThemeManager from './src/themes';
 
 const Tab = createMaterialTopTabNavigator();
 function TopTabs() {
@@ -41,57 +35,21 @@ const Stack = createStackNavigator();
 function App () {
   return (
     <>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={TopTabs} options={{headerShown: false}}/>
-        <Stack.Screen name="Wall" component={SetWallpaper} options={{headerShown: false}}/>
-        <Stack.Screen name="Collection" component={SpecificCollection} options={{headerShown:false}}/>
-        <Stack.Screen name="Settings" component={Settings} />
-        <Stack.Screen name="About" component={About} />
-        <Stack.Screen name="Fav" component={Fav} options={{headerShown:false}}/>
-    </Stack.Navigator>  
-    </NavigationContainer>
+    <ThemeManager>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={TopTabs} options={{headerShown: false}}/>
+          <Stack.Screen name="Wall" component={SetWallpaper} options={{headerShown: false}}/>
+          <Stack.Screen name="Collection" component={SpecificCollection} options={{headerShown:false}}/>
+          <Stack.Screen name="Settings" component={Settings} options={{headerShown:false}}/>
+          <Stack.Screen name="About" component={About} options={{headerShown:false}}/>
+          <Stack.Screen name="Fav" component={Fav} options={{headerShown:false}}/>
+          <Stack.Screen name="test" component={Test}/>
+        </Stack.Navigator>  
+      </NavigationContainer>
+    </ThemeManager>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;
