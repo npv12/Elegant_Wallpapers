@@ -17,6 +17,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../themes'
 import _ from 'lodash';
+import Loader from '../components/Loader'
 import styled from 'styled-components/native'
 
 const View = styled.View`
@@ -38,6 +39,7 @@ const SetWallpaper = ({route}) => {
     const [viewAnimation, setViewAnimation] = useState(true)
     const [isFav, setIsFav] = useState(false)
     const [iconColor, setIconColor] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -90,6 +92,7 @@ const SetWallpaper = ({route}) => {
 
     function callback()
     {
+      setIsLoading(false)
       setShowApplyModal(false)
     }
 
@@ -186,7 +189,10 @@ const SetWallpaper = ({route}) => {
             <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={toggleAnimation}>
               <Icon name="info" type='feather' size={25} color={!iconColor?'white':'black'}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.icon} onPress={handleDownload}>
+            <TouchableOpacity style={styles.icon} onPress={() => {
+              setIsLoading(true)
+              handleDownload()
+            }}>
               <Icon name="download" type='feather' size={25} color={!iconColor?'white':'black'}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={()=>setShowApplyModal(true)}>
@@ -204,7 +210,9 @@ const SetWallpaper = ({route}) => {
           onBackdropPress={() => setShowApplyModal(false)}
         >
           <View style={styles.modal}>
-            <TouchableOpacity onPress={setHomeWall}>
+            <TouchableOpacity onPress={()=>{
+              setHomeWall()
+              }}>
               <View style={{...styles.modalItem, marginTop:30}}>
                 <Icon name="shopping-bag" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Set Homescreen wallpaper</Text>
@@ -224,6 +232,7 @@ const SetWallpaper = ({route}) => {
             </TouchableOpacity>
           </View>
         </Modal>
+        
         </>
       )
     }
@@ -275,12 +284,7 @@ const SetWallpaper = ({route}) => {
           console.log(res.data)
           CameraRoll.save(res.data, 'photo')
             .then(res => {
-              Alert.alert(
-                'Save remote Image',
-                'Save Complete ',
-                [{text: 'OK', onPress: () => console.log('OK Pressed')}],
-                {cancelable: false},
-              );
+              setIsLoading(false)
             })
             .catch(err => console.log(err))
         })
@@ -293,6 +297,7 @@ const SetWallpaper = ({route}) => {
         <Image source={{uri:item.url}} style={styles.wall}/>
       </View>
       {renderBottomTab()}
+      <Loader loading={isLoading}/>
     </View>
   );
 };
