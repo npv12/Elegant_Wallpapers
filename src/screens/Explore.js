@@ -228,7 +228,8 @@ const styles = StyleSheet.create({
   pill:{
     backgroundColor:'#898989',
     height:5,
-    width:30,
+    width:40,
+    borderRadius:10,
     marginBottom:15,
     alignSelf:'center'
   }
