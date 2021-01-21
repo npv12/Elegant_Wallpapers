@@ -28,6 +28,11 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+      <activity
+        android:name=".OneSignalActivity"
+        android:label="OneSignal Elegant"
+        android:launchMode="singleTask">
+      </activity>
     </application>
 
 </manifest>
