@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator,CardStyleInterpolators, } from '@react-navigation/stack';
 import OneSignal from 'react-native-onesignal';
@@ -14,14 +14,32 @@ import Fav from './src/screens/favorite';
 import Test from './src/screens/test';
 import ThemeManager from './src/themes';
 import { app_id } from './constants';
+import BottomTab from './src/components/BottomTab';
+import { useTheme } from './src/themes'
 
 const Tab = createMaterialTopTabNavigator();
-function TopTabs() {
+
+function TopTabs({navigation}) {
+  const theme = useTheme()
+  const [text,setText] = useState(false)
+  if(theme.mode=='dark' && !text)
+    setText(true)
+  else if(theme.mode=='light' && text)
+    setText(false)
   return (
-    <Tab.Navigator>
+    <>
+    <Tab.Navigator
+    tabBarOptions={{
+      labelStyle: { fontSize: 18, color:text?'white':'black' },
+      style: { backgroundColor: text?'black':'white' },
+      indicatorStyle: {backgroundColor:text?'white':'black' }
+    }}
+    >
       <Tab.Screen name="Explore" component={Explore}/>
       <Tab.Screen name="Collections" component={Collections}/>
     </Tab.Navigator>
+    <BottomTab navigation={navigation}/>
+    </>
   );
 }
 

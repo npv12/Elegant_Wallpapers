@@ -1,19 +1,13 @@
 import React, { useState,useEffect } from 'react';
 import { 
   StyleSheet,
-  SafeAreaView,
-  StatusBar,
   Dimensions,
   TouchableOpacity,
   Image,
-  Touchable,
-  Linking,
   View
 } from 'react-native';
 import _ from 'lodash'
 import { FlatList } from 'react-native-gesture-handler';
-import { Icon } from 'react-native-elements'
-import Modal from 'react-native-modal';
 import { secret_key } from '../../constants';
 import { useTheme } from '../themes'
 import styled from 'styled-components/native'
@@ -140,59 +134,6 @@ function renderItem  ({ item }) {
                 {renderCollections()}
             <SView style={styles.bodyContainer} />
         </SView>
-        <SView style={styles.bottomTab}>
-        <SView style={{flex:1, flexDirection:'row', alignItems:'center', paddingLeft:"3%"}}>
-                <TouchableOpacity onPress={()=>{
-                        //setBgColor('rgba(0,0,0,0.5)')
-                        setBottomMenuVisible(true)}}>
-                  <Icon name="align-justify" type='feather' size={25} style={styles.icon} color={iconColor?'white':'black'}/>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=>navigation.navigate('Fav')}>
-                <Icon name="hearto" type='antdesign' size={25} style={styles.icon} color={iconColor?'white':'black'}/>
-                </TouchableOpacity>
-            </SView>
-            <SView style={{...styles.searchBox,backgroundColor:iconColor?'white':'black'}}>
-                <TouchableOpacity onPress={()=>console.log("Searching")}>
-                    <Icon name='search' type='feather'size={25} style={{color:'red'}} color={!iconColor?'white':'black'}/> 
-                </TouchableOpacity>
-            </SView>
-        </SView>
-        <Modal
-          animationType="slidein"
-          transparent={true}
-          visible={bottomMenuVisible}
-          onBackdropPress={() => setBottomMenuVisible(false)}
-          useNativeDriver={true} 
-          style={{justifyContent:'flex-end', margin:0,backgroundColor:'rgba(0,0,0,0.5)'}}
-        >
-          <SView style={{...styles.bottomTab, height:165}}>
-            <SView style={styles.pill}></SView>
-            <TouchableOpacity onPress={()=>Linking.openURL('https://play.google.com/store/apps/details?id=com.madness.wallz.pro')}>
-              <SView style={styles.modalItem}>
-                <Icon name="shopping-bag" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
-                <Text style={styles.modalText}>Upgrade to Pro</Text>
-              </SView>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{
-              navigation.navigate('Settings')
-              setBottomMenuVisible(false)
-              }}>
-              <SView style={styles.modalItem}>
-                <Icon name="settings" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
-                <Text style={styles.modalText}>Settings</Text>
-              </SView>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{
-              setBottomMenuVisible(false)
-              navigation.navigate('About')
-              }}>
-              <SView style={styles.modalItem}>
-                <Icon name="info" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
-                <Text style={styles.modalText}>About</Text>
-              </SView>
-            </TouchableOpacity>
-          </SView>
-        </Modal>
     </>
   );
 };

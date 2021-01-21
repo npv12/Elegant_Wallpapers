@@ -19,6 +19,7 @@ import { useTheme } from '../themes'
 import _ from 'lodash';
 import Loader from '../components/Loader'
 import styled from 'styled-components/native'
+import PushNotification from "react-native-push-notification";
 
 const View = styled.View`
   background: ${props => props.theme.background};
