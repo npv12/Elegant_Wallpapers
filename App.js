@@ -16,6 +16,7 @@ import ThemeManager from './src/themes';
 import { app_id } from './constants';
 import BottomTab from './src/components/BottomTab';
 import { useTheme } from './src/themes'
+import { ONE_SIGNAL } from './src/constants';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -82,15 +83,13 @@ class App extends Component {
 }
 
 async componentDidMount() {
-  /* O N E S I G N A L   S E T U P */
-  OneSignal.setAppId(app_id);
+  OneSignal.setAppId(ONE_SIGNAL);
   OneSignal.setLogLevel(6, 0);
   OneSignal.setRequiresUserPrivacyConsent(this.state.requiresPrivacyConsent);
   OneSignal.promptForPushNotificationsWithUserResponse(response => {
       this.OSLog("Prompt response:", response);
   });
 
-  /* O N E S I G N A L  H A N D L E R S */
   OneSignal.setNotificationWillShowInForegroundHandler(notifReceivedEvent => {
       this.OSLog("OneSignal: notification will show in foreground:", notifReceivedEvent);
       let notif = notifReceivedEvent.getNotification();

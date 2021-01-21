@@ -9,8 +9,8 @@ import {
 import _ from 'lodash'
 import { FlatList } from 'react-native-gesture-handler';
 import { secret_key } from '../../constants';
-import { useTheme } from '../themes'
 import styled from 'styled-components/native'
+import { SECRET_KEY, WALL_URL } from '../constants';
 
 const SView = styled.View`
   background: ${props => props.theme.background};
@@ -21,25 +21,16 @@ const Text = styled.Text`
 `
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 const Collections = ({navigation}) => {
-  const theme = useTheme()
   const [collection, setCollection]=useState([])
   const [data, setData]=useState([])
-  const [bottomMenuVisible, setBottomMenuVisible] = useState(false)
-  const [iconColor, setIconColor] = useState(false)
-
-  if(theme.mode=='dark' && !iconColor)
-    setIconColor(true)
-  else if(theme.mode=='light' && iconColor)
-    setIconColor(false)
 
   async function getData(){
-    fetch('https://api.jsonbin.io/b/60026ecc4f42973a289d8284', {
+    fetch(WALL_URL, {
       method: 'GET',
       headers: {
-        'secret-key': secret_key,
+        'secret-key': SECRET_KEY,
       },
     })
       .then((response) => response.json())

@@ -10,6 +10,7 @@ import {
  } from 'react-native';
 import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
+import { SECRET_KEY, WALL_URL } from '../constants';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -25,10 +26,10 @@ const Explore = ({navigation}) => {
   const [data, setData] = useState([])
 
   async function getData(){
-    fetch('https://api.jsonbin.io/b/60026ecc4f42973a289d8284', {
+    fetch(WALL_URL, {
       method: 'GET',
       headers: {
-        'secret-key': secret_key,
+        'secret-key': SECRET_KEY,
       },
     })
       .then((response) => response.json())
