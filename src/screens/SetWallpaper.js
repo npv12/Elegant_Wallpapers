@@ -6,7 +6,8 @@ import {
     Animated,
     Platform,
     PermissionsAndroid,
-    Alert
+    Alert,
+    ToastAndroid
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
@@ -18,7 +19,7 @@ import _ from 'lodash';
 import Loader from '../components/Loader'
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
-import { ShowAdvert } from '../components/Advert';
+import { LoadAdvert, ShowAdvert } from '../components/Advert';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -279,20 +280,34 @@ const SetWallpaper = ({route}) => {
         }
       }
       let dirs = RNFetchBlob.fs.dirs.SDCardDir
-      RNFetchBlob.config({
-        addAndroidDownloads:{
-          useDownloadManager:true,
-          notification:true,
-          mime:'image',
-          mediaScannable:true,
-          path:dirs + `/Pictures/Elegant-Walls/` + item.name + '_' + item.author + '.png'
-        }
+      const PATH = (dirs + `/Pictures/Elegant-Walls/` + item.name + '_' + item.author + '.png')
+      RNFetchBlob.fs.exists(PATH)
+      .then((exist) => {
+          if(!exist)
+          {
+            RNFetchBlob.config({
+              addAndroidDownloads:{
+                useDownloadManager:true,
+                notification:true,
+                mime:'image',
+                path:PATH,
+              }
+            })
+              .fetch('GET', item.url)
+              .then(res => {
+                setIsLoading(false)
+                LoadAdvert()
+                ToastAndroid.show("Download Complete", ToastAndroid.SHORT);
+              })
+              .catch(error => console.log("error: ",error));
+          }
+          else{
+            ToastAndroid.show("Wallpaper already exists", ToastAndroid.SHORT);
+            setIsLoading(false)
+          }
       })
-        .fetch('GET', item.url)
-        .then(res => {
-          setIsLoading(false)
-        })
-        .catch(error => console.log("error: ",error));
+      .catch(() => { console.log("File error")})
+      
     };
 
   return (
