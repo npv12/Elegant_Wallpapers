@@ -295,7 +295,7 @@ const SetWallpaper = ({route}) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Image source={{uri:item.url}} style={styles.wall}/>
+        <Image source={{uri:item.thumbnail}} style={styles.wall}/>
       </View>
       {renderBottomTab()}
       <Loader loading={isLoading}/>

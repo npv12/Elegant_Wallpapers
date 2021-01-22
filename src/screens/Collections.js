@@ -29,9 +29,6 @@ const Collections = ({navigation}) => {
   async function getData(){
     fetch(WALL_URL, {
       method: 'GET',
-      headers: {
-        'secret-key': SECRET_KEY,
-      },
     })
       .then((response) => response.json())
       .then((data) => {
@@ -87,7 +84,7 @@ const Collections = ({navigation}) => {
   const Item = ({ item, onPress }) => (
     <View style={styles.wallBoundary}>
       <TouchableOpacity onPress={onPress} >
-        <Image source={{uri:item.url}} style={styles.Wall}/>
+        <Image source={{uri:item.thumbnail}} style={styles.Wall}/>
         <View style={styles.header}>
         <Text style={styles.headerText}>{item.collections.toUpperCase()}</Text>
         </View>

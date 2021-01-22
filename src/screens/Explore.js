@@ -28,9 +28,6 @@ const Explore = ({navigation}) => {
   async function getData(){
     fetch(WALL_URL, {
       method: 'GET',
-      headers: {
-        'secret-key': SECRET_KEY,
-      },
     })
       .then((response) => response.json())
       .then((responseJson) => {
@@ -63,7 +60,7 @@ const Explore = ({navigation}) => {
   const Item = ({ item, onPress }) => (
     <View style={styles.wallBoundary}>
       <TouchableOpacity onPress={onPress} >
-        <Image source={{uri:item.url}} style={styles.Wall}/>
+        <Image source={{uri:item.thumbnail}} style={styles.Wall}/>
       </TouchableOpacity>
     </View>
 );
@@ -81,7 +78,7 @@ const renderItem = ({ item }) => {
 
   return (
     <>
-    <StatusBar showHideTransition/>
+    <StatusBar showHideTransition backgroundColor="black" barStyle="light-content"/>
         <View style={{...styles.container, paddingTop:18}}>
             {renderWalls()}
         </View>
