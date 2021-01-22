@@ -2,14 +2,13 @@ import React, { useState,useEffect } from 'react';
 import { 
   StyleSheet,
   StatusBar,
-  SafeAreaView, 
   FlatList,
-  Image,
   Dimensions,
   TouchableOpacity,
  } from 'react-native';
 import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
+import LoadImage from '../components/LoadImage';
 import { SECRET_KEY, WALL_URL } from '../constants';
 
 const View = styled.View`
@@ -60,7 +59,7 @@ const Explore = ({navigation}) => {
   const Item = ({ item, onPress }) => (
     <View style={styles.wallBoundary}>
       <TouchableOpacity onPress={onPress} >
-        <Image source={{uri:item.thumbnail}} style={styles.Wall}/>
+        <LoadImage source={item} style={styles.Wall}/>
       </TouchableOpacity>
     </View>
 );

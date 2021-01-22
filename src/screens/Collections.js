@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  Image,
   View,
   StatusBar
 } from 'react-native';
@@ -11,6 +10,7 @@ import _ from 'lodash'
 import { FlatList } from 'react-native-gesture-handler';
 import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
+import LoadImage from '../components/LoadImage';
 import { SECRET_KEY, WALL_URL } from '../constants';
 
 const SView = styled.View`
@@ -85,7 +85,7 @@ const Collections = ({navigation}) => {
   const Item = ({ item, onPress }) => (
     <View style={styles.wallBoundary}>
       <TouchableOpacity onPress={onPress} >
-        <Image source={{uri:item.thumbnail}} style={styles.Wall}/>
+        <LoadImage source={item} style={styles.Wall}/>
         <View style={styles.header}>
         <Text style={styles.headerText}>{item.collections.toUpperCase()}</Text>
         </View>

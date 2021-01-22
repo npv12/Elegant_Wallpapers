@@ -2,7 +2,6 @@ import React, { useState,useEffect } from 'react';
 import {  
     StyleSheet, 
     TouchableOpacity,
-    Image,
     Dimensions,
     Animated,
     Platform,
@@ -18,6 +17,7 @@ import { useTheme } from '../themes'
 import _ from 'lodash';
 import Loader from '../components/Loader'
 import styled from 'styled-components/native'
+import LoadImage from '../components/LoadImage';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -293,7 +293,7 @@ const SetWallpaper = ({route}) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Image source={{uri:item.thumbnail}} style={styles.wall}/>
+        <LoadImage source={item} style={styles.wall}/>
       </View>
       {renderBottomTab()}
       <Loader loading={isLoading}/>

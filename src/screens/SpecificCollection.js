@@ -5,10 +5,10 @@ import {
     StatusBar,
     Dimensions,
     TouchableOpacity,
-    Image ,
     FlatList
   } from 'react-native';
   import styled from 'styled-components/native'
+  import LoadImage from '../components/LoadImage';
 
   const View = styled.View`
     background: ${props => props.theme.background};
@@ -44,7 +44,7 @@ function renderWalls(){
   const Item = ({ item, onPress }) => (
     <View style={styles.wallBoundary}>
       <TouchableOpacity onPress={onPress} >
-        <Image source={{uri:item.thumbnail}} style={styles.Wall}/>
+        <LoadImage source={item} style={styles.Wall}/>
       </TouchableOpacity>
     </View>
 );
