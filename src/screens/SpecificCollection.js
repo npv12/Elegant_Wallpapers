@@ -44,7 +44,7 @@ function renderWalls(){
   const Item = ({ item, onPress }) => (
     <View style={styles.wallBoundary}>
       <TouchableOpacity onPress={onPress} >
-        <Image source={{uri:item.url}} style={styles.Wall}/>
+        <Image source={{uri:item.thumbnail}} style={styles.Wall}/>
       </TouchableOpacity>
     </View>
 );
