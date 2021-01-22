@@ -10,7 +10,6 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
-import com.reactnativecommunity.cameraroll.CameraRollPackage;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {

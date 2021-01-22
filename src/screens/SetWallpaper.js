@@ -12,7 +12,6 @@ import {
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
 import Modal from 'react-native-modal';
-import CameraRoll from '@react-native-community/cameraroll';
 import RNFetchBlob from 'rn-fetch-blob';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../themes'
@@ -276,15 +275,16 @@ const SetWallpaper = ({route}) => {
       }
       let dirs = RNFetchBlob.fs.dirs.SDCardDir
       RNFetchBlob.config({
-        fileCache: true,
-        path : dirs + `/Pictures/Elegant-Walls/` + item.name + '_' + item.author + '.png'
+        addAndroidDownloads:{
+          useDownloadManager:true,
+          notification:true,
+          mime:'image',
+          mediaScannable:true,
+          path:dirs + `/Pictures/Elegant-Walls/` + item.name + '_' + item.author + '.png'
+        }
       })
         .fetch('GET', item.url)
-        .progress((recieved,total) => {
-          console.log("Progress",recieved/total*100)
-        })
         .then(res => {
-          console.log(res.path())
           setIsLoading(false)
         })
         .catch(error => console.log("error: ",error));
