@@ -2,6 +2,9 @@ import React, { Component,useState } from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator,CardStyleInterpolators, } from '@react-navigation/stack';
 import OneSignal from 'react-native-onesignal';
+import { 
+  StatusBar,
+} from 'react-native';
 
 import Explore from './src/screens/Explore';
 import Collections from './src/screens/Collections';
@@ -49,6 +52,7 @@ const Stack = createStackNavigator();
 function HomeScreen () {
   return (
     <>
+    <StatusBar backgroundColor="black" />
     <ThemeManager>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home" headerMode="none" screenOptions={{
@@ -157,6 +161,8 @@ componentWillUnmount() {
   render()
   {
     return <HomeScreen/>
+   
+    
   }
 }
 

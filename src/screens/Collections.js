@@ -4,7 +4,8 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
-  View
+  View,
+  StatusBar
 } from 'react-native';
 import _ from 'lodash'
 import { FlatList } from 'react-native-gesture-handler';
@@ -117,6 +118,7 @@ function renderItem  ({ item }) {
 
   return (
     <>
+    
         <SView style={styles.container}>
             <SView style={styles.headerContainer} />
                 {renderCollections()}

@@ -19,7 +19,6 @@ import { useTheme } from '../themes'
 import _ from 'lodash';
 import Loader from '../components/Loader'
 import styled from 'styled-components/native'
-import PushNotification from "react-native-push-notification";
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -176,28 +175,28 @@ const SetWallpaper = ({route}) => {
     {
       if(isFav)
       {
-        return <Icon name="heart" type='antdesign' size={25} color={!iconColor?'white':'black'}/>
+        return <Icon name="heart" type='antdesign' size={25} color={iconColor?'white':'black'}/>
       }
-      return <Icon name="hearto" type='antdesign' size={25} color={!iconColor?'white':'black'}/>
+      return <Icon name="hearto" type='antdesign' size={25} color={iconColor?'white':'black'}/>
     }
 
     function renderBottomTab()
     {
       return(
         <>
-        <View style={{...styles.bottomTab, backgroundColor:iconColor?'white':'black'}}>
-          <View style={{flexDirection:'row', justifyContent:'space-between', backgroundColor:iconColor?'white':'black'}} >
+        <View style={{...styles.bottomTab}}>
+          <View style={{flexDirection:'row', justifyContent:'space-between'}} >
             <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={toggleAnimation}>
-              <Icon name="info" type='feather' size={25} color={!iconColor?'white':'black'}/>
+              <Icon name="info" type='feather' size={25} color={iconColor?'white':'black'}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={() => {
               setIsLoading(true)
               handleDownload()
             }}>
-              <Icon name="download" type='feather' size={25} color={!iconColor?'white':'black'}/>
+              <Icon name="download" type='feather' size={25} color={iconColor?'white':'black'}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={()=>setShowApplyModal(true)}>
-              <Icon name="arrow-up-circle" type='feather' size={25} color={!iconColor?'white':'black'}/>
+              <Icon name="arrow-up-circle" type='feather' size={25} color={iconColor?'white':'black'}/>
             </TouchableOpacity>
             <TouchableOpacity style={{...styles.icon, marginRight:30}} onPress={()=>{addToFav()}}>
               {renderHeart()}
@@ -275,19 +274,18 @@ const SetWallpaper = ({route}) => {
           return;
         }
       }
-
+      let dirs = RNFetchBlob.fs.dirs.SDCardDir
       RNFetchBlob.config({
         fileCache: true,
-        appendExt: 'png',
+        path : dirs + `/Pictures/Elegant-Walls/` + item.name + '_' + item.author + '.png'
       })
         .fetch('GET', item.url)
+        .progress((recieved,total) => {
+          console.log("Progress",recieved/total*100)
+        })
         .then(res => {
-          console.log(res.data)
-          CameraRoll.save(res.data, 'photo')
-            .then(res => {
-              setIsLoading(false)
-            })
-            .catch(err => console.log(err))
+          console.log(res.path())
+          setIsLoading(false)
         })
         .catch(error => console.log("error: ",error));
     };
