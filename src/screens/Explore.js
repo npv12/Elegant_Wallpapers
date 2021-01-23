@@ -10,6 +10,7 @@ import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
 import { SECRET_KEY, WALL_URL } from '../constants';
+import { useTheme } from '../themes'
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -22,6 +23,7 @@ const Text = styled.Text`
 const windowWidth = Dimensions.get('window').width;
 
 const Explore = ({navigation}) => {
+  const theme = useTheme()
   const [data, setData] = useState([])
 
   async function getData(){
@@ -53,7 +55,6 @@ const Explore = ({navigation}) => {
             />
             </View>
     }
-    return <Text>Loading</Text>
   }
 
   const Item = ({ item, onPress }) => (
@@ -77,7 +78,7 @@ const renderItem = ({ item }) => {
 
   return (
     <>
-    <StatusBar showHideTransition backgroundColor="black" barStyle="light-content"/>
+   <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
         <View style={{...styles.container, paddingTop:18}}>
             {renderWalls()}
         </View>

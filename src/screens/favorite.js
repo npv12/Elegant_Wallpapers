@@ -19,7 +19,7 @@ const Text = styled.Text`
 
 const windowWidth = Dimensions.get('window').width;
 
-const Fav = () => {
+const Fav = ({navigation}) => {
 
     const [data,setData] = useState([])
 

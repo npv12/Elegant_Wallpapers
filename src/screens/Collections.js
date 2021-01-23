@@ -12,6 +12,7 @@ import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
 import { SECRET_KEY, WALL_URL } from '../constants';
+import { useTheme } from '../themes'
 
 const SView = styled.View`
   background: ${props => props.theme.background};
@@ -26,6 +27,7 @@ const windowWidth = Dimensions.get('window').width;
 const Collections = ({navigation}) => {
   const [collection, setCollection]=useState([])
   const [data, setData]=useState([])
+  const theme = useTheme()
 
   async function getData(){
     fetch(WALL_URL, {
@@ -43,6 +45,7 @@ const Collections = ({navigation}) => {
 
   function filterOut(value){
     var c = []
+    navigation.navigate("Collection")
     for(var i=0;i<data.length;i++)
     {
       if(data[i].collections.toLowerCase().split(",").includes(value))
@@ -51,7 +54,8 @@ const Collections = ({navigation}) => {
     navigation.navigate('Collection',{
       data:c,
       value:value
-    })}
+    })
+  }
 
   function convertData(data)
   {
@@ -118,7 +122,7 @@ function renderItem  ({ item }) {
 
   return (
     <>
-    
+    <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
         <SView style={styles.container}>
             <SView style={styles.headerContainer} />
                 {renderCollections()}

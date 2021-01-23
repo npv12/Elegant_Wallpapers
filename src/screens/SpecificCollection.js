@@ -9,6 +9,7 @@ import {
   } from 'react-native';
   import styled from 'styled-components/native'
   import LoadImage from '../components/LoadImage';
+  import { useTheme } from '../themes'
 
   const View = styled.View`
     background: ${props => props.theme.background};
@@ -23,6 +24,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const SpecificCollection = ({navigation,route}) => {
 const {data,value} = route.params;
+const theme = useTheme()
 
 function renderWalls(){
     if(data)
@@ -61,19 +63,23 @@ const renderItem = ({ item }) => {
 };
 
   return (
+    <>
+    <View style={{backgroundColor:theme.mode!='dark'?'white':'black',height:35}}>
+    </View>
+    <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
     <View style={styles.container}>
         <View style={styles.header}>
             <Text style={styles.headerText}>{value.toUpperCase()}</Text>
         </View>
       {renderWalls()}
     </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop:35
   },
   Wall:{
     width:windowWidth/2*0.88,
