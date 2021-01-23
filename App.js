@@ -36,7 +36,7 @@ function TopTabs({navigation}) {
     <>
     <Tab.Navigator
     tabBarOptions={{
-      labelStyle: { fontSize: 18, color:text?'white':'black' },
+      labelStyle: { fontSize: 14, color:text?'white':'black' },
       style: { backgroundColor: text?'black':'white' },
       indicatorStyle: {backgroundColor:text?'white':'black' }
     }}

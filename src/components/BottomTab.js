@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'flex-start',
         height:70,
-        borderTopEndRadius:25,
+        borderTopEndRadius:30,
         shadowColor: "#000",
         shadowOffset: {
           width: 0,

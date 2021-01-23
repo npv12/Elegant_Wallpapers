@@ -87,11 +87,11 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   header:{
-    padding:25,
+    padding:20,
     alignItems:'center'
   },
   headerText:{
-      fontSize:35,
+      fontSize:25,
   }
 });
 

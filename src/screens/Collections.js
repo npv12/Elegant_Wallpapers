@@ -137,18 +137,18 @@ const styles = StyleSheet.create({
   Wall:{
     width:windowWidth-30,
     height:200,
-    borderRadius:5,
-    borderTopRightRadius:5,
+    borderRadius:8,
+    borderTopRightRadius:8,
   },
   headerText:{
-    fontSize:25,
+    fontSize:18,
     color:'white',
     alignItems:'center',
     alignSelf:'center',
     textAlign:'center'
   },  
   header:{
-    fontSize:25,
+    fontSize:20,
     position:'absolute',
     top:150,
     left:25,
