@@ -91,15 +91,23 @@ const SetWallpaper = ({route}) => {
       }
     }
 
-    function callback()
+    function callback(msg,status,url)
     {
-      setIsLoading(false)
-      setShowApplyModal(false)
+      console.log(status)
+      if(status=='success')
+        setIsLoading(false)
+      else{
+        setIsLoading(false)
+        ToastAndroid.show("Something went wrong", ToastAndroid.SHORT);
+      }
     }
 
     function setHomeWall ()
     {
+      setShowApplyModal(false)
       ShowAdvert()
+      setIsLoading(true)
+      try{
       ManageWallpaper.setWallpaper(
         {
           uri: item.url,
@@ -107,12 +115,18 @@ const SetWallpaper = ({route}) => {
         callback,
         TYPE.HOME
       )
+      }
+      catch(e){
+        console.log("Download failed",e)
+      }
       
     }
 
     function setLockWall ()
     {
+      setShowApplyModal(false)
       ShowAdvert()
+      setIsLoading(true)
       ManageWallpaper.setWallpaper(
         {
           uri: item.url,
@@ -124,7 +138,9 @@ const SetWallpaper = ({route}) => {
 
     function setBothWall ()
     {
+      setShowApplyModal(false)
       ShowAdvert()
+      setIsLoading(true)
       ManageWallpaper.setWallpaper(
         {
           uri: item.url,
