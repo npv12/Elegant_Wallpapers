@@ -44,15 +44,8 @@ const Collections = ({navigation}) => {
   }
 
   function filterOut(value){
-    var c = []
-    navigation.navigate("Collection")
-    for(var i=0;i<data.length;i++)
-    {
-      if(data[i].collections.toLowerCase().split(",").includes(value))
-        c.push(data[i])
-    }
+    
     navigation.navigate('Collection',{
-      data:c,
       value:value
     })
   }

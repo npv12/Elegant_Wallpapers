@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import { 
     StyleSheet,
     SafeAreaView,
@@ -9,6 +9,7 @@ import {
   } from 'react-native';
   import styled from 'styled-components/native'
   import LoadImage from '../components/LoadImage';
+  import { SECRET_KEY, WALL_URL } from '../constants';
   import { useTheme } from '../themes'
 
   const View = styled.View`
@@ -23,8 +24,35 @@ import {
 const windowHeight = Dimensions.get('window').height;
 
 const SpecificCollection = ({navigation,route}) => {
-const {data,value} = route.params;
+const {value} = route.params;
+const [data,setData] = useState([])
 const theme = useTheme()
+
+async function getData(){
+  fetch(WALL_URL, {
+    method: 'GET',
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      filterData(data)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+function filterData(data){
+  var c = []
+    navigation.navigate("Collection")
+    for(var i=0;i<data.length;i++)
+    {
+      if(data[i].collections.toLowerCase().split(",").includes(value))
+        c.push(data[i])
+    }
+    setData(c)
+}
+
+useEffect(() => {getData()},[]);
 
 function renderWalls(){
     if(data)
