@@ -4,6 +4,7 @@ import { createStackNavigator,CardStyleInterpolators, } from '@react-navigation/
 import OneSignal from 'react-native-onesignal';
 import { 
   StatusBar,
+  View
 } from 'react-native';
 import admob, { MaxAdContentRating } from '@react-native-firebase/admob';
 
@@ -34,6 +35,9 @@ function TopTabs({navigation}) {
     setText(false)
   return (
     <>
+    <View style={{marginTop:35}}>
+
+    </View>
     <Tab.Navigator
     tabBarOptions={{
       labelStyle: { fontSize: 14, color:text?'white':'black',fontFamily:'koliko' },
@@ -52,20 +56,29 @@ function TopTabs({navigation}) {
 const Stack = createStackNavigator();
 
 function HomeScreen () {
+  const theme = useTheme()
+  const [text,setText] = useState(false)
+  if(theme.mode=='dark' && !text)
+    setText(true)
+  else if(theme.mode=='light' && text)
+    setText(false)
   return (
     <>
-    <StatusBar backgroundColor="black" />
+    <StatusBar  translucent={true} backgroundColor={'transparent'}/>
     <ThemeManager>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" headerMode="none" screenOptions={{
-      cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid
+        <Stack.Navigator initialRouteName="Home" screenOptions={{
+      cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+      headerTintColor:text?'white':'black',
+      headerPressColorAndroid:'lightgreen',
+      headerStyle: { backgroundColor: !text?'white':'black', },
     }}>
           <Stack.Screen name="Home" component={TopTabs} options={{headerShown: false}}/>
           <Stack.Screen name="Wall" component={SetWallpaper} options={{headerShown: false}}/>
           <Stack.Screen name="Collection" component={SpecificCollection} options={{headerShown:false}}/>
           <Stack.Screen name="Settings" component={Settings} options={{headerShown:false}}/>
-          <Stack.Screen name="About" component={About} options={{headerShown:false}}/>
-          <Stack.Screen name="Fav" component={Fav} options={{headerShown:false}}/>
+          <Stack.Screen name="About" component={About}/>
+          <Stack.Screen name="Fav" component={Fav} options={{title: 'Favourites',headerTitleAlign:'center'}} />
           <Stack.Screen name="test" component={Test}/>
         </Stack.Navigator>  
       </NavigationContainer>
@@ -153,10 +166,6 @@ componentWillUnmount() {
     if (optionalArg) {
         message = message + JSON.stringify(optionalArg);
     }
-
-    inputChange = (text) => {
-      this.setState({ inputValue: text })
-  }
 
     console.log(message);
 

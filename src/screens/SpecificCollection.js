@@ -72,7 +72,8 @@ const renderItem = ({ item }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    marginTop:35
   },
   Wall:{
     width:windowWidth/2*0.88,
@@ -91,7 +92,8 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   headerText:{
-      fontSize:25,
+      fontSize:20,
+      fontFamily:'koliko'
   }
 });
 

@@ -46,7 +46,9 @@ const Fav = () => {
             />
                 </View>
         }
-        return <Text>Loading</Text>
+        return <View style={{flex:1, justifyContent:'center',alignContents:'center'}}>
+          <Text style={{padding:100}}>No favs set</Text>
+        </View>
       }
     
       const Item = ({ item, onPress }) => (
@@ -70,9 +72,6 @@ const Fav = () => {
 
     return (
         <View style={styles.container}>
-        <View style={styles.header}>
-            <Text style={styles.headerText}>FAVS</Text>
-        </View>
         {renderWalls()}
         </View>
     );
