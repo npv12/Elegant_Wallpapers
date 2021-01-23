@@ -141,20 +141,21 @@ const styles = StyleSheet.create({
     borderTopRightRadius:8,
   },
   headerText:{
-    fontSize:18,
+    fontSize:25,
     color:'white',
     alignItems:'center',
     alignSelf:'center',
-    textAlign:'center'
+    textAlign:'center',
+    fontFamily:'koliko',
+    justifyContent:'center',
+    position:'absolute',
+    top:85,
   },  
   header:{
-    fontSize:20,
+    height:200,
+    width:windowWidth-30,
     position:'absolute',
-    top:150,
-    left:25,
-    justifyContent:'center',
-    alignItems:'center',
-    alignSelf:'center',
+    margin:8
   },  
   wallBoundary:{
     flex:1,
