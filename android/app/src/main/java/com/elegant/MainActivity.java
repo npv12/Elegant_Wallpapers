@@ -1,4 +1,4 @@
-package com.elegant;
+package com.madness.wallz.app;
 import android.content.Intent;
 import android.content.res.Configuration;
 import com.facebook.react.ReactActivity;
