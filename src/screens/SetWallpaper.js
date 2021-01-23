@@ -7,7 +7,8 @@ import {
     Platform,
     PermissionsAndroid,
     Alert,
-    ToastAndroid
+    ToastAndroid,
+    StatusBar
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
@@ -327,6 +328,8 @@ const SetWallpaper = ({route}) => {
     };
 
   return (
+    <>
+    <StatusBar translucent={true} backgroundColor={'transparent'} />
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <LoadImage source={item} style={styles.wall}/>
@@ -334,6 +337,7 @@ const SetWallpaper = ({route}) => {
       {renderBottomTab()}
       <Loader loading={isLoading}/>
     </View>
+    </>
   );
 };
 
