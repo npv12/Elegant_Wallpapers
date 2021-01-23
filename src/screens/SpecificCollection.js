@@ -43,7 +43,6 @@ async function getData(){
 
 function filterData(data){
   var c = []
-    navigation.navigate("Collection")
     for(var i=0;i<data.length;i++)
     {
       if(data[i].collections.toLowerCase().split(",").includes(value))

@@ -20,6 +20,7 @@ import Test from './src/screens/test';
 import ThemeManager from './src/themes';
 import { app_id } from './constants';
 import BottomTab from './src/components/BottomTab';
+import SearchScreen from './src/screens/SearchScreen'
 import { useTheme } from './src/themes'
 import { ONE_SIGNAL } from './src/constants';
 import { LoadAdvert } from './src/components/Advert';
@@ -78,6 +79,7 @@ function HomeScreen () {
           <Stack.Screen name="About" component={About}/>
           <Stack.Screen name="Fav" component={Fav} options={{title: 'Favourites',headerTitleAlign:'center'}} />
           <Stack.Screen name="test" component={Test}/>
+          <Stack.Screen name="Search" component={SearchScreen} options={{headerShown:false}}/>
         </Stack.Navigator>  
       </NavigationContainer>
     </ThemeManager>

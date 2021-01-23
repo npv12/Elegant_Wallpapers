@@ -42,11 +42,12 @@ const BottomTab = (props) => {
             <Icon name="hearto" type='antdesign' size={25} style={styles.icon} color={iconColor?'white':'black'}/>
             </TouchableOpacity>
         </View>
-        <View style={{...styles.searchBox,backgroundColor:iconColor?'white':'black'}}>
-            <TouchableOpacity onPress={()=>console.log("Searching")}>
-                <Icon name='search' type='feather'size={25} color={!iconColor?'white':'black'}/> 
-            </TouchableOpacity>
-        </View>
+        
+          <View style={{...styles.searchBox,backgroundColor:iconColor?'white':'black'}}>
+            <TouchableOpacity onPress={()=>props.navigation.navigate("Search")}>
+                <Icon name='search' type='feather'size={35} color={!iconColor?'white':'black'}/> 
+                </TouchableOpacity>
+          </View>
     </View>
     <Modal
           transparent={true}
@@ -95,14 +96,14 @@ const styles = StyleSheet.create({
     },    
     searchBox:{
       justifyContent:'center',
-      height:50,
-      width:50,
+      height:60,
+      width:60,
       borderRadius:70,
       elevation:10,
       shadowColor:'#fff',
       position:'absolute',
       opacity:1,
-      bottom:35,
+      bottom:25,
       right:40,
     },
     headerContainer: {},
