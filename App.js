@@ -77,7 +77,11 @@ function HomeScreen () {
           <Stack.Screen name="Collection" component={SpecificCollection} options={{headerShown:false}}/>
           <Stack.Screen name="Settings" component={Settings} options={{headerShown:false}}/>
           <Stack.Screen name="About" component={About}/>
-          <Stack.Screen name="Fav" component={Fav} options={{title: 'Favourites',headerTitleAlign:'center'}} />
+          <Stack.Screen name="Fav" component={Fav} options={{title: 'Favourites',headerTitleAlign:'center',headerTitleStyle:{
+            fontFamily:'Linotte-Bold',
+            fontWeight:'normal',
+            fontSize:23
+          }}} />
           <Stack.Screen name="test" component={Test}/>
           <Stack.Screen name="Search" component={SearchScreen} options={{headerShown:false}}/>
         </Stack.Navigator>  

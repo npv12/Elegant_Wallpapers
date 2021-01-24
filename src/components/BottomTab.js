@@ -93,6 +93,7 @@ const BottomTab = (props) => {
 const styles = StyleSheet.create({
     icon:{
       paddingHorizontal:10,
+      paddingBottom:5,
     },    
     searchBox:{
       justifyContent:'center',
@@ -132,7 +133,10 @@ const styles = StyleSheet.create({
     },
     modalText: {
       marginBottom: 15,
-      textAlign: "center"
+      textAlign: "center",
+      fontFamily:'Linotte-Bold',
+      alignSelf:'center',
+      marginTop:5
     },
     modalItem:{
       paddingLeft:25,
@@ -140,7 +144,7 @@ const styles = StyleSheet.create({
       justifyContent:'center',
       marginVertical:5,
       width:windowWidth,
-      justifyContent:'flex-start'
+      justifyContent:'flex-start',
     },
     pill:{
       backgroundColor:'#898989',

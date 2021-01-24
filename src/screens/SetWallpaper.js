@@ -73,7 +73,6 @@ const SetWallpaper = ({route}) => {
 
     function callback(response)
     {
-      console.log(response.status)
       if(response.status=='success')
       {
         setIsLoading(false)
@@ -371,9 +370,11 @@ const SetWallpaper = ({route}) => {
       <View>
         <Snackbar
             visible={visible}
-            style={{marginBottom:90, width:"80%", alignSelf:'center',}}
+            style={styles.snackbar}
             onDismiss={()=>setVisible(false)}>
+              <Text style={{fontFamily:'Linotte-Bold'}}>
             {snackbarText}
+            </Text>
           </Snackbar>
           </View>
     </View>
@@ -388,6 +389,14 @@ const styles = StyleSheet.create({
       height:windowHeight,
       width:windowWidth,
       position:'absolute'
+  },
+  snackbar:{
+    marginBottom:83, 
+    width:"80%", 
+    alignSelf:'center',
+    borderTopLeftRadius:15, 
+    borderTopRightRadius:15,
+    fontFamily:'Linotte-Bold'
   },
   bottomTab:{
     width:"80%", 
@@ -416,7 +425,8 @@ const styles = StyleSheet.create({
   },
   modalText: {
     marginHorizontal: 15,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily:'Linotte-Bold'
   },
   modalItem:{
     paddingLeft:25,

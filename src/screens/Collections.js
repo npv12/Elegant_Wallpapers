@@ -71,6 +71,7 @@ const Collections = ({navigation}) => {
             c.push(temp[j])
             fin.push(t)
             key=key+1
+            break;
           }
       }
     }
