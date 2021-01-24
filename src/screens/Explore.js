@@ -82,7 +82,7 @@ const renderItem = ({ item }) => {
   return (
     <>
    <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
-        <View style={{...styles.container, paddingTop:18}}>
+        <View style={{...styles.container}}>
             {renderWalls()}
         </View>
         

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
     StyleSheet, 
     TouchableOpacity,
@@ -6,7 +6,7 @@ import {
     Linking
 } from 'react-native';
 import { Icon } from 'react-native-elements'
-import Modal from 'react-native-modal';
+import {Modal} from 'react-native-paper';
 import styled from 'styled-components/native'
 import { useTheme } from '../themes'
 
@@ -52,11 +52,9 @@ const BottomTab = (props) => {
     <Modal
           transparent={true}
           visible={bottomMenuVisible}
+          onDismiss={()=> setBottomMenuVisible(false)}
           onBackdropPress={() => setBottomMenuVisible(false)}
-          useNativeDriver={true}
-          animationIn="rotate"
-          animationInTiming={1000}
-          style={{justifyContent:'flex-end', margin:0,backgroundColor:'rgba(0,0,0,0.5)'}}
+          style={{justifyContent:'flex-end', margin:0}}
         >
           <View style={{...styles.bottomTab, height:165}}>
             <View style={styles.pill}></View>

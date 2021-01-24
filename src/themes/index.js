@@ -24,6 +24,7 @@ const ThemeContext = createContext({
       })
       return () => subscription.remove()
     }, [])
+    
     return (
       <ThemeContext.Provider value={{ mode: themeState, setMode }}>
         <ThemeProvider

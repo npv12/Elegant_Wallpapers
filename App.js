@@ -56,28 +56,19 @@ function TopTabs({navigation}) {
 const Stack = createStackNavigator();
 
 function HomeScreen () {
-  const theme = useTheme()
-  const [text,setText] = useState(false)
-  if(theme.mode=='dark' && !text)
-    setText(true)
-  else if(theme.mode=='light' && text)
-    setText(false)
   return (
     <>
     <ThemeManager>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home" screenOptions={{
           cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
-          headerTintColor:text?'white':'black',
-          headerPressColorAndroid:'lightgreen',
-          headerStyle: { backgroundColor: !text?'white':'black', }
         }}>
           <Stack.Screen name="Home" component={TopTabs} options={{headerShown: false}}/>
           <Stack.Screen name="Wall" component={SetWallpaper} options={{headerShown: false}}/>
           <Stack.Screen name="Collection" component={SpecificCollection} options={{headerShown:false}}/>
           <Stack.Screen name="Settings" component={Settings} options={{headerShown:false}}/>
           <Stack.Screen name="About" component={About}/>
-          <Stack.Screen name="Fav" component={Fav} options={{title: 'Favourites',headerTitleAlign:'center',headerTitleStyle:{
+          <Stack.Screen name="Fav" component={Fav} options={{title: 'Favourites',headerShown:false,headerTitleAlign:'center',headerTitleStyle:{
             fontFamily:'Linotte-Bold',
             fontWeight:'normal',
             fontSize:23

@@ -5,9 +5,11 @@ import {
     FlatList,
     Dimensions,
     TouchableOpacity,
+    StatusBar
    } from 'react-native';
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
+import { useTheme } from '../themes'
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -22,6 +24,7 @@ const windowWidth = Dimensions.get('window').width;
 const Fav = ({navigation}) => {
 
     const [data,setData] = useState([])
+    const theme = useTheme()
 
     useEffect(() => {
         retrieveData()
@@ -71,9 +74,17 @@ const Fav = ({navigation}) => {
     };
 
     return (
+      <>
+       <View style={{backgroundColor:theme.mode!='dark'?'white':'black',height:35}}>
+    </View>
+    <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
         <View style={styles.container}>
+        <View style={styles.header}>
+            <Text style={styles.headerText}>Favorites</Text>
+        </View>
         {renderWalls()}
         </View>
+      </>
     );
 };
 
@@ -94,11 +105,12 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   header:{
-    padding:25,
+    padding:20,
     alignItems:'center'
   },
   headerText:{
-      fontSize:35,
+      fontSize:20,
+      fontFamily:'koliko'
   }
 });
 
