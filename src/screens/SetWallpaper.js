@@ -39,13 +39,13 @@ const SetWallpaper = ({route}) => {
     const [isFav, setIsFav] = useState(false)
     const [iconColor, setIconColor] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [visible, setVisible] = useState(false)
+    const [Visible, setVisible] = useState(false)
     const [snackbarText, setSnackbarText] = useState("TestSub")
     const [infoVisible, setInfoVisible] = useState(false)
     const [bounceValue, setBounceValue] = useState(new Animated.Value(100))
     const [height, setHeight] = useState(40)
-    const [scaleValue, setScaleValue] = useState(new Animated.Value(0))
-    const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0))
+    const [scaleValue, setScaleValue] = useState(new Animated.Value(0.2))
+    const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0.2))
     const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(100))
 
     if(theme.mode=='dark' && !iconColor)
@@ -234,7 +234,7 @@ const SetWallpaper = ({route}) => {
     function setDelay(){
       setTimeout(function(){
         setSnackScale(false)
-      },3000)
+      },1500)
     }
 
     function  setInfoScale() {  
@@ -242,8 +242,7 @@ const SetWallpaper = ({route}) => {
       setSnackbarText(`\nName: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
       var toValue = 1; 
       if(infoVisible) {
-        toValue = 0;
-        setSnackbarText('')
+        toValue = 0.2;
       }
       Animated.timing(
         scaleValue,
@@ -277,15 +276,14 @@ const SetWallpaper = ({route}) => {
   }
 
   function  setSnackScale(t) {  
-    setSnackTranslate(t)
+    setSnackTranslate(!t)
     setSnackbarText(`\nName: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
     var toValue = 1; 
-    if(Visible) {
-      toValue = 0;
-      setSnackbarText('')
+    if(!t) {
+      toValue = 0.2;
     }
     Animated.timing(
-      scaleValue,
+      scaleValueSnack,
       {
         toValue: toValue,
         velocity: 25,
@@ -295,8 +293,9 @@ const SetWallpaper = ({route}) => {
       }, 
     ).start();
     setVisible(!t) ;
-    if(t)
+    if(t){
       setDelay()
+    }
 }
 
 function  setSnackTranslate(t) {   
@@ -305,7 +304,7 @@ function  setSnackTranslate(t) {
     toValue = 35;
   }
   Animated.spring(
-    bounceValue,
+    bounceValueSnack,
     {
       toValue: toValue,
       velocity: 25,
@@ -326,11 +325,11 @@ function  setSnackTranslate(t) {
         )
     }
 
-    function renderExtraSpace()
+    function renderBottomSnack()
     {
         return(
-          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:40,height:50 ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValueSnack,},{scaleY: scaleValueSnack},]}]}>
-            <Text style={{...styles.modalText, textAlign:'left', fontSize:16, paddingTop:5,}}>
+          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:40,height:60 ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValueSnack,},{scaleY: scaleValueSnack},]}]}>
+            <Text style={{...styles.modalText, textAlign:'center', fontSize:16, paddingTop:10,}}>
               {snackbarText}
             </Text>
         </Animated.View>
@@ -342,6 +341,7 @@ function  setSnackTranslate(t) {
       return(
         <>
         {renderExtraSpace()}
+        {renderBottomSnack()}
         <View style={{...styles.bottomTab}}>
           <View style={{flexDirection:'row', justifyContent:'space-between'}} >
             <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={()=>setInfoScale()}>
@@ -428,7 +428,6 @@ function  setSnackTranslate(t) {
 
     async function handleDownload() {
       setSnackScale(true)
-      
       setSnackbarText("Download started")
       if (Platform.OS === 'android') {
         const granted = await getPermissionAndroid();
@@ -454,7 +453,7 @@ function  setSnackTranslate(t) {
               .then(res => {
                 setIsLoading(false)
                 LoadAdvert()
-                setSnackbar(true)
+                setSnackScale(true)
                 setSnackbarText("Download complete")
               })
               .catch(error => console.log("error: ",error));
