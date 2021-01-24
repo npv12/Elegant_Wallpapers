@@ -43,9 +43,10 @@ const SetWallpaper = ({route}) => {
     const [snackbarText, setSnackbarText] = useState("TestSub")
     const [infoVisible, setInfoVisible] = useState(false)
     const [bounceValue, setBounceValue] = useState(new Animated.Value(100))
-    const [infoText, setInfoText] = useState('')
     const [height, setHeight] = useState(40)
-    const [scaleValue, setScaleValue] = useState(new Animated.Value(0.2))
+    const [scaleValue, setScaleValue] = useState(new Animated.Value(0))
+    const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0))
+    const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(100))
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -78,14 +79,12 @@ const SetWallpaper = ({route}) => {
       if(response.status=='success')
       {
         setIsLoading(false)
-        setSnackbar(true)
-        
+        setSnackScale(true)
         setSnackbarText("Wallpaper set successfully")
       }
       else{
         setIsLoading(false)
-        setSnackbar(true)
-        
+        setSnackScale(true)
         setSnackbarText("Something went wrong. Please try again")
       }
     }
@@ -116,8 +115,7 @@ const SetWallpaper = ({route}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
-          setSnackbar(true)
-          
+          setSnackScale(true)
           setSnackbarText("No internet connection")
         })
     }
@@ -148,8 +146,7 @@ const SetWallpaper = ({route}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
-          setSnackbar(true)
-          
+          setSnackScale(true)
           setSnackbarText("No internet connection")
         })
     }
@@ -180,8 +177,7 @@ const SetWallpaper = ({route}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
-          setSnackbar(true)
-          
+          setSnackScale(true)
           setSnackbarText("No internet connection")
         })
     }
@@ -237,7 +233,7 @@ const SetWallpaper = ({route}) => {
 
     function setDelay(){
       setTimeout(function(){
-        setSnackbar(false)
+        setSnackScale(false)
       },3000)
     }
 
@@ -245,9 +241,8 @@ const SetWallpaper = ({route}) => {
       setInfoTranslate()
       setSnackbarText(`\nName: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
       var toValue = 1; 
-      setHeight(125)
       if(infoVisible) {
-        toValue = 0.2;
+        toValue = 0;
         setSnackbarText('')
       }
       Animated.timing(
@@ -279,12 +274,62 @@ const SetWallpaper = ({route}) => {
         useNativeDriver:true,
       }, 
     ).start();
+  }
+
+  function  setSnackScale(t) {  
+    setSnackTranslate(t)
+    setSnackbarText(`\nName: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
+    var toValue = 1; 
+    if(Visible) {
+      toValue = 0;
+      setSnackbarText('')
+    }
+    Animated.timing(
+      scaleValue,
+      {
+        toValue: toValue,
+        velocity: 25,
+        tension: 2,
+        friction: 6,
+        useNativeDriver:true,
+      }, 
+    ).start();
+    setVisible(!t) ;
+    if(t)
+      setDelay()
 }
 
+function  setSnackTranslate(t) {   
+  var toValue = 0   
+  if(t) {
+    toValue = 35;
+  }
+  Animated.spring(
+    bounceValue,
+    {
+      toValue: toValue,
+      velocity: 25,
+      tension: 3,
+      friction: 8,
+      useNativeDriver:true,
+    }, 
+  ).start();
+}
     function renderExtraSpace()
     {
         return(
           <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:40,height:150 ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValue,},{scaleY: scaleValue},]}]}>
+            <Text style={{...styles.modalText, textAlign:'left', fontSize:16, paddingTop:5,}}>
+              {snackbarText}
+            </Text>
+        </Animated.View>
+        )
+    }
+
+    function renderExtraSpace()
+    {
+        return(
+          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:40,height:50 ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValueSnack,},{scaleY: scaleValueSnack},]}]}>
             <Text style={{...styles.modalText, textAlign:'left', fontSize:16, paddingTop:5,}}>
               {snackbarText}
             </Text>
@@ -305,7 +350,7 @@ const SetWallpaper = ({route}) => {
             <TouchableOpacity style={styles.icon} onPress={() => {
               handleDownload()
               ShowAdvert()
-              setSnackbar()
+              setSnackScale(true)
             }}>
               <Icon name="download" type='feather' size={25} color={iconColor?'white':'black'}/>
             </TouchableOpacity>
@@ -382,7 +427,7 @@ const SetWallpaper = ({route}) => {
     };
 
     async function handleDownload() {
-      setSnackbar(true)
+      setSnackScale(true)
       
       setSnackbarText("Download started")
       if (Platform.OS === 'android') {
@@ -415,7 +460,7 @@ const SetWallpaper = ({route}) => {
               .catch(error => console.log("error: ",error));
           }
           else{
-            setSnackbar(true)
+            setSnackScale(true)
             setSnackbarText("Wallpaper already downloaded");
             setIsLoading(false)
           }
