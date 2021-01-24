@@ -101,6 +101,12 @@ function renderItem  ({ item }) {
 };
 
   function renderCollections(){
+    if(!data)
+    {
+      return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
+      <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20, fontFamily:'Linotte-Bold'}}>Loading your favorite walls.....</Text>
+    </View>
+    }
     return(
       <View style={{paddingHorizontal:10}}>
               <FlatList

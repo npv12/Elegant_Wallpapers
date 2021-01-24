@@ -67,7 +67,9 @@ function renderWalls(){
             />
             </View>
     }
-    return <Text>Loading</Text>
+    return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
+      <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20, fontFamily:'Linotte-Bold'}}>Loading your perfect collection.....</Text>
+    </View>
   }
 
   const Item = ({ item, onPress }) => (
