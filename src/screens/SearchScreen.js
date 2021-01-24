@@ -10,13 +10,14 @@ import {
     Text
   } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { Icon } from 'react-native-elements';
 import LoadImage from '../components/LoadImage';
 import { WALL_URL } from '../constants';
 import { useTheme } from '../themes'
 
 const windowWidth = Dimensions.get('window').width;
 
-const SearchScreen = () => {
+const SearchScreen = ({navigation}) => {
     const [item,setItem] = useState('')
     const [data,setData] = useState([])
     const [empty,setEmpty] = useState(true)
@@ -73,7 +74,9 @@ const SearchScreen = () => {
                 />
                 </View>
         }
-        return <Text>Loading</Text>
+        return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
+          <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20, fontFamily:'Linotte-Bold'}}>Try searching for something</Text>
+        </View>
       }
     
       const Item = ({ item, onPress }) => (
@@ -95,18 +98,40 @@ const SearchScreen = () => {
       );
     };
 
-  return (
-      <>
-       <View style={{backgroundColor:theme.mode!='dark'?'white':'black',height:35}}>
-    </View>
-    <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
-    <View style={{...styles.container,backgroundColor:theme.mode!='dark'?'white':'black'}}>
-      <TextInput style={{...styles.input,backgroundColor:theme.mode=='dark'?'white':'black'}} placeholder="Search...." defaultValue={item} onChangeText={(val)=>{
+   function renderTextInput()
+   {
+     return(
+       <View style={{flexDirection:'row', alignItems:'center', height:55, marginTop:35, justifyContent:'space-between'}}>
+         <TouchableOpacity onPress={()=>navigation.pop()}>
+         <Icon name="arrow-left" type="feather" size={25} style={styles.icon} color={theme.mode=='dark'?'white':'black'}/>
+         </TouchableOpacity>
+      <TextInput 
+      style={{
+          ...styles.input,
+          backgroundColor:theme.mode!='dark'?'white':'black', 
+          color:theme.mode=='dark'?'white':'black'
+        }} 
+        placeholder="Search...." 
+        defaultValue={item} 
+        placeholderTextColor={theme.mode=='dark'?'#A9A9A9':'grey'}
+        onChangeText={(val)=>{
           searchData(val)
           setItem(val)
       }}/>
-      {renderWalls()}
-    </View>
+      <Icon name="search" type="feather" size={25} style={styles.icon} color={theme.mode!='dark'?'white':'black'}/>
+      </View>
+     )
+   } 
+
+  return (
+      <>
+       <View style={{backgroundColor:theme.mode!='dark'?'white':'black',height:35}}>
+        </View>
+        <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
+        <View style={{...styles.container,backgroundColor:theme.mode!='dark'?'white':'black',}}>
+          {renderTextInput()}
+          {renderWalls()}
+        </View>
     </>
   );
 };
@@ -115,12 +140,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
+  icon:{
+    paddingLeft:15,
+    paddingBottom:35
+  },
   input:{
-      height:35,
-      width:"70%",
-      borderColor:'black',
-      borderWidth:3,
-      justifyContent:'flex-end'
+      height:55,
+      width:"80%",
+      justifyContent:'flex-end',
+      alignSelf:'flex-end',
+      padding:15,
+      fontSize:18,
+      margin:18,
+      fontFamily:'Linotte-Bold'
   },
   Wall:{
     width:windowWidth/2*0.88,
