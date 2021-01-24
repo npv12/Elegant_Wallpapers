@@ -1,76 +1,95 @@
-import * as React from 'react';
-import {
-  Animated,
-  Dimensions,
-  View,
+import React, {Component} from 'react';
+import ReactNative from 'react-native';
+
+const {
+  AppRegistry,
   StyleSheet,
+  Text,
+  View,
   TouchableHighlight,
-} from 'react-native';
-import {  Portal, Text, Button, Provider } from 'react-native-paper';
-import Modal from 'react-native-modal';
-const deviceHeight = Dimensions.get('window').height
-const deviceWidth = Dimensions.get('window').width
+  Animated
+} = ReactNative;
 
-export default class MyComponent extends React.Component {
-  state = {
-    visible: false,
-  };
 
-  _showModal = () => this.setState({ visible: true });
-  _hideModal = () => this.setState({ visible: false });
+var isHidden = true;
+
+class Test extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bounceValue: new Animated.Value(300),  //This is the initial position of the subview
+      buttonText: "Show Subview"
+    };
+  }
+
+
+  _toggleSubview() {    
+    this.setState({
+      buttonText: !isHidden ? "Show Subview" : "Hide Subview"
+    });
+
+    var toValue = 2000;
+
+    if(isHidden) {
+      toValue = 0;
+    }
+
+    //This will animate the transalteY of the subview between 0 & 100 depending on its current state
+    //100 comes from the style below, which is the height of the subview.
+    Animated.spring(
+      this.state.bounceValue,
+      {
+        toValue: toValue,
+        velocity: 2.5,
+        tension: 2,
+        friction: 8,
+        useNativeDriver:true,
+      }
+    ).start();
+
+    isHidden = !isHidden;
+  }
 
   render() {
-    const { visible } = this.state;
     return (
-      <>
-      <Modal visible={visible} onDismiss={this._hideModal}
-            animationIn="slideInUp"
-            useNativeDriver={true}
-            animationInTiming={300}
-            >
-                  <TouchableHighlight onPress={this._hideModal} underlayColor="green" style={styles.button}>
-                    <Text style={styles.buttonText}>Close Modal</Text>
-                  </TouchableHighlight>
-            </Modal>
-      <Provider>
-        <View style={styles.container}>
-          <Button
-             style={{ marginTop: 30 }}
-             onPress={this._showModal}
-           >
-            Show
-          </Button>
-         </View>
-      </Provider>
-      
-      </>
+      <View style={styles.container}>
+          <TouchableHighlight style={styles.button} onPress={()=> {this._toggleSubview()}}>
+            <Text style={styles.buttonText}>{this.state.buttonText}</Text>
+          </TouchableHighlight>
+          <Animated.View
+            style={[styles.subView,
+              {transform: [{translateY: this.state.bounceValue}]}]}
+          >
+            <Text>This is a sub view</Text>
+          </Animated.View>
+      </View>
     );
   }
 }
 
-
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+    marginTop: 66
   },
   button: {
-    backgroundColor: 'green',
-    alignItems: 'center',
-    height: 60,
-    justifyContent: 'center',
+    padding: 8,
   },
   buttonText: {
-    color: 'white'
+    fontSize: 17,
+    color: "#007AFF"
   },
-  modal: {
-    height: deviceHeight,
-    width: deviceWidth,
-    position: 'absolute',
-    top: 0,
+  subView: {
+    position: "absolute",
+    bottom: 0,
     left: 0,
-    backgroundColor: '#ededed',
-    justifyContent: 'center',
+    right: 0,
+    backgroundColor: "#FFFFFF",
+    height: 300,
   }
 });
 
+export default Test

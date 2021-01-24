@@ -7,6 +7,7 @@ import {
     PermissionsAndroid,
     Alert,
     StatusBar,
+    Animated
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
@@ -14,12 +15,11 @@ import Modal from 'react-native-modal';
 import RNFetchBlob from 'rn-fetch-blob';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../themes'
-import _, { set } from 'lodash';
+import _, { delay, set } from 'lodash';
 import Loader from '../components/Loader'
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
 import { LoadAdvert, ShowAdvert } from '../components/Advert';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -41,8 +41,10 @@ const SetWallpaper = ({route}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [visible, setVisible] = useState(false)
     const [snackbarText, setSnackbarText] = useState("TestSub")
-    const [height, setHeight] = useState(40)
     const [infoVisible, setInfoVisible] = useState(false)
+    const [bounceValue, setBounceValue] = useState(new Animated.Value(165))
+    const [infoText, setInfoText] = useState('')
+    const [height, setHeight] = useState(40)
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -75,14 +77,14 @@ const SetWallpaper = ({route}) => {
       if(response.status=='success')
       {
         setIsLoading(false)
-        setVisible(true)
-        setHeight(60)
+        setSnackbar(true)
+        
         setSnackbarText("Wallpaper set successfully")
       }
       else{
         setIsLoading(false)
-        setVisible(true)
-        setHeight(60)
+        setSnackbar(true)
+        
         setSnackbarText("Something went wrong. Please try again")
       }
     }
@@ -113,8 +115,8 @@ const SetWallpaper = ({route}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
-          setVisible(true)
-          setHeight(60)
+          setSnackbar(true)
+          
           setSnackbarText("No internet connection")
         })
     }
@@ -145,8 +147,8 @@ const SetWallpaper = ({route}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
-          setVisible(true)
-          setHeight(60)
+          setSnackbar(true)
+          
           setSnackbarText("No internet connection")
         })
     }
@@ -177,8 +179,8 @@ const SetWallpaper = ({route}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
-          setVisible(true)
-          setHeight(60)
+          setSnackbar(true)
+          
           setSnackbarText("No internet connection")
         })
     }
@@ -234,40 +236,61 @@ const SetWallpaper = ({route}) => {
 
     function setDelay(){
       setTimeout(function(){
-        setVisible(false)
+        setSnackbar(false)
       },3000)
     }
 
+    function  setInfo() {  
+      setSnackbarText(`\n\nName: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
+      var toValue = 225;   
+      if(infoVisible) {
+        toValue = 0;
+        setHeight(125)
+      }
+      Animated.spring(
+        bounceValue,
+        {
+          toValue: toValue,
+          velocity: 25,
+          tension: 2,
+          friction: 6,
+          useNativeDriver:true,
+        }, 
+      ).start();
+      setInfoVisible(!infoVisible) ;
+  }
+
+  function  setSnackbar(t) {   
+    var toValue = 45;   
+    setHeight(35)
+    if(t) {
+      toValue = 0;
+      setHeight(45)
+    }
+    Animated.spring(
+      bounceValue,
+      {
+        toValue: toValue,
+        velocity: 25,
+        tension: 2,
+        friction: 6,
+        useNativeDriver:true,
+      }, 
+    ).start();
+    if(t)
+      setDelay()
+    setVisible(!t) ;
+}
+
     function renderExtraSpace()
     {
-      if(infoVisible)
-      {
-        return(<View style={{...styles.bottomTab, bottom:35, height:height,borderBottomEndRadius:0,
-          borderBottomLeftRadius:0}}>
-            <Text style={{...styles.modalText, textAlign:'left', fontSize:16, paddingTop:20}}>
+        return(
+        <Animated.View style={[{...styles.bottomTab, bottom:53 , height:height,borderBottomStartRadius:0,borderBottomEndRadius:0,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValue}]}]}>
+            <Text style={{...styles.modalText, textAlign:'left', fontSize:16, paddingTop:5}}>
               {snackbarText}
             </Text>
-        </View>)
-      }
-      if(!visible)
-        return null
-      setDelay()
-      return(
-        <View style={{...styles.bottomTab, bottom:35, height:height,borderBottomEndRadius:0,
-          borderBottomLeftRadius:0}}>
-            <Text style={{...styles.modalText, paddingBottom:10}}>
-              {snackbarText}
-            </Text>
-        </View>
-      )
-      
-    }
-
-    function setInfo ()
-    {
-      setInfoVisible(!infoVisible)
-      setHeight(130)
-      setSnackbarText(`Name: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
+        </Animated.View>
+        )
     }
 
     function renderBottomTab()
@@ -283,6 +306,7 @@ const SetWallpaper = ({route}) => {
             <TouchableOpacity style={styles.icon} onPress={() => {
               handleDownload()
               ShowAdvert()
+              setSnackbar()
             }}>
               <Icon name="download" type='feather' size={25} color={iconColor?'white':'black'}/>
             </TouchableOpacity>
@@ -295,7 +319,7 @@ const SetWallpaper = ({route}) => {
           </View>
           </View>
           <Modal
-          animationIn="fadeInDown"
+          animationType="FadeIn"
           visible={showApplyModal}
           useNativeDriver={true}
           onBackdropPress={() => setShowApplyModal(false)}
@@ -359,8 +383,8 @@ const SetWallpaper = ({route}) => {
     };
 
     async function handleDownload() {
-      setVisible(true)
-      setHeight(60)
+      setSnackbar(true)
+      
       setSnackbarText("Download started")
       if (Platform.OS === 'android') {
         const granted = await getPermissionAndroid();
@@ -386,15 +410,13 @@ const SetWallpaper = ({route}) => {
               .then(res => {
                 setIsLoading(false)
                 LoadAdvert()
-                setVisible(true)
-                setHeight(60)
+                setSnackbar(true)
                 setSnackbarText("Download complete")
               })
               .catch(error => console.log("error: ",error));
           }
           else{
-            setVisible(true)
-            setHeight(60)
+            setSnackbar(true)
             setSnackbarText("Wallpaper already downloaded");
             setIsLoading(false)
           }
@@ -438,7 +460,7 @@ const styles = StyleSheet.create({
   },
   bottomTab:{
     width:"80%", 
-    height:50, 
+    height:65, 
     bottom:0, 
     position:'absolute', 
     margin:'10%',
