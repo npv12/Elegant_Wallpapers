@@ -67,11 +67,11 @@ function HomeScreen () {
     <ThemeManager>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home" screenOptions={{
-      cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
-      headerTintColor:text?'white':'black',
-      headerPressColorAndroid:'lightgreen',
-      headerStyle: { backgroundColor: !text?'white':'black', }
-    }}>
+          cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+          headerTintColor:text?'white':'black',
+          headerPressColorAndroid:'lightgreen',
+          headerStyle: { backgroundColor: !text?'white':'black', }
+        }}>
           <Stack.Screen name="Home" component={TopTabs} options={{headerShown: false}}/>
           <Stack.Screen name="Wall" component={SetWallpaper} options={{headerShown: false}}/>
           <Stack.Screen name="Collection" component={SpecificCollection} options={{headerShown:false}}/>

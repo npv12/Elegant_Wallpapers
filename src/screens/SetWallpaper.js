@@ -8,15 +8,17 @@ import {
     PermissionsAndroid,
     Alert,
     ToastAndroid,
-    StatusBar
+    StatusBar,
+    NativeModules
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
 import Modal from 'react-native-modal';
 import RNFetchBlob from 'rn-fetch-blob';
+import { Snackbar } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../themes'
-import _ from 'lodash';
+import _, { set } from 'lodash';
 import Loader from '../components/Loader'
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
@@ -37,11 +39,11 @@ const SetWallpaper = ({route}) => {
     const theme = useTheme()
     const {item} = route.params
     const [showApplyModal, setShowApplyModal] = useState(false)
-    const [animatedValue, setAnimatedValue] = useState(new Animated.Value(100))
-    const [viewAnimation, setViewAnimation] = useState(true)
     const [isFav, setIsFav] = useState(false)
     const [iconColor, setIconColor] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [visible, setVisible] = useState(false)
+    const [snackbarText, setSnackbarText] = useState("TestSub")
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -69,58 +71,51 @@ const SetWallpaper = ({route}) => {
       })
     }
 
-    function toggleAnimation()
+    function callback(response)
     {
-      if(viewAnimation)
+      console.log(response.status)
+      if(response.status=='success')
       {
-        console.log("animating")
-        Animated.timing(animatedValue, {
-          toValue:300,
-          timing:1500,
-          useNativeDriver:true
-        }).start(()=>setViewAnimation(false))
+        setIsLoading(false)
+        setVisible(true)
+        setSnackbarText("Wallpaper set successfully")
       }
       else{
-        console.log("no")
-        Animated.timing(animatedValue,{
-          toValue: 100,
-          timing:1500,
-          useNativeDriver:true
-        }).start(()=>{
-          setViewAnimation(true)
-        })
+        setIsLoading(false)
+        setVisible(true)
+        setSnackbarText("Something went wrong. Please try again")
       }
     }
 
-    function callback(msg,status,url)
-    {
-      console.log(status)
-      if(status=='success')
-        setIsLoading(false)
-      else{
-        setIsLoading(false)
-        ToastAndroid.show("Something went wrong", ToastAndroid.SHORT);
-      }
-    }
-
-    function setHomeWall ()
+    async function setHomeWall ()
     {
       setShowApplyModal(false)
       ShowAdvert()
       setIsLoading(true)
-      try{
-      ManageWallpaper.setWallpaper(
-        {
-          uri: item.url,
-        },
-        callback,
-        TYPE.HOME
-      )
-      }
-      catch(e){
-        console.log("Download failed",e)
-      }
-      
+      RNFetchBlob
+      .config({
+        fileCache : true,
+        appendExt : 'png'
+      })
+      .fetch('GET', item.url, {
+        //some headers ..
+      })
+      .then((res) => {
+        var PATH = 'file://' + res.path()
+        console.log('The file saved to ', PATH)
+        ManageWallpaper.setWallpaper(
+          {
+            uri: PATH,
+          },
+          callback,
+          TYPE.HOME
+        )
+        }).catch((e)=>{
+          console.log(e)
+          setIsLoading(false)
+          setVisible(true)
+          setSnackbarText("No internet connection")
+        })
     }
 
     function setLockWall ()
@@ -128,13 +123,30 @@ const SetWallpaper = ({route}) => {
       setShowApplyModal(false)
       ShowAdvert()
       setIsLoading(true)
-      ManageWallpaper.setWallpaper(
-        {
-          uri: item.url,
-        },
-        callback,
-        TYPE.LOCK
-      )
+      RNFetchBlob
+      .config({
+        fileCache : true,
+        appendExt : 'png'
+      })
+      .fetch('GET', item.url, {
+        //some headers ..
+      })
+      .then((res) => {
+        var PATH = 'file://' + res.path()
+        console.log('The file saved to ', PATH)
+        ManageWallpaper.setWallpaper(
+          {
+            uri: PATH,
+          },
+          callback,
+          TYPE.HOME
+        )
+        }).catch((e)=>{
+          console.log(e)
+          setIsLoading(false)
+          setVisible(true)
+          setSnackbarText("No internet connection")
+        })
     }
 
     function setBothWall ()
@@ -142,18 +154,34 @@ const SetWallpaper = ({route}) => {
       setShowApplyModal(false)
       ShowAdvert()
       setIsLoading(true)
-      ManageWallpaper.setWallpaper(
-        {
-          uri: item.url,
-        },
-        callback,
-        TYPE.BOTH
-      )
+      RNFetchBlob
+      .config({
+        fileCache : true,
+        appendExt : 'png'
+      })
+      .fetch('GET', item.url, {
+        //some headers ..
+      })
+      .then((res) => {
+        var PATH = 'file://' + res.path()
+        console.log('The file saved to ', PATH)
+        ManageWallpaper.setWallpaper(
+          {
+            uri: PATH,
+          },
+          callback,
+          TYPE.HOME
+        )
+        }).catch((e)=>{
+          console.log(e)
+          setIsLoading(false)
+          setVisible(true)
+          setSnackbarText("No internet connection")
+        })
     }
 
     async function addToFav()
     {
-      console.log(isFav)
       if(isFav)
       {
         var temp = []
@@ -207,11 +235,10 @@ const SetWallpaper = ({route}) => {
         <>
         <View style={{...styles.bottomTab}}>
           <View style={{flexDirection:'row', justifyContent:'space-between'}} >
-            <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={toggleAnimation}>
+            <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={()=>setVisible(true)}>
               <Icon name="info" type='feather' size={25} color={iconColor?'white':'black'}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={() => {
-              setIsLoading(true)
               handleDownload()
               ShowAdvert()
             }}>
@@ -290,6 +317,8 @@ const SetWallpaper = ({route}) => {
     };
 
     async function handleDownload() {
+      setVisible(true)
+      setSnackbarText("Download started")
       if (Platform.OS === 'android') {
         const granted = await getPermissionAndroid();
         if (!granted) {
@@ -314,12 +343,14 @@ const SetWallpaper = ({route}) => {
               .then(res => {
                 setIsLoading(false)
                 LoadAdvert()
-                ToastAndroid.show("Download Complete", ToastAndroid.SHORT);
+                setVisible(true)
+                setSnackbarText("Download complete")
               })
               .catch(error => console.log("error: ",error));
           }
           else{
-            ToastAndroid.show("Wallpaper already exists", ToastAndroid.SHORT);
+            setVisible(true)
+            setSnackbarText("Wallpaper already exists");
             setIsLoading(false)
           }
       })
@@ -328,16 +359,24 @@ const SetWallpaper = ({route}) => {
     };
 
   return (
-    <>
-    <StatusBar translucent={true} backgroundColor={'transparent'} />
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <LoadImage source={item} style={styles.wall}/>
+    <View style={{flex:1}}>
+      <StatusBar translucent={true} backgroundColor={'transparent'} />
+      <View style={styles.container}>
+        <View>
+          <LoadImage source={item} style={styles.wall}/>
+        </View>
+        {renderBottomTab()}
+        <Loader loading={isLoading}/>
       </View>
-      {renderBottomTab()}
-      <Loader loading={isLoading}/>
+      <View>
+        <Snackbar
+            visible={visible}
+            style={{marginBottom:90, width:"80%", alignSelf:'center',}}
+            onDismiss={()=>setVisible(false)}>
+            {snackbarText}
+          </Snackbar>
+          </View>
     </View>
-    </>
   );
 };
 

@@ -45,7 +45,7 @@ const BottomTab = (props) => {
         
           <View style={{...styles.searchBox,backgroundColor:iconColor?'white':'black'}}>
             <TouchableOpacity onPress={()=>props.navigation.navigate("Search")}>
-                <Icon name='search' type='feather'size={35} color={!iconColor?'white':'black'}/> 
+                <Icon name='search' type='feather'size={25} color={!iconColor?'white':'black'}/> 
                 </TouchableOpacity>
           </View>
     </View>

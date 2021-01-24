@@ -1,8 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, Modal, ActivityIndicator} from 'react-native';
+import { useTheme } from '../themes'
 
 const Loader = (props) => {
-
+  const theme = useTheme()
 
   return (
     <Modal
@@ -13,8 +14,8 @@ const Loader = (props) => {
         console.log('close modal');
       }}>
       <View style={styles.modalBackground}>
-        <View style={styles.activityIndicatorWrapper}>
-          <ActivityIndicator animating={true} size="large" color="#00bd84" />
+        <View style={{...styles.activityIndicatorWrapper, backgroundColor:theme.mode=='dark'?'black':'white'}}>
+          <ActivityIndicator animating={true} size="large" color={theme.mode!='dark'?'black':'white'} />
         </View>
       </View>
     </Modal>
@@ -30,7 +31,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000040',
   },
   activityIndicatorWrapper: {
-    backgroundColor: '#FFFFFF',
     height: 100,
     width: 100,
     borderRadius: 10,
