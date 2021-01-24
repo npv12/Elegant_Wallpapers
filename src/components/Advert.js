@@ -1,6 +1,5 @@
 import { InterstitialAd, AdEventType, TestIds } from '@react-native-firebase/admob';
-
-const adUnitId = TestIds.INTERSTITIAL;
+import { adUnitId } from '../constants';
 
 const interstitial = InterstitialAd.createForAdRequest(adUnitId);
 
@@ -12,6 +11,7 @@ export function ShowAdvert() {
 }
 
 export function LoadAdvert(){
+  console.log("Loading")
     const eventListener = interstitial.onAdEvent(type => {
         if (type === AdEventType.LOADED) {
           console.log("advert loaded")

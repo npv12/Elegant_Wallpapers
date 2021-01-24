@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet,Switch } from 'react-native';
 import { useTheme } from '../themes'
 import styled from 'styled-components/native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Container = styled.View`
   background: ${props => props.theme.background};
@@ -20,7 +21,10 @@ const Settings = () => {
           <Title style={styles.item}>Appearence</Title>
         <Switch
           value={theme.mode === 'dark'}
-          onValueChange={value => theme.setMode(value ? 'dark' : 'light')}
+          onValueChange={value => {
+            theme.setMode(value ? 'dark' : 'light')
+            AsyncStorage.setItem('theme',value ? 'dark' : 'light')
+          }}
           style={{padding:15}}
         />
         </View>

@@ -19,6 +19,7 @@ import Loader from '../components/Loader'
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
 import { LoadAdvert, ShowAdvert } from '../components/Advert';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -75,13 +76,13 @@ const SetWallpaper = ({route}) => {
       {
         setIsLoading(false)
         setVisible(true)
-        setHeight(40)
+        setHeight(60)
         setSnackbarText("Wallpaper set successfully")
       }
       else{
         setIsLoading(false)
         setVisible(true)
-        setHeight(40)
+        setHeight(60)
         setSnackbarText("Something went wrong. Please try again")
       }
     }
@@ -113,7 +114,7 @@ const SetWallpaper = ({route}) => {
           console.log(e)
           setIsLoading(false)
           setVisible(true)
-          setHeight(40)
+          setHeight(60)
           setSnackbarText("No internet connection")
         })
     }
@@ -145,7 +146,7 @@ const SetWallpaper = ({route}) => {
           console.log(e)
           setIsLoading(false)
           setVisible(true)
-          setHeight(40)
+          setHeight(60)
           setSnackbarText("No internet connection")
         })
     }
@@ -177,7 +178,7 @@ const SetWallpaper = ({route}) => {
           console.log(e)
           setIsLoading(false)
           setVisible(true)
-          setHeight(40)
+          setHeight(60)
           setSnackbarText("No internet connection")
         })
     }
@@ -241,7 +242,7 @@ const SetWallpaper = ({route}) => {
     {
       if(infoVisible)
       {
-        return(<View style={{...styles.bottomTab, bottom:40, height:height,borderBottomEndRadius:0,
+        return(<View style={{...styles.bottomTab, bottom:35, height:height,borderBottomEndRadius:0,
           borderBottomLeftRadius:0}}>
             <Text style={{...styles.modalText, textAlign:'left', fontSize:16, paddingTop:20}}>
               {snackbarText}
@@ -252,9 +253,9 @@ const SetWallpaper = ({route}) => {
         return null
       setDelay()
       return(
-        <View style={{...styles.bottomTab, bottom:40, height:height,borderBottomEndRadius:0,
+        <View style={{...styles.bottomTab, bottom:35, height:height,borderBottomEndRadius:0,
           borderBottomLeftRadius:0}}>
-            <Text style={styles.modalText}>
+            <Text style={{...styles.modalText, paddingBottom:10}}>
               {snackbarText}
             </Text>
         </View>
@@ -359,7 +360,7 @@ const SetWallpaper = ({route}) => {
 
     async function handleDownload() {
       setVisible(true)
-      setHeight(40)
+      setHeight(60)
       setSnackbarText("Download started")
       if (Platform.OS === 'android') {
         const granted = await getPermissionAndroid();
@@ -386,14 +387,14 @@ const SetWallpaper = ({route}) => {
                 setIsLoading(false)
                 LoadAdvert()
                 setVisible(true)
-                setHeight(40)
+                setHeight(60)
                 setSnackbarText("Download complete")
               })
               .catch(error => console.log("error: ",error));
           }
           else{
             setVisible(true)
-            setHeight(40)
+            setHeight(60)
             setSnackbarText("Wallpaper already downloaded");
             setIsLoading(false)
           }
@@ -423,8 +424,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   wall:{
-      height:windowHeight,
-      width:windowWidth,
+      height:windowHeight+35,
+      width:windowWidth+35,
       position:'absolute'
   },
   snackbar:{

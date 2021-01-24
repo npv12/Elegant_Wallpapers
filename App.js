@@ -1,4 +1,4 @@
-import React, { Component,useState } from 'react';
+import React, { Component,useEffect,useState } from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator,CardStyleInterpolators, } from '@react-navigation/stack';
 import OneSignal from 'react-native-onesignal';
@@ -24,12 +24,23 @@ import SearchScreen from './src/screens/SearchScreen'
 import { useTheme } from './src/themes'
 import { ONE_SIGNAL } from './src/constants';
 import { LoadAdvert } from './src/components/Advert';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createMaterialTopTabNavigator();
 
 function TopTabs({navigation}) {
   const theme = useTheme()
   const [text,setText] = useState(false)
+  async function fetchTheme(){
+    var temp = await AsyncStorage.getItem('theme')
+    if(temp)
+    {
+      theme.setMode(temp)
+    }
+  }
+  useEffect(()=>{
+    fetchTheme()
+  },[])
   if(theme.mode=='dark' && !text)
     setText(true)
   else if(theme.mode=='light' && text)
