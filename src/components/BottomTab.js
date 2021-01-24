@@ -53,7 +53,7 @@ const BottomTab = (props) => {
       {
         setTimeout(function(){
           setBottomMenuVisible(false)
-        },1000)
+        },200)
       }
       else
         setBottomMenuVisible(!bottomMenuVisible) ;
@@ -100,25 +100,25 @@ const BottomTab = (props) => {
   )
   }
   return (
-      <>
-    <View style={{height:60, borderTopEndRadius:55}}>
+    <>
+      <View style={{height:60, borderTopEndRadius:55}}>
         <View style={{flex:1, flexDirection:'row', alignItems:'center', paddingLeft:"3%"}}>
-            <TouchableOpacity onPress={()=>{
-                    toggleSubview()}}>
-                <Icon name="align-justify" type='feather' size={25} style={styles.icon} color={iconColor?'white':'black'}/>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>props.navigation.navigate('Fav')}>
+          <TouchableOpacity onPress={()=>{
+                  toggleSubview()}
+                  }>
+              <Icon name="align-justify" type='feather' size={25} style={styles.icon} color={iconColor?'white':'black'}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>props.navigation.navigate('Fav')}>
             <Icon name="hearto" type='antdesign' size={25} style={styles.icon} color={iconColor?'white':'black'}/>
-            </TouchableOpacity>
+          </TouchableOpacity>
         </View>
-        
+        <TouchableOpacity onPress={()=>props.navigation.navigate("Search")}>
           <View style={{...styles.searchBox,backgroundColor:iconColor?'white':'black'}}>
-            <TouchableOpacity onPress={()=>props.navigation.navigate("Search")}>
-                <Icon name='search' type='feather'size={25} color={!iconColor?'white':'black'}/> 
-                </TouchableOpacity>
+            <Icon name='search' type='feather'size={25} color={!iconColor?'white':'black'}/> 
           </View>
-    </View>
-    {renderModal()}
+        </TouchableOpacity>
+      </View>
+      {renderModal()}
     </>
   );
 };

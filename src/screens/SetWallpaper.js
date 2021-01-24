@@ -42,9 +42,10 @@ const SetWallpaper = ({route}) => {
     const [visible, setVisible] = useState(false)
     const [snackbarText, setSnackbarText] = useState("TestSub")
     const [infoVisible, setInfoVisible] = useState(false)
-    const [bounceValue, setBounceValue] = useState(new Animated.Value(165))
+    const [bounceValue, setBounceValue] = useState(new Animated.Value(100))
     const [infoText, setInfoText] = useState('')
     const [height, setHeight] = useState(40)
+    const [scaleValue, setScaleValue] = useState(new Animated.Value(0.2))
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -240,15 +241,17 @@ const SetWallpaper = ({route}) => {
       },3000)
     }
 
-    function  setInfo() {  
-      setSnackbarText(`\n\nName: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
-      var toValue = 225;   
+    function  setInfoScale() {  
+      setInfoTranslate()
+      setSnackbarText(`\nName: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
+      var toValue = 1; 
+      setHeight(125)
       if(infoVisible) {
-        toValue = 0;
-        setHeight(125)
+        toValue = 0.2;
+        setSnackbarText('')
       }
-      Animated.spring(
-        bounceValue,
+      Animated.timing(
+        scaleValue,
         {
           toValue: toValue,
           velocity: 25,
@@ -260,33 +263,29 @@ const SetWallpaper = ({route}) => {
       setInfoVisible(!infoVisible) ;
   }
 
-  function  setSnackbar(t) {   
-    var toValue = 45;   
-    setHeight(35)
-    if(t) {
-      toValue = 0;
-      setHeight(45)
+  function  setInfoTranslate() {   
+    var toValue = 0   
+    if(infoVisible) {
+      toValue = 75;
+      setHeight(50)
     }
     Animated.spring(
       bounceValue,
       {
         toValue: toValue,
         velocity: 25,
-        tension: 2,
-        friction: 6,
+        tension: 3,
+        friction: 8,
         useNativeDriver:true,
       }, 
     ).start();
-    if(t)
-      setDelay()
-    setVisible(!t) ;
 }
 
     function renderExtraSpace()
     {
         return(
-        <Animated.View style={[{...styles.bottomTab, bottom:53 , height:height,borderBottomStartRadius:0,borderBottomEndRadius:0,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValue}]}]}>
-            <Text style={{...styles.modalText, textAlign:'left', fontSize:16, paddingTop:5}}>
+          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:40,height:150 ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValue,},{scaleY: scaleValue},]}]}>
+            <Text style={{...styles.modalText, textAlign:'left', fontSize:16, paddingTop:5,}}>
               {snackbarText}
             </Text>
         </Animated.View>
@@ -300,7 +299,7 @@ const SetWallpaper = ({route}) => {
         {renderExtraSpace()}
         <View style={{...styles.bottomTab}}>
           <View style={{flexDirection:'row', justifyContent:'space-between'}} >
-            <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={()=>setInfo()}>
+            <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={()=>setInfoScale()}>
               <Icon name="info" type='feather' size={25} color={iconColor?'white':'black'}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={() => {
