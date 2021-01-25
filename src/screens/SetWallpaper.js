@@ -141,7 +141,7 @@ const SetWallpaper = ({route}) => {
             uri: PATH,
           },
           callback,
-          TYPE.HOME
+          TYPE.LOCK
         )
         }).catch((e)=>{
           console.log(e)
@@ -172,7 +172,7 @@ const SetWallpaper = ({route}) => {
             uri: PATH,
           },
           callback,
-          TYPE.HOME
+          TYPE.BOTH
         )
         }).catch((e)=>{
           console.log(e)
