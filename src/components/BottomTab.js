@@ -4,7 +4,7 @@ import {
     TouchableOpacity,
     Dimensions,
     Linking,
-    Animated
+    Animated,
 } from 'react-native';
 import { Icon } from 'react-native-elements'
 import styled from 'styled-components/native'
@@ -62,8 +62,16 @@ const BottomTab = (props) => {
   function renderModal(){
     return(
       <Modal 
-      visible={bottomMenuVisible} onDismiss={()=>setBottomMenuVisible(false)}  onBackdropPress={() => toggleSubview()} style={{justifyContent: 'flex-end',
-      margin: 0,}}>
+      visible={bottomMenuVisible} 
+      onDismiss={()=>setBottomMenuVisible(false)}  
+      onBackdropPress={() => toggleSubview()} 
+      onSwipeComplete={()=>toggleSubview()}
+      swipeDirection={['down']}
+      style={{
+        justifyContent: 'flex-end',
+        margin: 0,
+        backgroundColor: 'rgba(0,0,0,0.6)'
+      }}>
       <Animated.View
             style={[styles.subView,
               {transform: [{translateY: bounceValue}]}]}
@@ -112,11 +120,11 @@ const BottomTab = (props) => {
             <Icon name="hearto" type='antdesign' size={25} style={styles.icon} color={iconColor?'white':'black'}/>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={()=>props.navigation.navigate("Search")}>
-          <View style={{...styles.searchBox,backgroundColor:iconColor?'white':'black'}}>
-            <Icon name='search' type='feather'size={25} color={!iconColor?'white':'black'}/> 
-          </View>
-        </TouchableOpacity>
+        
+          <TouchableOpacity onPress={()=>props.navigation.navigate("Search")} style={{...styles.searchBox,backgroundColor:iconColor?'white':'black'}}>
+            <Icon name='search' type='feather'size={25} color={!iconColor?'white':'black'}/>
+            </TouchableOpacity> 
+        
       </View>
       {renderModal()}
     </>

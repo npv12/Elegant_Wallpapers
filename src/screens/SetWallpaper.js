@@ -42,11 +42,11 @@ const SetWallpaper = ({route}) => {
     const [Visible, setVisible] = useState(false)
     const [snackbarText, setSnackbarText] = useState("TestSub")
     const [infoVisible, setInfoVisible] = useState(false)
-    const [bounceValue, setBounceValue] = useState(new Animated.Value(100))
+    const [bounceValue, setBounceValue] = useState(new Animated.Value(75))
     const [height, setHeight] = useState(40)
-    const [scaleValue, setScaleValue] = useState(new Animated.Value(0.2))
+    const [scaleValue, setScaleValue] = useState(new Animated.Value(0.1))
     const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0.2))
-    const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(100))
+    const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(20))
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -277,7 +277,6 @@ const SetWallpaper = ({route}) => {
 
   function  setSnackScale(t) {  
     setSnackTranslate(!t)
-    setSnackbarText(`\nName: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
     var toValue = 1; 
     if(!t) {
       toValue = 0.2;
