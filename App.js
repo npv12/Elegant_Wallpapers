@@ -69,7 +69,7 @@ function HomeScreen () {
     <>
     <ThemeManager>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" screenOptions={{
+        <Stack.Navigator initialRouteName="test" screenOptions={{
           cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
         }}>
           <Stack.Screen name="Home" component={TopTabs} options={{headerShown: false}}/>

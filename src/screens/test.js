@@ -10,12 +10,16 @@ const {
   Animated
 } = ReactNative;
 
-
-var isHidden = true;
+import { InterstitialAdManager,AdSettings } from 'react-native-fbads';
+import loadAd from '../components/Advert';
+import { FB_PLACEMENT_AD } from '../constants';
 
 class Test extends Component {
   constructor(props) {
     super(props);
+   // AdSettings.addTestDevice('2a38a6b4-233a-460a-949e-b7fe60257dc6')
+   AdSettings.clearTestDevices()
+   loadAd()
     this.state = {
       bounceValue: new Animated.Value(300),  //This is the initial position of the subview
       buttonText: "Show Subview"
@@ -24,30 +28,7 @@ class Test extends Component {
 
 
   _toggleSubview() {    
-    this.setState({
-      buttonText: !isHidden ? "Show Subview" : "Hide Subview"
-    });
-
-    var toValue = 2000;
-
-    if(isHidden) {
-      toValue = 0;
-    }
-
-    //This will animate the transalteY of the subview between 0 & 100 depending on its current state
-    //100 comes from the style below, which is the height of the subview.
-    Animated.spring(
-      this.state.bounceValue,
-      {
-        toValue: toValue,
-        velocity: 2.5,
-        tension: 2,
-        friction: 8,
-        useNativeDriver:true,
-      }
-    ).start();
-
-    isHidden = !isHidden;
+    loadAd()
   }
 
   render() {
@@ -56,12 +37,6 @@ class Test extends Component {
           <TouchableHighlight style={styles.button} onPress={()=> {this._toggleSubview()}}>
             <Text style={styles.buttonText}>{this.state.buttonText}</Text>
           </TouchableHighlight>
-          <Animated.View
-            style={[styles.subView,
-              {transform: [{translateY: this.state.bounceValue}]}]}
-          >
-            <Text>This is a sub view</Text>
-          </Animated.View>
       </View>
     );
   }

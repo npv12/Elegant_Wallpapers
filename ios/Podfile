@@ -10,6 +10,8 @@ target 'Elegant' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'ReactNativeAdsFacebook', :path => '../node_modules/react-native-fbads'
+
   target 'ElegantTests' do
     inherit! :complete
     # Pods for testing

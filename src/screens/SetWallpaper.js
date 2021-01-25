@@ -19,6 +19,7 @@ import _, { delay, set } from 'lodash';
 import Loader from '../components/Loader'
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
+import loadAd from '../components/Advert';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -91,6 +92,7 @@ const SetWallpaper = ({route}) => {
     async function setHomeWall ()
     {
       setShowApplyModal(false)
+      loadAd()
       setIsLoading(true)
       RNFetchBlob
       .config({
@@ -121,6 +123,7 @@ const SetWallpaper = ({route}) => {
     function setLockWall ()
     {
       setShowApplyModal(false)
+      loadAd()
       setIsLoading(true)
       RNFetchBlob
       .config({
@@ -151,6 +154,7 @@ const SetWallpaper = ({route}) => {
     function setBothWall ()
     {
       setShowApplyModal(false)
+      loadAd()
       setIsLoading(true)
       RNFetchBlob
       .config({
@@ -421,6 +425,7 @@ function  setSnackTranslate(t) {
     };
 
     async function handleDownload() {
+      loadAd()
       setSnackScale(true)
       setSnackbarText("Download started")
       if (Platform.OS === 'android') {
