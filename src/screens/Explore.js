@@ -11,6 +11,7 @@ import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
 import { SECRET_KEY, WALL_URL } from '../constants';
 import { useTheme } from '../themes'
+import SplashScreen from 'react-native-splash-screen';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -32,6 +33,7 @@ const Explore = ({navigation}) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
+        SplashScreen.hide()
         setData(responseJson)
       })
       .catch((error) => {

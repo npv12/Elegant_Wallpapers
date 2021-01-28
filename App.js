@@ -24,7 +24,7 @@ import { useTheme } from './src/themes'
 import { ONE_SIGNAL } from './src/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { preloadAd } from './src/components/Advert';
-import SplashScreen from 'react-native-splash-screen';
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -108,8 +108,7 @@ class App extends Component {
 }
 
 async componentDidMount() {
-  //preloadAd()
-  SplashScreen.hide()
+  preloadAd()
   OneSignal.setAppId(ONE_SIGNAL);
   OneSignal.setLogLevel(6, 0);
   OneSignal.setRequiresUserPrivacyConsent(this.state.requiresPrivacyConsent);
@@ -129,7 +128,7 @@ async componentDidMount() {
 
       const button2 = { text: "Complete", onPress: () => { notifReceivedEvent.complete(notif); }};
 
-        Alert.alert("Complete notification?", "Test", [ button1, button2], { cancelable: true });
+        console.log("Complete notification?", "Test");
     });
     OneSignal.setNotificationOpenedHandler(notification => {
         this.OSLog("OneSignal: notification opened:", notification);
