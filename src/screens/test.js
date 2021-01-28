@@ -11,7 +11,7 @@ const {
 } = ReactNative;
 
 import { InterstitialAdManager,AdSettings } from 'react-native-fbads';
-import loadAd from '../components/Advert';
+import loadAd, { preloadAd, showAd } from '../components/Advert';
 import { FB_PLACEMENT_AD } from '../constants';
 
 class Test extends Component {
@@ -19,6 +19,7 @@ class Test extends Component {
     super(props);
    // AdSettings.addTestDevice('2a38a6b4-233a-460a-949e-b7fe60257dc6')
    AdSettings.clearTestDevices()
+   preloadAd()
    loadAd()
     this.state = {
       bounceValue: new Animated.Value(300),  //This is the initial position of the subview
@@ -28,7 +29,8 @@ class Test extends Component {
 
 
   _toggleSubview() {    
-    loadAd()
+    showAd()
+    preloadAd()
   }
 
   render() {

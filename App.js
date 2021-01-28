@@ -23,6 +23,7 @@ import SearchScreen from './src/screens/SearchScreen'
 import { useTheme } from './src/themes'
 import { ONE_SIGNAL } from './src/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { preloadAd } from './src/components/Advert';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -106,6 +107,7 @@ class App extends Component {
 }
 
 async componentDidMount() {
+  preloadAd()
   OneSignal.setAppId(ONE_SIGNAL);
   OneSignal.setLogLevel(6, 0);
   OneSignal.setRequiresUserPrivacyConsent(this.state.requiresPrivacyConsent);

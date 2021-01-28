@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Elegant.iml" filepath="$PROJECT_DIR$/.idea/modules/Elegant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Elegant.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Elegant.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1307240096/Elegant.react-native-appearance.iml" filepath="$PROJECT_DIR$/.idea/modules/-1307240096/Elegant.react-native-appearance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1932428815/Elegant.react-native-async-storage_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/-1932428815/Elegant.react-native-async-storage_async-storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1222822547/Elegant.react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/-1222822547/Elegant.react-native-community_masked-view.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1656734134/Elegant.react-native-fbads.iml" filepath="$PROJECT_DIR$/.idea/modules/-1656734134/Elegant.react-native-fbads.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1601036278/Elegant.react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/-1601036278/Elegant.react-native-gesture-handler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2139616662/Elegant.react-native-manage-wallpaper.iml" filepath="$PROJECT_DIR$/.idea/modules/2139616662/Elegant.react-native-manage-wallpaper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-983528238/Elegant.react-native-onesignal.iml" filepath="$PROJECT_DIR$/.idea/modules/-983528238/Elegant.react-native-onesignal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1341466366/Elegant.react-native-push-notification.iml" filepath="$PROJECT_DIR$/.idea/modules/-1341466366/Elegant.react-native-push-notification.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1907171282/Elegant.react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/1907171282/Elegant.react-native-reanimated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-346202637/Elegant.react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/-346202637/Elegant.react-native-safe-area-context.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-544931381/Elegant.react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/-544931381/Elegant.react-native-screens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1532822540/Elegant.react-native-vector-icons.iml" filepath="$PROJECT_DIR$/.idea/modules/1532822540/Elegant.react-native-vector-icons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/666827093/Elegant.rn-fetch-blob.iml" filepath="$PROJECT_DIR$/.idea/modules/666827093/Elegant.rn-fetch-blob.iml" />
+    </modules>
+  </component>
+</project>
