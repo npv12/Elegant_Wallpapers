@@ -15,7 +15,7 @@ const Title = styled.Text`
   color: ${props => props.theme.text};
 `
 
-const Settings = () => {
+const Settings = ({navigation}) => {
   const theme = useTheme()
   return (
     <Container style={styles.container}>
@@ -48,10 +48,10 @@ const Settings = () => {
             </TouchableOpacity>
           </View>
           <Title style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Version</Title>
-          <View>
+          <TouchableOpacity onPress={()=>navigation.navigate('About')}>
             <Title style={styles.item}>Elegant version</Title>
             <Title style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>4.0</Title>
-          </View>
+          </TouchableOpacity>
       </ScrollView>
     </Container>
   );
