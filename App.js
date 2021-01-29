@@ -15,7 +15,6 @@ import SpecificCollection from './src/screens/SpecificCollection';
 import About from './src/screens/About';
 import Settings from './src/screens/Settings'
 import Fav from './src/screens/favorite';
-import Test from './src/screens/test';
 import ThemeManager from './src/themes';
 import { app_id } from './constants';
 import BottomTab from './src/components/BottomTab';
@@ -130,7 +129,6 @@ function HomeScreen(){
             backgroundColor:!text?'white':'black'
           }
           }} />
-          <Stack.Screen name="test" component={Test}/>
           <Stack.Screen name="Search" component={SearchScreen} options={{headerShown:false}}/>
         </Stack.Navigator>  
       </NavigationContainer>

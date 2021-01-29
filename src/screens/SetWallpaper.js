@@ -8,7 +8,9 @@ import {
     Alert,
     StatusBar,
     Animated,
-    ScrollView
+    ScrollView,
+    ActivityIndicator,
+    Image
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
@@ -41,7 +43,8 @@ const SetWallpaper = ({route}) => {
     const [snackbarText, setSnackbarText] = useState("TestSub")
     const [infoVisible, setInfoVisible] = useState(false)
     const [bounceValue, setBounceValue] = useState(new Animated.Value(75))
-    const [height, setHeight] = useState(40)
+    const [height, setHeight] = useState(1000)
+    const [width, setWidth] = useState(1000)
     const [scaleValue, setScaleValue] = useState(new Animated.Value(0.1))
     const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0.2))
     const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(20))
@@ -57,6 +60,10 @@ const SetWallpaper = ({route}) => {
 
     async function retrieveData()
     {
+      Image.getSize(item.thumbnail, (w,h)=>{
+        setWidth(w)
+        setHeight(h)
+      })
       await AsyncStorage.getItem('favs').then((r)=>{
         var res = JSON.parse(r)
         if(!res)
@@ -259,7 +266,6 @@ const SetWallpaper = ({route}) => {
     var toValue = 0   
     if(infoVisible) {
       toValue = 75;
-      setHeight(50)
     }
     Animated.spring(
       bounceValue,
@@ -469,9 +475,11 @@ function  setSnackTranslate(t) {
     <View style={{flex:1}}>
       <StatusBar translucent={true} backgroundColor={'transparent'} />
       <View style={styles.container}>
-        <View>
-          <LoadImage source={item} style={styles.wall}/>
-        </View>
+        <ScrollView horizontal showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={{alignItems:'center'}}>
+          <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={{alignItems:'center'}}>
+            <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:height, width:width}}/>
+          </ScrollView>
+        </ScrollView>
         {renderBottomTab()}
         <Loader loading={isLoading}/>
       </View>
@@ -484,10 +492,6 @@ function  setSnackTranslate(t) {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  wall:{
-      height:"100%",
-      width:'100%',
   },
   snackbar:{
     marginBottom:-100, 
@@ -532,6 +536,15 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     marginVertical:5,
     alignItems:'center',
+  },
+  activityIndicatorWrapper: {
+    height: 250,
+    position:'absolute',
+    width: "100%",
+    borderRadius: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
 });
 
