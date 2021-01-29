@@ -66,28 +66,82 @@ function TopTabs({navigation}) {
 
 const Stack = createStackNavigator();
 
-function HomeScreen () {
+function HomeScreen(){
+  const theme = useTheme()
+  const [text,setText] = useState(false)
+  async function fetchTheme(){
+    var temp = await AsyncStorage.getItem('theme')
+    if(temp)
+    {
+      theme.setMode(temp)
+    }
+  }
+  useEffect(()=>{
+    fetchTheme()
+  },[])
+  if(theme.mode=='dark' && !text)
+    setText(true)
+  else if(theme.mode=='light' && text)
+    setText(false)
   return (
-    <>
-    <ThemeManager>
-      <NavigationContainer>
+    <NavigationContainer>
         <Stack.Navigator initialRouteName="Home" screenOptions={{
           cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
         }}>
           <Stack.Screen name="Home" component={TopTabs} options={{headerShown: false}}/>
           <Stack.Screen name="Wall" component={SetWallpaper} options={{headerShown: false}}/>
           <Stack.Screen name="Collection" component={SpecificCollection} options={{headerShown:false}}/>
-          <Stack.Screen name="Settings" component={Settings} options={{headerShown:false}}/>
-          <Stack.Screen name="About" component={About}/>
-          <Stack.Screen name="Fav" component={Fav} options={{title: 'Favourites',headerShown:false,headerTitleAlign:'center',headerTitleStyle:{
+          <Stack.Screen name="Settings" component={Settings} options={{
+            title: 'Settings',
+            headerTitleAlign:'center',
+            headerTintColor:text?'white':'black',
+            headerTitleStyle:{
             fontFamily:'Linotte-Bold',
             fontWeight:'normal',
-            fontSize:23
-          }}} />
+            fontSize:23,
+          },
+          headerStyle:{
+            backgroundColor:!text?'white':'black'
+          }
+          }} />
+          <Stack.Screen name="About" component={About} options={{
+            title: 'About Elegant',
+            headerTitleAlign:'center',
+            headerTintColor:text?'white':'black',
+            headerTitleStyle:{
+            fontFamily:'Linotte-Bold',
+            fontWeight:'normal',
+            fontSize:23,
+          },
+          headerStyle:{
+            backgroundColor:!text?'white':'black'
+          }
+          }}/>
+          <Stack.Screen name="Fav" component={Fav} options={{
+            title: 'Favorite',
+            headerTitleAlign:'center',
+            headerTintColor:text?'white':'black',
+            headerTitleStyle:{
+            fontFamily:'Linotte-Bold',
+            fontWeight:'normal',
+            fontSize:23,
+          },
+          headerStyle:{
+            backgroundColor:!text?'white':'black'
+          }
+          }} />
           <Stack.Screen name="test" component={Test}/>
           <Stack.Screen name="Search" component={SearchScreen} options={{headerShown:false}}/>
         </Stack.Navigator>  
       </NavigationContainer>
+  )
+}
+
+function Themes () {
+  return (
+    <>
+    <ThemeManager>
+      <HomeScreen/>
     </ThemeManager>
     </>
   );
@@ -178,7 +232,7 @@ componentWillUnmount() {
 
   render()
   {
-    return <HomeScreen/>
+    return <Themes/>
    
     
   }

@@ -50,7 +50,7 @@ const Fav = ({navigation}) => {
                 </View>
         }
         return <View style={{flex:1, justifyContent:'center',alignContents:'center'}}>
-          <Text style={{padding:100}}>No favs set</Text>
+          <Text style={{fontSize:24, textAlign:'center', fontFamily:'koliko'}}>No favourites :(</Text>
         </View>
       }
     
@@ -79,9 +79,6 @@ const Fav = ({navigation}) => {
     </View>
     <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
         <View style={styles.container}>
-        <View style={styles.header}>
-            <Text style={styles.headerText}>Favorites</Text>
-        </View>
         {renderWalls()}
         </View>
       </>
