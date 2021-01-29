@@ -17,7 +17,6 @@ const Title = styled.Text`
 
 const Settings = () => {
   const theme = useTheme()
-  useEffect(() => {SplashScreen.hide()},[]);
   return (
     <Container style={styles.container}>
       <ScrollView>

@@ -10,6 +10,7 @@ import { Icon } from 'react-native-elements'
 import styled from 'styled-components/native'
 import { useTheme } from '../themes'
 import Modal from 'react-native-modal';
+import { PRO_APP } from '../constants';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -78,7 +79,7 @@ const BottomTab = (props) => {
           >
       <View style={{...styles.bottomTab, height:185}}>
         <View style={styles.pill}></View>
-        <TouchableOpacity onPress={()=>Linking.openURL('https://play.google.com/store/apps/details?id=com.madness.wallz.pro')}>
+        <TouchableOpacity onPress={()=>Linking.openURL(PRO_APP)}>
           <View style={styles.modalItem}>
             <Icon name="shopping-bag" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
             <Text style={styles.modalText}>Upgrade to Pro</Text>
