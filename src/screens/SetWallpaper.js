@@ -23,6 +23,10 @@ import Loader from '../components/Loader'
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
 import loadAd from '../components/Advert';
+import ImageZoom from 'react-native-image-pan-zoom';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -295,7 +299,6 @@ const SetWallpaper = ({route}) => {
         useNativeDriver:true,
       }, 
     ).start();
-    setVisible(!t) ;
     if(t){
       setDelay()
     }
@@ -341,6 +344,8 @@ function  setSnackTranslate(t) {
 
     function renderBottomTab()
     {
+      if(!Visible)
+      {
       return(
         <>
         {renderExtraSpace()}
@@ -395,7 +400,7 @@ function  setSnackTranslate(t) {
         </Modal>
         
         </>
-      )
+      )}
     }
 
     const getPermissionAndroid = async () => {
@@ -475,11 +480,12 @@ function  setSnackTranslate(t) {
     <View style={{flex:1}}>
       <StatusBar translucent={true} backgroundColor={'transparent'} />
       <View style={styles.container}>
-        <ScrollView horizontal showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={{alignItems:'center'}}>
-          <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false} contentContainerStyle={{alignItems:'center'}}>
+        
+        <ImageZoom cropHeight={windowHeight} cropWidth={windowWidth} imageHeight={height} imageWidth={width}>
+        <TouchableOpacity onPress={()=>setVisible(!Visible)} activeOpacity={1}>
             <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:height, width:width}}/>
-          </ScrollView>
-        </ScrollView>
+            </TouchableOpacity>
+        </ImageZoom>
         {renderBottomTab()}
         <Loader loading={isLoading}/>
       </View>
