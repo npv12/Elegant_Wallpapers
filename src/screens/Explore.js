@@ -64,7 +64,7 @@ const Explore = ({navigation}) => {
 
   const Item = ({ item, onPress }) => (
     <View style={styles.wallBoundary}>
-      <TouchableOpacity onPress={onPress} >
+      <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
         <LoadImage source={item} style={styles.Wall}/>
       </TouchableOpacity>
     </View>

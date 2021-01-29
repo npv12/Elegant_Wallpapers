@@ -7,7 +7,8 @@ import {
     PermissionsAndroid,
     Alert,
     StatusBar,
-    Animated
+    Animated,
+    ScrollView
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
@@ -15,7 +16,7 @@ import Modal from 'react-native-modal';
 import RNFetchBlob from 'rn-fetch-blob';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../themes'
-import _, { delay, set } from 'lodash';
+import _ from 'lodash';
 import Loader from '../components/Loader'
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
@@ -28,9 +29,6 @@ const View = styled.View`
 const Text = styled.Text`
   color: ${props => props.theme.text};
 `
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 const SetWallpaper = ({route}) => {
     const theme = useTheme()
@@ -488,9 +486,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   wall:{
-      height:windowHeight+35,
-      width:windowWidth+35,
-      position:'absolute'
+      height:"100%",
+      width:'100%',
   },
   snackbar:{
     marginBottom:-100, 

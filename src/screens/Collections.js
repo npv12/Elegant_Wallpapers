@@ -82,7 +82,7 @@ const Collections = ({navigation}) => {
 
   const Item = ({ item, onPress }) => (
     <View style={styles.wallBoundary}>
-      <TouchableOpacity onPress={onPress} >
+      <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
         <LoadImage source={item} style={styles.Wall}/>
         <View style={styles.header}>
         <Text style={styles.headerText}>{item.collections.toUpperCase()}</Text>
