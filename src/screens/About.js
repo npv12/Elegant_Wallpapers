@@ -37,7 +37,7 @@ const About = () => {
           </TouchableOpacity>
           <TouchableOpacity onPress={()=>Linking.openURL(PRANAV_TELE)}>
             <Text style={styles.item}>Pranav Santhosh</Text>
-            <Text style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>Blame me :D</Text>
+            <Text style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>App developer</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={()=>Linking.openURL(MADNESS_TELE)}>
             <Text style={styles.item}>Join telegram channel</Text>
@@ -53,7 +53,7 @@ const About = () => {
           </TouchableOpacity>
           <View>
           <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Disclaimer</Text>
-            <Text style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>
+            <Text style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989', textAlign:'justify'}}>
                 {DISCLAIMER_TEXT}
             </Text>
           </View>

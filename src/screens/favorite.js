@@ -10,6 +10,7 @@ import {
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
 import { useTheme } from '../themes'
+import { Icon } from 'react-native-elements';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -49,9 +50,10 @@ const Fav = ({navigation}) => {
             />
                 </View>
         }
-        return <View style={{flex:1, justifyContent:'center',alignContents:'center'}}>
-          <Text style={{fontSize:24, textAlign:'center', fontFamily:'koliko'}}>No favourites :(</Text>
-        </View>
+        return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
+        <Icon name="heart" type="feather" size={45} color='grey' style={{paddingBottom:35}}/>
+        <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20, fontFamily:'Linotte-Bold'}}>No Favorites :(</Text>
+      </View>
       }
     
       const Item = ({ item, onPress }) => (

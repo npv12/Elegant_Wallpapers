@@ -61,7 +61,13 @@ const SearchScreen = ({navigation}) => {
     }
 
     function renderWalls(){
-        if(walls && !empty)
+        if(walls.length==0 && !empty){
+          return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
+            <Icon name="x" type="feather" size={45} color='grey' style={{paddingBottom:35}}/>
+          <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20, fontFamily:'Linotte-Bold'}}>No result found</Text>
+        </View>
+        }
+        else if(walls && !empty)
         {
           return <View style={{paddingHorizontal:10}}>
                   <FlatList
@@ -75,6 +81,7 @@ const SearchScreen = ({navigation}) => {
                 </View>
         }
         return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
+          <Icon name="search" type="feather" size={45} color='grey' style={{paddingBottom:35}}/>
           <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20, fontFamily:'Linotte-Bold'}}>Try searching for something</Text>
         </View>
       }
