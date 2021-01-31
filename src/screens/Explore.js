@@ -9,7 +9,7 @@ import {
 import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
-import { SECRET_KEY, WALL_URL } from '../constants';
+import { SECRET_KEY, VERSION_NUMBER, VERSION_URL, WALL_URL } from '../constants';
 import { useTheme } from '../themes'
 import SplashScreen from 'react-native-splash-screen';
 
@@ -26,6 +26,7 @@ const windowWidth = Dimensions.get('window').width;
 const Explore = ({navigation}) => {
   const theme = useTheme()
   const [data, setData] = useState([])
+  const [updateState, setUpdateState] = useState(0)
 
   async function getData(){
     fetch(WALL_URL, {
@@ -39,6 +40,20 @@ const Explore = ({navigation}) => {
       .catch((error) => {
         console.log(error);
       });
+
+    fetch(VERSION_URL, {
+      method: 'GET',
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        if(responseJson[0].Appversion!=VERSION_NUMBER)
+          setUpdateState(0)
+        else  setUpdateState(responseJson[0].Priority)
+        console.log(updateState)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   useEffect(() => {getData()},[]);
@@ -80,6 +95,26 @@ const renderItem = ({ item }) => {
     />
   );
 };
+
+if(updateState!=0){
+  if(updateState==2)
+  return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
+      <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20, fontFamily:'Linotte-Bold'}}>Update the app to view the walls.</Text>
+    </View>
+  else if(updateState==1){
+    return(
+      <>
+      <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
+      <View style={{height:100, width:"100%", backgroundColor:theme.mode=='dark'?'#AAFF00':'#7CCC00',justifyContent:'center',padding:25, alignItems:'center'}}>
+        <Text style={{color:'black', fontSize:20, fontFamily:'Linotte-Bold'}}>Update the app for best possible experience</Text>
+      </View>
+      <View style={{...styles.container}}>
+          {renderWalls()}
+      </View>
+       </>
+    )
+  }
+}
 
   return (
     <>
