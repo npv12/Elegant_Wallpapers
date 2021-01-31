@@ -52,6 +52,7 @@ const SetWallpaper = ({route}) => {
     const [scaleValue, setScaleValue] = useState(new Animated.Value(0.))
     const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0.0))
     const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(20))
+    const [bottomTabAnim ,setBottomTabAnim] = useState(new Animated.Value(-60))
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -283,6 +284,24 @@ const SetWallpaper = ({route}) => {
     ).start();
   }
 
+  function  setBottomTabTranslate() {   
+    var toValue = -60   
+    if(Visible) {
+      toValue = 150;
+    }
+    Animated.spring(
+      bottomTabAnim,
+      {
+        toValue: toValue,
+        velocity: 25,
+        tension: 3,
+        friction: 8,
+        useNativeDriver:true,
+      }, 
+    ).start();
+    setVisible(!Visible)
+  }
+
   function  setSnackScale(t) {  
     setSnackTranslate(!t)
     var toValue = 1; 
@@ -344,10 +363,9 @@ function  setSnackTranslate(t) {
 
     function renderBottomTab()
     {
-      if(!Visible)
       {
       return(
-        <>
+        <Animated.View style={[{transform: [{translateY: bottomTabAnim,}]}]}>
         {renderExtraSpace()}
         {renderBottomSnack()}
         <View style={{...styles.bottomTab}}>
@@ -399,7 +417,7 @@ function  setSnackTranslate(t) {
           </View>
         </Modal>
         
-        </>
+        </Animated.View>
       )}
     }
 
@@ -482,7 +500,7 @@ function  setSnackTranslate(t) {
       <View style={styles.container}>
         
         <ImageZoom cropHeight={windowHeight+35} cropWidth={windowWidth} imageHeight={height} imageWidth={width}>
-        <TouchableOpacity onPress={()=>setVisible(!Visible)} activeOpacity={1}>
+        <TouchableOpacity onPress={()=>setBottomTabTranslate()} activeOpacity={1}>
             <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:height, width:width}}/>
             </TouchableOpacity>
         </ImageZoom>
@@ -509,7 +527,7 @@ const styles = StyleSheet.create({
   },
   bottomTab:{
     width:"80%", 
-    height:50, 
+    height:55, 
     bottom:0, 
     position:'absolute', 
     margin:'10%',

@@ -46,10 +46,10 @@ const Explore = ({navigation}) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
+        console.log(responseJson)
         if(responseJson[0].Appversion!=VERSION_NUMBER)
           setUpdateState(0)
         else  setUpdateState(responseJson[0].Priority)
-        console.log(updateState)
       })
       .catch((error) => {
         console.log(error);
