@@ -24,30 +24,30 @@ const About = () => {
             <Text style={styles.item}>Version</Text>
             <Text style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>4.0</Text>
         </View>
-        <TouchableOpacity onPress={()=>Linking.openURL(FREE_APP)}>
+        <TouchableOpacity onPress={()=>Linking.openURL(FREE_APP)} activeOpacity={0.6}>
             <Text style={styles.item}>Changelog</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>Linking.openURL(CREDITS_URL)}  style={{paddingTop:8}}>
+        <TouchableOpacity onPress={()=>Linking.openURL(CREDITS_URL)}  style={{paddingTop:8}} activeOpacity={0.6}>
             <Text style={styles.item}>Licences</Text>
         </TouchableOpacity>
         <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Author</Text>
-          <TouchableOpacity onPress={()=>Linking.openURL(UNFUNNYGAY_TELE)}>
+          <TouchableOpacity onPress={()=>Linking.openURL(UNFUNNYGAY_TELE)} activeOpacity={0.6}>
             <Text style={styles.item}>Sarath</Text>
             <Text style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>Project manager/Founder</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>Linking.openURL(PRANAV_TELE)}>
+          <TouchableOpacity onPress={()=>Linking.openURL(PRANAV_TELE)} activeOpacity={0.6}>
             <Text style={styles.item}>Pranav Santhosh</Text>
             <Text style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>App developer</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>Linking.openURL(MADNESS_TELE)}>
+          <TouchableOpacity onPress={()=>Linking.openURL(MADNESS_TELE)} activeOpacity={0.6}>
             <Text style={styles.item}>Join telegram channel</Text>
           </TouchableOpacity>
           <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Support Development</Text>
-          <TouchableOpacity onPress={()=>Linking.openURL(FREE_APP)}>
+          <TouchableOpacity onPress={()=>Linking.openURL(FREE_APP)} activeOpacity={0.6}>
             <Text style={styles.item}>Rate</Text>
             <Text style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>Love the app? Rate it at playstore</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>Linking.openURL(PRO_APP)}>
+          <TouchableOpacity onPress={()=>Linking.openURL(PRO_APP)} activeOpacity={0.6}>
             <Text style={styles.item}>Pro</Text>
             <Text style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>Buy the pro app and go adfree</Text>
           </TouchableOpacity>

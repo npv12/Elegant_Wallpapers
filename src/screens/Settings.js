@@ -40,15 +40,15 @@ const Settings = ({navigation}) => {
           </View>
           <Title style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Legal</Title>
           <View>
-            <TouchableOpacity onPress={()=>Linking.openURL(PRIVACY_POLICY_URL)}>
+            <TouchableOpacity onPress={()=>Linking.openURL(PRIVACY_POLICY_URL)} activeOpacity={0.6}>
               <Title style={styles.item}>Privacy policy</Title>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>Linking.openURL(TERMS_OF_USE_URL)}>
+            <TouchableOpacity onPress={()=>Linking.openURL(TERMS_OF_USE_URL)} activeOpacity={0.6}>
               <Title style={{...styles.item, paddingTop:25}}>Terms of use</Title>
             </TouchableOpacity>
           </View>
           <Title style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Version</Title>
-          <TouchableOpacity onPress={()=>navigation.navigate('About')}>
+          <TouchableOpacity onPress={()=>navigation.navigate('About')} activeOpacity={0.6}>
             <Title style={styles.item}>Elegant version</Title>
             <Title style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>4.0</Title>
           </TouchableOpacity>
