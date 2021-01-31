@@ -502,9 +502,7 @@ function  setSnackTranslate(t) {
         <View style={styles.activityIndicatorWrapper}>
           <ActivityIndicator animating={true} size={55} color="#00bd84" />
         </View>
-          <ImageZoom cropHeight={windowHeight+35} cropWidth={windowWidth} imageHeight={height} imageWidth={width} enableCenterFocus>
-          <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:height, width:width}}/>
-        </ImageZoom>
+          <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:"100%", width:"100%", position:'absolute'}}/>
         {renderBottomTab()}
         <Loader loading={isLoading}/>
       </View>
