@@ -366,7 +366,7 @@ function  setSnackTranslate(t) {
     {
       {
       return(
-        <Animated.View style={[{transform: [{translateY: bottomTabAnim,}]}]}>
+        <>
         {renderExtraSpace()}
         {renderBottomSnack()}
         <View style={{...styles.bottomTab}}>
@@ -418,7 +418,7 @@ function  setSnackTranslate(t) {
           </View>
         </Modal>
         
-        </Animated.View>
+        </>
       )}
     }
 
@@ -500,12 +500,10 @@ function  setSnackTranslate(t) {
       <StatusBar translucent={true} backgroundColor={'transparent'} />
       <View style={styles.container}>
         <View style={styles.activityIndicatorWrapper}>
-          <ActivityIndicator animating={true} size={75} color="#00bd84" />
+          <ActivityIndicator animating={true} size={55} color="#00bd84" />
         </View>
-        <ImageZoom cropHeight={windowHeight+35} cropWidth={windowWidth} imageHeight={height} imageWidth={width} enableCenterFocus>
-        <TouchableOpacity onPress={()=>setBottomTabTranslate()} activeOpacity={1}>
-            <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:height, width:width, position:'absolute'}}/>
-            </TouchableOpacity>
+          <ImageZoom cropHeight={windowHeight+35} cropWidth={windowWidth} imageHeight={height} imageWidth={width} enableCenterFocus>
+          <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:height, width:width}}/>
         </ImageZoom>
         {renderBottomTab()}
         <Loader loading={isLoading}/>
@@ -514,7 +512,7 @@ function  setSnackTranslate(t) {
           </View>
     </View>
   );
-};
+};//
 
 const styles = StyleSheet.create({
   container: {
