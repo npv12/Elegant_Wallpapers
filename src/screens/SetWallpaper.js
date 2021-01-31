@@ -43,12 +43,12 @@ const SetWallpaper = ({route}) => {
     const [isFav, setIsFav] = useState(false)
     const [iconColor, setIconColor] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [Visible, setVisible] = useState(false)
+    const [Visible, setVisible] = useState(true)
     const [snackbarText, setSnackbarText] = useState("TestSub")
     const [infoVisible, setInfoVisible] = useState(false)
     const [bounceValue, setBounceValue] = useState(new Animated.Value(75))
-    const [height, setHeight] = useState(1000)
-    const [width, setWidth] = useState(1000)
+    const [height, setHeight] = useState(windowHeight)
+    const [width, setWidth] = useState(windowWidth)
     const [scaleValue, setScaleValue] = useState(new Animated.Value(0.))
     const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0.0))
     const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(20))
@@ -68,7 +68,8 @@ const SetWallpaper = ({route}) => {
       Image.getSize(item.thumbnail, (w,h)=>{
         setWidth(w)
         setHeight(h)
-      })
+      }).catch()
+
       await AsyncStorage.getItem('favs').then((r)=>{
         var res = JSON.parse(r)
         if(!res)
@@ -498,10 +499,12 @@ function  setSnackTranslate(t) {
     <View style={{flex:1}}>
       <StatusBar translucent={true} backgroundColor={'transparent'} />
       <View style={styles.container}>
-        
-        <ImageZoom cropHeight={windowHeight+35} cropWidth={windowWidth} imageHeight={height} imageWidth={width}>
+        <View style={styles.activityIndicatorWrapper}>
+          <ActivityIndicator animating={true} size={75} color="#00bd84" />
+        </View>
+        <ImageZoom cropHeight={windowHeight+35} cropWidth={windowWidth} imageHeight={height} imageWidth={width} enableCenterFocus>
         <TouchableOpacity onPress={()=>setBottomTabTranslate()} activeOpacity={1}>
-            <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:height, width:width}}/>
+            <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:height, width:width, position:'absolute'}}/>
             </TouchableOpacity>
         </ImageZoom>
         {renderBottomTab()}
@@ -566,6 +569,7 @@ const styles = StyleSheet.create({
     position:'absolute',
     width: "100%",
     borderRadius: 10,
+    top:windowHeight/2-150,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',
