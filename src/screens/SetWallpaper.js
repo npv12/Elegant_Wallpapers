@@ -49,8 +49,8 @@ const SetWallpaper = ({route}) => {
     const [bounceValue, setBounceValue] = useState(new Animated.Value(75))
     const [height, setHeight] = useState(1000)
     const [width, setWidth] = useState(1000)
-    const [scaleValue, setScaleValue] = useState(new Animated.Value(0.1))
-    const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0.2))
+    const [scaleValue, setScaleValue] = useState(new Animated.Value(0.))
+    const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0.0))
     const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(20))
 
     if(theme.mode=='dark' && !iconColor)
@@ -251,7 +251,7 @@ const SetWallpaper = ({route}) => {
       setSnackbarText(`\nName: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
       var toValue = 1; 
       if(infoVisible) {
-        toValue = 0.2;
+        toValue = 0.0;
       }
       Animated.timing(
         scaleValue,
@@ -323,7 +323,7 @@ function  setSnackTranslate(t) {
     function renderExtraSpace()
     {
         return(
-          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:40,height:150 ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValue,},{scaleY: scaleValue},]}]}>
+          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:26,height:150 ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValue,},{scaleY: scaleValue},]}]}>
             <Text style={{...styles.modalText, textAlign:'left', fontSize:16, paddingTop:5,}}>
               {snackbarText}
             </Text>
@@ -334,7 +334,7 @@ function  setSnackTranslate(t) {
     function renderBottomSnack()
     {
         return(
-          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:40,height:60 ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValueSnack,},{scaleY: scaleValueSnack},]}]}>
+          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:26,height:60 ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValueSnack,},{scaleY: scaleValueSnack},]}]}>
             <Text style={{...styles.modalText, textAlign:'center', fontSize:16, paddingTop:10,}}>
               {snackbarText}
             </Text>
@@ -481,7 +481,7 @@ function  setSnackTranslate(t) {
       <StatusBar translucent={true} backgroundColor={'transparent'} />
       <View style={styles.container}>
         
-        <ImageZoom cropHeight={windowHeight} cropWidth={windowWidth} imageHeight={height} imageWidth={width}>
+        <ImageZoom cropHeight={windowHeight+35} cropWidth={windowWidth} imageHeight={height} imageWidth={width}>
         <TouchableOpacity onPress={()=>setVisible(!Visible)} activeOpacity={1}>
             <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:height, width:width}}/>
             </TouchableOpacity>
@@ -509,7 +509,7 @@ const styles = StyleSheet.create({
   },
   bottomTab:{
     width:"80%", 
-    height:65, 
+    height:50, 
     bottom:0, 
     position:'absolute', 
     margin:'10%',
