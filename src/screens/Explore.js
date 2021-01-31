@@ -46,8 +46,9 @@ const Explore = ({navigation}) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson)
-        if(responseJson[0].Appversion!=VERSION_NUMBER)
+        if(responseJson[0].Lastforceupdate>VERSION_NUMBER)
+          setUpdateState(2)
+        else if(responseJson[0].Appversion>=VERSION_NUMBER)
           setUpdateState(0)
         else  setUpdateState(responseJson[0].Priority)
       })
