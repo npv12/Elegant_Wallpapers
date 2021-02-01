@@ -29,6 +29,7 @@ const Explore = ({navigation}) => {
   const [updateState, setUpdateState] = useState(0)
 
   async function getData(){
+    console.log(VERSION_NUMBER)
     fetch(WALL_URL, {
       method: 'GET',
     })
@@ -48,7 +49,7 @@ const Explore = ({navigation}) => {
       .then((responseJson) => {
         if(responseJson[0].Lastforceupdate>VERSION_NUMBER)
           setUpdateState(2)
-        else if(responseJson[0].Appversion>=VERSION_NUMBER)
+        else if(responseJson[0].Appversion<=VERSION_NUMBER)
           setUpdateState(0)
         else  setUpdateState(responseJson[0].Priority)
       })

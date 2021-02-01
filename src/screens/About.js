@@ -3,7 +3,7 @@ import { Linking } from 'react-native';
 import {StyleSheet,TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import styled from 'styled-components/native'
-import { CREDITS_URL, DISCLAIMER_TEXT, FREE_APP, MADNESS_TELE, PRANAV_TELE, PRO_APP, UNFUNNYGAY_TELE } from '../constants';
+import { CREDITS_URL, DISCLAIMER_TEXT, FREE_APP, MADNESS_TELE, PRANAV_TELE, PRO_APP, UNFUNNYGAY_TELE, VERSION_NUMBER } from '../constants';
 import { useTheme } from '../themes'
 
 const View = styled.View`
@@ -22,7 +22,7 @@ const About = () => {
       <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00', paddingTop:5}}>Legal</Text>
         <View>
             <Text style={styles.item}>Version</Text>
-            <Text style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>4.0</Text>
+            <Text style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>{VERSION_NUMBER}</Text>
         </View>
         <TouchableOpacity onPress={()=>Linking.openURL(FREE_APP)} activeOpacity={0.6}>
             <Text style={styles.item}>Changelog</Text>

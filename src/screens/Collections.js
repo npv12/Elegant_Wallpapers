@@ -11,7 +11,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
-import { SECRET_KEY, WALL_URL } from '../constants';
+import { SECRET_KEY, VERSION_NUMBER, VERSION_URL, WALL_URL } from '../constants';
 import { useTheme } from '../themes'
 
 const SView = styled.View`
@@ -27,6 +27,7 @@ const windowWidth = Dimensions.get('window').width;
 const Collections = ({navigation}) => {
   const [collection, setCollection]=useState([])
   const [data, setData]=useState([])
+  const [updateState, setUpdateState] = useState(0)
   const theme = useTheme()
 
   async function getData(){
@@ -41,6 +42,20 @@ const Collections = ({navigation}) => {
       .catch((error) => {
         console.log(error);
       });
+      fetch(VERSION_URL, {
+        method: 'GET',
+      })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          if(responseJson[0].Lastforceupdate>VERSION_NUMBER)
+            setUpdateState(2)
+          else if(responseJson[0].Appversion<=VERSION_NUMBER)
+            setUpdateState(0)
+          else  setUpdateState(responseJson[0].Priority)
+        })
+        .catch((error) => {
+          console.log(error);
+        })
   }
 
   function filterOut(value){
@@ -118,6 +133,26 @@ function renderItem  ({ item }) {
             />
             </View>
     )
+  }
+
+  if(updateState!=0){
+    if(updateState==2)
+    return <SView style={{justifyContent:'center', flex:1, alignItems:'center'}}>
+        <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20, fontFamily:'Linotte-Bold'}}>Update the app to view the walls.</Text>
+      </SView>
+    else if(updateState==1){
+      return(
+        <>
+        <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
+        <SView style={{height:100, width:"100%", backgroundColor:theme.mode=='dark'?'#AAFF00':'#7CCC00',justifyContent:'center',padding:25, alignItems:'center'}}>
+          <Text style={{color:'black', fontSize:20, fontFamily:'Linotte-Bold'}}>Update the app for best possible experience</Text>
+        </SView>
+        <SView style={{...styles.container}}>
+          {renderCollections()}
+        </SView>
+         </>
+      )
+    }
   }
 
   return (

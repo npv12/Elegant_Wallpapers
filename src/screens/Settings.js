@@ -3,7 +3,7 @@ import { View, StyleSheet,Switch,TouchableOpacity,Linking } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import { ScrollView } from 'react-native-gesture-handler';
-import { PRIVACY_POLICY_URL, TERMS_OF_USE_URL } from '../constants';
+import { PRIVACY_POLICY_URL, TERMS_OF_USE_URL, VERSION_NUMBER } from '../constants';
 import { useTheme } from '../themes'
 import styled from 'styled-components/native'
 
@@ -50,7 +50,7 @@ const Settings = ({navigation}) => {
           <Title style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Version</Title>
           <TouchableOpacity onPress={()=>navigation.navigate('About')} activeOpacity={0.6}>
             <Title style={styles.item}>Elegant version</Title>
-            <Title style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>4.0</Title>
+            <Title style={{...styles.item, fontSize:16, paddingTop:5, color:'#898989'}}>{VERSION_NUMBER}</Title>
           </TouchableOpacity>
       </ScrollView>
     </Container>
