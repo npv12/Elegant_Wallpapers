@@ -1,13 +1,16 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View,Dimensions} from 'react-native';
 // @ts-ignore
 import Modal from 'react-native-modal';
+import { STANDARD_HEIGHT, STANDARD_WIDTH } from '../constants';
 import ModalBaseScene from './ModalBaseScene';
-import { useTheme } from '../themes'
 
 type State = {
   scrollOffset: null | number;
 };
+
+const scaleWidth = Dimensions.get('window').width/STANDARD_WIDTH
+const scaleHeight = Dimensions.get('window').height/STANDARD_HEIGHT
 
 
 class ScrollableModal extends ModalBaseScene<State> {
@@ -70,21 +73,22 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   scrollableModal: {
-    height: 300,
+    height: 300*scaleHeight,
   },
   scrollableModalContent1: {
-    height: 400,
+    height: 400*scaleHeight,
     backgroundColor: '#AAFF00',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
-    padding:25,
+    justifyContent: 'flex-start',
+    padding:25 * scaleHeight,
     borderTopLeftRadius:25,
     borderTopRightRadius:25
   },
   scrollableModalText1: {
-    fontSize: 20,
+    fontSize: 20*scaleHeight,
     color: 'black',
     textAlign:'justify',
+    paddingTop:35,
     fontFamily:'Linotte-Bold'
   },
 });
