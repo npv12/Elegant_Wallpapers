@@ -9,7 +9,7 @@ import {
   } from 'react-native';
   import styled from 'styled-components/native'
   import LoadImage from '../components/LoadImage';
-  import { SECRET_KEY, WALL_URL } from '../constants';
+  import { SECRET_KEY, WALL_URL,STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
   import { useTheme } from '../themes'
 
   const View = styled.View`
@@ -22,6 +22,8 @@ import {
 
   const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+const scaleWidth = Dimensions.get('window').width/STANDARD_WIDTH
+const scaleHeight = Dimensions.get('window').height/STANDARD_HEIGHT
 
 const SpecificCollection = ({navigation,route}) => {
 const {value} = route.params;
@@ -56,7 +58,7 @@ useEffect(() => {getData()},[]);
 function renderWalls(){
     if(data)
     {
-      return <View style={{paddingHorizontal:10}}>
+      return <View style={{paddingHorizontal:10*scaleWidth}}>
               <FlatList
               showsVerticalScrollIndicator ={false}
               showsHorizontalScrollIndicator={false}
@@ -68,7 +70,7 @@ function renderWalls(){
             </View>
     }
     return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
-      <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20, fontFamily:'Linotte-Bold'}}>Loading your perfect collection.....</Text>
+      <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Loading your perfect collection.....</Text>
     </View>
   }
 
@@ -93,7 +95,7 @@ const renderItem = ({ item }) => {
 
   return (
     <>
-    <View style={{backgroundColor:theme.mode!='dark'?'white':'black',height:35}}>
+    <View style={{backgroundColor:theme.mode!='dark'?'white':'black',height:35*scaleHeight}}>
     </View>
     <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
     <View style={styles.container}>
@@ -112,22 +114,22 @@ const styles = StyleSheet.create({
   },
   Wall:{
     width:windowWidth/2*0.88,
-    height:250,
+    height:250*scaleHeight,
     borderRadius:5,
     borderTopRightRadius:5,
   },
   wallBoundary:{
     flex:1,
-    margin:8,
+    margin:8*scaleHeight,
     justifyContent:'center',
     alignItems:'center',
   },
   header:{
-    padding:20,
+    padding:20*scaleHeight,
     alignItems:'center'
   },
   headerText:{
-      fontSize:20,
+      fontSize:20*scaleHeight,
       fontFamily:'koliko'
   }
 });

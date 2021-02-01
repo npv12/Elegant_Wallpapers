@@ -24,9 +24,12 @@ import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
 import loadAd from '../components/Advert';
 import ImageZoom from 'react-native-image-pan-zoom';
+import { STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+const scaleWidth = Dimensions.get('window').width/STANDARD_WIDTH
+const scaleHeight = Dimensions.get('window').height/STANDARD_HEIGHT
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -46,13 +49,13 @@ const SetWallpaper = ({route}) => {
     const [Visible, setVisible] = useState(true)
     const [snackbarText, setSnackbarText] = useState("TestSub")
     const [infoVisible, setInfoVisible] = useState(false)
-    const [bounceValue, setBounceValue] = useState(new Animated.Value(75))
+    const [bounceValue, setBounceValue] = useState(new Animated.Value(75*scaleHeight))
     const [height, setHeight] = useState(windowHeight)
     const [width, setWidth] = useState(windowWidth)
-    const [scaleValue, setScaleValue] = useState(new Animated.Value(0.))
+    const [scaleValue, setScaleValue] = useState(new Animated.Value(0))
     const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0.0))
-    const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(20))
-    const [bottomTabAnim ,setBottomTabAnim] = useState(new Animated.Value(-60))
+    const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(20*scaleHeight))
+    const [bottomTabAnim ,setBottomTabAnim] = useState(new Animated.Value(-60*scaleHeight))
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -237,9 +240,9 @@ const SetWallpaper = ({route}) => {
     {
       if(isFav)
       {
-        return <Icon name="heart" type='antdesign' size={25} color={iconColor?'white':'black'}/>
+        return <Icon name="heart" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
       }
-      return <Icon name="hearto" type='antdesign' size={25} color={iconColor?'white':'black'}/>
+      return <Icon name="hearto" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
     }
 
     function setDelay(){
@@ -271,7 +274,7 @@ const SetWallpaper = ({route}) => {
   function  setInfoTranslate() {   
     var toValue = 0   
     if(infoVisible) {
-      toValue = 75;
+      toValue = 75*scaleHeight;
     }
     Animated.spring(
       bounceValue,
@@ -286,9 +289,9 @@ const SetWallpaper = ({route}) => {
   }
 
   function  setBottomTabTranslate() {   
-    var toValue = -60   
+    var toValue = -60 *scaleHeight  
     if(Visible) {
-      toValue = 150;
+      toValue = 150*scaleHeight;
     }
     Animated.spring(
       bottomTabAnim,
@@ -307,7 +310,7 @@ const SetWallpaper = ({route}) => {
     setSnackTranslate(!t)
     var toValue = 1; 
     if(!t) {
-      toValue = 0.2;
+      toValue = 0.0;
     }
     Animated.timing(
       scaleValueSnack,
@@ -327,7 +330,7 @@ const SetWallpaper = ({route}) => {
 function  setSnackTranslate(t) {   
   var toValue = 0   
   if(t) {
-    toValue = 35;
+    toValue = 35*scaleHeight;
   }
   Animated.spring(
     bounceValueSnack,
@@ -343,8 +346,8 @@ function  setSnackTranslate(t) {
     function renderExtraSpace()
     {
         return(
-          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:26,height:150 ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValue,},{scaleY: scaleValue},]}]}>
-            <Text style={{...styles.modalText, textAlign:'left', fontSize:16, paddingTop:5,}}>
+          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:26*scaleHeight,height:150*scaleHeight ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValue,},{scaleY: scaleValue},]}]}>
+            <Text style={{...styles.modalText, textAlign:'left', fontSize:16*scaleHeight, paddingTop:5*scaleHeight,}}>
               {snackbarText}
             </Text>
         </Animated.View>
@@ -354,8 +357,8 @@ function  setSnackTranslate(t) {
     function renderBottomSnack()
     {
         return(
-          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:26,height:60 ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValueSnack,},{scaleY: scaleValueSnack},]}]}>
-            <Text style={{...styles.modalText, textAlign:'center', fontSize:16, paddingTop:10,}}>
+          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:26*scaleHeight,height:60*scaleHeight ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValueSnack,},{scaleY: scaleValueSnack},]}]}>
+            <Text style={{...styles.modalText, textAlign:'center', fontSize:16*scaleHeight, paddingTop:10*scaleHeight,}}>
               {snackbarText}
             </Text>
         </Animated.View>
@@ -371,19 +374,19 @@ function  setSnackTranslate(t) {
         {renderBottomSnack()}
         <View style={{...styles.bottomTab}}>
           <View style={{flexDirection:'row', justifyContent:'space-between'}} >
-            <TouchableOpacity style={{...styles.icon, marginLeft:30}} onPress={()=>setInfoScale()}>
-              <Icon name="info" type='feather' size={25} color={iconColor?'white':'black'}/>
+            <TouchableOpacity style={{...styles.icon, marginLeft:30*scaleHeight}} onPress={()=>setInfoScale()}>
+              <Icon name="info" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={() => {
               handleDownload()
               setSnackScale(true)
             }}>
-              <Icon name="download" type='feather' size={25} color={iconColor?'white':'black'}/>
+              <Icon name="download" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={()=>setShowApplyModal(true)}>
-              <Icon name="arrow-up-circle" type='feather' size={25} color={iconColor?'white':'black'}/>
+              <Icon name="arrow-up-circle" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
             </TouchableOpacity>
-            <TouchableOpacity style={{...styles.icon, marginRight:30}} onPress={()=>{addToFav()}}>
+            <TouchableOpacity style={{...styles.icon, marginRight:30*scaleWidth}} onPress={()=>{addToFav()}}>
               {renderHeart()}
             </TouchableOpacity>
           </View>
@@ -398,20 +401,20 @@ function  setSnackTranslate(t) {
             <TouchableOpacity onPress={()=>{
               setHomeWall()
               }}>
-              <View style={{...styles.modalItem, marginTop:30}}>
-                <Icon name="shopping-bag" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
+              <View style={{...styles.modalItem, marginTop:30*scaleHeight}}>
+                <Icon name="shopping-bag" type="feather" size={25*scaleHeight} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Set Homescreen wallpaper</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={setLockWall}>
               <View style={styles.modalItem}>
-                <Icon name="settings" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
+                <Icon name="settings" type="feather" size={25*scaleHeight} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Set Lockscreen wallpaper</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={setBothWall}>
-              <View style={{...styles.modalItem, marginBottom:30}}>
-                <Icon name="info" type="feather" size={25} style={styles.icon} color={iconColor?'white':'black'}/>
+              <View style={{...styles.modalItem, marginBottom:30*scaleHeight}}>
+                <Icon name="info" type="feather" size={25*scaleHeight} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Set Both</Text>
               </View>
             </TouchableOpacity>
@@ -500,7 +503,7 @@ function  setSnackTranslate(t) {
       <StatusBar translucent={true} backgroundColor={'transparent'} />
       <View style={styles.container}>
         <View style={styles.activityIndicatorWrapper}>
-          <ActivityIndicator animating={true} size={55} color="#00bd84" />
+          <ActivityIndicator animating={true} size={55*scaleHeight} color="#00bd84" />
         </View>
           <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:"100%", width:"100%", position:'absolute'}}/>
         {renderBottomTab()}
@@ -517,7 +520,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   snackbar:{
-    marginBottom:-100, 
+    marginBottom:-100*scaleHeight, 
     width:"80%", 
     alignSelf:'center',
     borderTopLeftRadius:15, 
@@ -526,7 +529,7 @@ const styles = StyleSheet.create({
   },
   bottomTab:{
     width:"80%", 
-    height:55, 
+    height:55*scaleHeight, 
     bottom:0, 
     position:'absolute', 
     margin:'10%',
@@ -537,10 +540,10 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius:15
   },
   icon:{
-    marginHorizontal:10,
+    marginHorizontal:10*scaleHeight,
   },
   modal:{
-    height:210,
+    height:210*scaleHeight,
     width:"80%",
     justifyContent:'space-between',
     alignSelf:'center',
@@ -550,18 +553,18 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius:15
   },
   modalText: {
-    marginHorizontal: 15,
+    marginHorizontal: 15*scaleWidth,
     textAlign: "center",
     fontFamily:'Linotte-Bold'
   },
   modalItem:{
-    paddingLeft:25,
+    paddingLeft:25*scaleWidth,
     flexDirection:'row',
     marginVertical:5,
     alignItems:'center',
   },
   activityIndicatorWrapper: {
-    height: 250,
+    height: 250*scaleHeight,
     position:'absolute',
     width: "100%",
     borderRadius: 10,

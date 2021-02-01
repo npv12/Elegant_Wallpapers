@@ -1,11 +1,15 @@
 import React from 'react';
-import {Image,ActivityIndicator,StyleSheet } from 'react-native';
+import {Image,ActivityIndicator,StyleSheet,Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { STANDARD_WIDTH ,STANDARD_HEIGHT} from '../constants';
 import styled from 'styled-components/native'
 
 const View = styled.View`
   background: ${props => props.theme.background};
 `
+
+const scaleWidth = Dimensions.get('window').width/STANDARD_WIDTH
+const scaleHeight = Dimensions.get('window').height/STANDARD_HEIGHT
 
 const LoadImage = (props) => {
   return (
@@ -22,7 +26,7 @@ const LoadImage = (props) => {
 
 const styles = StyleSheet.create({
   activityIndicatorWrapper: {
-    height: 250,
+    height: 250*scaleHeight,
     position:'absolute',
     width: "100%",
     borderRadius: 10,
