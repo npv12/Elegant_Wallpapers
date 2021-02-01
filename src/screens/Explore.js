@@ -5,6 +5,7 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
+  Linking,
  } from 'react-native';
 import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
