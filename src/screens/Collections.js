@@ -11,8 +11,9 @@ import { FlatList } from 'react-native-gesture-handler';
 import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
-import { SECRET_KEY, VERSION_NUMBER, VERSION_URL, WALL_URL } from '../constants';
+import { FREE_APP, SECRET_KEY, VERSION_NUMBER, VERSION_URL, WALL_URL } from '../constants';
 import { useTheme } from '../themes'
+import { Linking } from 'react-native';
 
 const SView = styled.View`
   background: ${props => props.theme.background};
@@ -144,9 +145,11 @@ function renderItem  ({ item }) {
       return(
         <>
         <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
-        <SView style={{height:100, width:"100%", backgroundColor:theme.mode=='dark'?'#AAFF00':'#7CCC00',justifyContent:'center',padding:25, alignItems:'center'}}>
-          <Text style={{color:'black', fontSize:20, fontFamily:'Linotte-Bold'}}>Update the app for best possible experience</Text>
-        </SView>
+        <TouchableOpacity activeOpacity={0.6} onPress={()=>Linking.openURL(FREE_APP)}>
+          <SView style={{height:100, width:"100%", backgroundColor:theme.mode=='dark'?'#AAFF00':'#7CCC00',justifyContent:'center',padding:25, alignItems:'center'}}>
+            <Text style={{color:'black', fontSize:20, fontFamily:'Linotte-Bold'}}>Update the app for best possible experience</Text>
+          </SView>
+        </TouchableOpacity>
         <SView style={{...styles.container}}>
           {renderCollections()}
         </SView>

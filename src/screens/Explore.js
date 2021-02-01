@@ -107,9 +107,11 @@ if(updateState!=0){
     return(
       <>
       <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
-      <View style={{height:100, width:"100%", backgroundColor:theme.mode=='dark'?'#AAFF00':'#7CCC00',justifyContent:'center',padding:25, alignItems:'center'}}>
-        <Text style={{color:'black', fontSize:20, fontFamily:'Linotte-Bold'}}>Update the app for best possible experience</Text>
-      </View>
+      <TouchableOpacity activeOpacity={0.6} onPress={()=>Linking.openURL(FREE_APP)}>
+        <View style={{height:100, width:"100%", backgroundColor:theme.mode=='dark'?'#AAFF00':'#7CCC00',justifyContent:'center',padding:25, alignItems:'center'}}>
+          <Text style={{color:'black', fontSize:20, fontFamily:'Linotte-Bold'}}>Update the app for best possible experience</Text>
+        </View>
+      </TouchableOpacity>
       <View style={{...styles.container}}>
           {renderWalls()}
       </View>
