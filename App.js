@@ -1,4 +1,5 @@
 import React, { Component,useEffect,useState } from 'react';
+import {Dimensions } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator,CardStyleInterpolators, } from '@react-navigation/stack';
 import OneSignal from 'react-native-onesignal';
@@ -20,9 +21,12 @@ import { app_id } from './constants';
 import BottomTab from './src/components/BottomTab';
 import SearchScreen from './src/screens/SearchScreen'
 import { useTheme } from './src/themes'
-import { ONE_SIGNAL } from './src/constants';
+import { ONE_SIGNAL,STANDARD_HEIGHT,STANDARD_WIDTH } from './src/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { preloadAd } from './src/components/Advert';
+
+const scaleWidth = Dimensions.get('window').width/STANDARD_WIDTH
+const scaleHeight = Dimensions.get('window').height/STANDARD_HEIGHT
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -46,11 +50,11 @@ function TopTabs({navigation}) {
     setText(false)
   return (
     <>
-    <View style={{backgroundColor:!text?'white':'black',height:35}}>
+    <View style={{backgroundColor:!text?'white':'black',height:35*scaleHeight}}>
     </View>
     <Tab.Navigator
     tabBarOptions={{
-      labelStyle: { fontSize: 14, color:text?'white':'black',fontFamily:'koliko' },
+      labelStyle: { fontSize: 14*scaleHeight, color:text?'white':'black',fontFamily:'koliko' },
       style: { backgroundColor: text?'black':'white' },
       indicatorStyle: {backgroundColor:text?'white':'black' }
     }}
@@ -97,7 +101,7 @@ function HomeScreen(){
             headerTitleStyle:{
             fontFamily:'Linotte-Bold',
             fontWeight:'normal',
-            fontSize:23,
+            fontSize:23*scaleHeight,
           },
           headerStyle:{
             backgroundColor:!text?'white':'black'
@@ -110,7 +114,7 @@ function HomeScreen(){
             headerTitleStyle:{
             fontFamily:'Linotte-Bold',
             fontWeight:'normal',
-            fontSize:23,
+            fontSize:23*scaleHeight,
           },
           headerStyle:{
             backgroundColor:!text?'white':'black'
@@ -123,7 +127,7 @@ function HomeScreen(){
             headerTitleStyle:{
             fontFamily:'Linotte-Bold',
             fontWeight:'normal',
-            fontSize:23,
+            fontSize:23*scaleHeight,
           },
           headerStyle:{
             backgroundColor:!text?'white':'black'
