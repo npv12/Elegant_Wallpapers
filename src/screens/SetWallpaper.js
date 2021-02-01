@@ -50,12 +50,11 @@ const SetWallpaper = ({route}) => {
     const [snackbarText, setSnackbarText] = useState("TestSub")
     const [infoVisible, setInfoVisible] = useState(false)
     const [bounceValue, setBounceValue] = useState(new Animated.Value(75*scaleHeight))
-    const [height, setHeight] = useState(windowHeight)
-    const [width, setWidth] = useState(windowWidth)
     const [scaleValue, setScaleValue] = useState(new Animated.Value(0))
     const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0.0))
     const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(20*scaleHeight))
     const [bottomTabAnim ,setBottomTabAnim] = useState(new Animated.Value(-60*scaleHeight))
+    const [advertCap, setAdvertCap] = useState(false)
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -69,8 +68,6 @@ const SetWallpaper = ({route}) => {
     async function retrieveData()
     {
       Image.getSize(item.thumbnail, (w,h)=>{
-        setWidth(w)
-        setHeight(h)
       }).catch()
 
       await AsyncStorage.getItem('favs').then((r)=>{
@@ -101,6 +98,20 @@ const SetWallpaper = ({route}) => {
         setSnackScale(true)
         setSnackbarText("Something went wrong. Please try again")
       }
+    }
+
+    function showAd(){
+      if(!advertCap)  {
+        loadAd()
+        setAdvertCap(true)
+        setDelayAd()
+      }
+    }
+
+    function setDelayAd(){
+      setTimeout(function(){
+        setAdvertCap(false)
+      },120000)
     }
 
     async function setHomeWall ()
@@ -137,7 +148,7 @@ const SetWallpaper = ({route}) => {
     function setLockWall ()
     {
       setShowApplyModal(false)
-      loadAd()
+      showAd()
       setIsLoading(true)
       RNFetchBlob
       .config({
@@ -168,7 +179,7 @@ const SetWallpaper = ({route}) => {
     function setBothWall ()
     {
       setShowApplyModal(false)
-      loadAd()
+      showAd()
       setIsLoading(true)
       RNFetchBlob
       .config({
@@ -456,7 +467,7 @@ function  setSnackTranslate(t) {
     };
 
     async function handleDownload() {
-      loadAd()
+      showAd()
       setSnackScale(true)
       setSnackbarText("Download started")
       if (Platform.OS === 'android') {
