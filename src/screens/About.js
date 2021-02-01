@@ -30,7 +30,7 @@ const About = () => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        setChangelog(responseJson[0].Changelogs)
+        setChangelog(responseJson.Changelogs)
       })
       .catch((error) => {
         console.log(error);
