@@ -142,8 +142,8 @@ android {
         applicationId "com.madness.wallz.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 40
-        versionName "4.0.2"
+        versionCode 42
+        versionName "4.0.4"
         multiDexEnabled true
     }
     splits {

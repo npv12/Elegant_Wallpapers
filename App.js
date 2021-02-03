@@ -164,7 +164,6 @@ class App extends Component {
 }
 
 async componentDidMount() {
-  preloadAd()
   OneSignal.setAppId(ONE_SIGNAL);
   OneSignal.setLogLevel(6, 0);
   OneSignal.setRequiresUserPrivacyConsent(this.state.requiresPrivacyConsent);
