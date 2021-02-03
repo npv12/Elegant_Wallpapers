@@ -5,9 +5,9 @@ import {
     StatusBar,
     Dimensions,
     TouchableOpacity,
-    FlatList
   } from 'react-native';
   import styled from 'styled-components/native'
+  import { FlatList } from 'react-native-gesture-handler';
   import LoadImage from '../components/LoadImage';
   import { SECRET_KEY, WALL_URL,STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
   import { useTheme } from '../themes'

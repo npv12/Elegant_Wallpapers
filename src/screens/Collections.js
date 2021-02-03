@@ -14,6 +14,7 @@ import LoadImage from '../components/LoadImage';
 import { FREE_APP, SECRET_KEY, VERSION_NUMBER, VERSION_URL, WALL_URL,STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
 import { useTheme } from '../themes'
 import { Linking } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 const SView = styled.View`
   background: ${props => props.theme.background};
@@ -33,6 +34,8 @@ const Collections = ({navigation}) => {
   const [data, setData]=useState([])
   const [updateState, setUpdateState] = useState(0)
   const theme = useTheme()
+
+  const focused = useIsFocused()
 
   async function getData(){
     fetch(WALL_URL, {
@@ -99,6 +102,7 @@ const Collections = ({navigation}) => {
 
   useEffect(() => {getData()},[]);
 
+
   const Item = ({ item, onPress }) => (
     <View style={styles.wallBoundary}>
       <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
@@ -159,6 +163,10 @@ function renderItem  ({ item }) {
          </>
       )
     }
+  }
+
+  if(!focused){
+    return <View></View>
   }
 
   return (

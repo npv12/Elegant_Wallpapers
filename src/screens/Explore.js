@@ -2,7 +2,6 @@ import React, { useState,useEffect } from 'react';
 import { 
   StyleSheet,
   StatusBar,
-  FlatList,
   Dimensions,
   TouchableOpacity,
   Linking,
@@ -13,6 +12,8 @@ import LoadImage from '../components/LoadImage';
 import { SECRET_KEY, STANDARD_HEIGHT, STANDARD_WIDTH, VERSION_NUMBER, VERSION_URL, WALL_URL } from '../constants';
 import { useTheme } from '../themes'
 import SplashScreen from 'react-native-splash-screen';
+import { FlatList } from 'react-native-gesture-handler';
+import { useIsFocused } from '@react-navigation/native';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -31,6 +32,7 @@ const Explore = ({navigation}) => {
   const theme = useTheme()
   const [data, setData] = useState([])
   const [updateState, setUpdateState] = useState(0)
+  const focused = useIsFocused()
 
   async function getData(){
     fetch(WALL_URL, {
@@ -121,6 +123,10 @@ if(updateState!=0){
        </>
     )
   }
+}
+
+if(!focused){
+  return false
 }
 
   return (
