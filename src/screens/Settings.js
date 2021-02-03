@@ -62,17 +62,17 @@ const Settings = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex:1
   },
   header:{
-    fontSize:25*scaleHeight,
+    fontSize:25*scaleHeight > 20?25*scaleHeight:20,
     padding:25*scaleHeight,
     paddingTop:50*scaleHeight,
     fontFamily:'Linotte-Bold',
   },
   item:{
     paddingHorizontal:25*scaleWidth,
-    fontSize:16*scaleHeight,
+    fontSize:16*scaleHeight > 12?16*scaleHeight:12,
     paddingTop:5*scaleHeight,
     fontFamily:'Manrope-medium'
   }

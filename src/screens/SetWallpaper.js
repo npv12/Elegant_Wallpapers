@@ -543,10 +543,10 @@ const styles = StyleSheet.create({
     position:'absolute',
     margin:'10%',
     justifyContent:'center',
-    borderTopEndRadius:15,
-    borderTopLeftRadius:15,
-    borderBottomEndRadius:15,
-    borderBottomLeftRadius:15
+    borderTopEndRadius:15*scaleHeight,
+    borderTopLeftRadius:15*scaleHeight,
+    borderBottomEndRadius:15*scaleHeight,
+    borderBottomLeftRadius:15*scaleHeight
   },
   icon:{
     marginHorizontal:10*scaleHeight,

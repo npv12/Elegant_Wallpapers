@@ -142,22 +142,22 @@ const styles = StyleSheet.create({
     },    
     searchBox:{
       justifyContent:'center',
-      height:60*scaleHeight,
-      width:60*scaleWidth,
-      borderRadius:70,
+      height:65*scaleWidth,
+      width:65*scaleWidth,
+      borderRadius:65*scaleWidth,
       elevation:10,
       shadowColor:'#fff',
       position:'absolute',
       opacity:1,
-      bottom:25,
-      right:40,
+      bottom:25*scaleHeight,
+      right:40*scaleHeight,
     },
     headerContainer: {},
     bottomTab:{
         justifyContent:'center',
         alignItems:'flex-start',
         height:70*scaleHeight,
-        borderTopEndRadius:30,
+        borderTopEndRadius:30*scaleHeight,
         shadowColor: "#000",
         shadowOffset: {
           width: 0,
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     },
     openButton: {
       backgroundColor: "#F194FF",
-      borderRadius: 20,
+      borderRadius: 20*scaleHeight,
       padding: 10*scaleHeight,
       elevation: 2
     },
@@ -196,8 +196,8 @@ const styles = StyleSheet.create({
       backgroundColor:'#898989',
       height:5*scaleHeight,
       width:40*scaleWidth,
-      borderRadius:10,
-      marginBottom:15,
+      borderRadius:10*scaleHeight,
+      marginBottom:15*scaleHeight,
       alignSelf:'center'
     },
     subView: {
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
       right: 0,
       backgroundColor: "#FFFFFF",
       height: 165*scaleHeight,
-      borderTopEndRadius:30
+      borderTopEndRadius:30*scaleHeight
     }
   });
 
