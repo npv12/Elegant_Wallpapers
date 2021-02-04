@@ -126,7 +126,9 @@ if(updateState!=0){
 }
 
 if(!focused){
-  return false
+  return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
+  <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Loading your favorite walls.....</Text>
+</View>
 }
 
   return (

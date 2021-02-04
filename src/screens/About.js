@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react';
-import {StyleSheet,TouchableOpacity,Dimensions,Linking } from 'react-native';
+import {StyleSheet,TouchableOpacity,Dimensions,Linking,StatusBar } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import styled from 'styled-components/native'
 import { CREDITS_URL, DISCLAIMER_TEXT, FREE_APP, MADNESS_TELE, PRANAV_TELE, PRO_APP, UNFUNNYGAY_TELE, VERSION_URL,VERSION_NUMBER,STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
@@ -49,6 +49,7 @@ const About = () => {
   }
   return (
     <View style={styles.container}>
+      <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
       <ScrollView>
       <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00', paddingTop:5*scaleHeight}}>Legal</Text>
         <View>

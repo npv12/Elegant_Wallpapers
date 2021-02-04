@@ -8,7 +8,6 @@ import {
     Alert,
     StatusBar,
     Animated,
-    ScrollView,
     ActivityIndicator,
     Image
 } from 'react-native';
@@ -511,12 +510,9 @@ function  setSnackTranslate(t) {
 
   return (
     <View style={{flex:1}}>
-      <StatusBar translucent={true} backgroundColor={'transparent'} />
+      <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
       <View style={styles.container}>
-        <View style={styles.activityIndicatorWrapper}>
-          <ActivityIndicator animating={true} size={55*scaleHeight} color="#00bd84" />
-        </View>
-          <Image source={{uri:item.thumbnail}} resizeMode="cover" style={{height:"100%", width:"100%", position:'absolute'}}/>
+          <LoadImage source={item} resizeMode="cover" style={{height:"100%", width:"100%"}}/>
         {renderBottomTab()}
         <Loader loading={isLoading}/>
       </View>

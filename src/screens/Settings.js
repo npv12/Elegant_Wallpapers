@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet,Switch,TouchableOpacity,Linking,Dimensions } from 'react-native';
+import { View, StyleSheet,Switch,TouchableOpacity,Linking,Dimensions,StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -21,6 +21,7 @@ const Settings = ({navigation}) => {
   const theme = useTheme()
   return (
     <Container style={styles.container}>
+      <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
       <ScrollView>
           <Title style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Appearence</Title>
           <View style={{flexDirection:'row', justifyContent:'space-between', paddingEnd:15*scaleWidth}}>
