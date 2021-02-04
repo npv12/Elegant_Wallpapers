@@ -7,14 +7,12 @@ import {
   StatusBar
 } from 'react-native';
 import _ from 'lodash'
-import { FlatList } from 'react-native-gesture-handler';
-import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
-import LoadImage from '../components/LoadImage';
-import { FREE_APP, SECRET_KEY, VERSION_NUMBER, VERSION_URL, WALL_URL,STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
+import { FREE_APP, VERSION_NUMBER, VERSION_URL, WALL_URL,STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
 import { useTheme } from '../themes'
 import { Linking } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
+import CollectionScroll from '../components/CollectionScroll'
 
 const SView = styled.View`
   background: ${props => props.theme.background};
@@ -23,11 +21,7 @@ const SView = styled.View`
 const Text = styled.Text`
   color: ${props => props.theme.text};
 `
-
-const scaleWidth = Dimensions.get('window').width/STANDARD_WIDTH
 const scaleHeight = Dimensions.get('window').height/STANDARD_HEIGHT
-
-const windowWidth = Dimensions.get('window').width;
 
 const Collections = ({navigation}) => {
   const [collection, setCollection]=useState([])
@@ -66,7 +60,7 @@ const Collections = ({navigation}) => {
   }
 
   function filterOut(value){
-    
+    console.log(value)
     navigation.navigate('Collection',{
       value:value
     })
@@ -102,44 +96,17 @@ const Collections = ({navigation}) => {
 
   useEffect(() => {getData()},[]);
 
-
-  const Item = ({ item, onPress }) => (
-    <View style={styles.wallBoundary}>
-      <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
-        <LoadImage source={item} style={styles.Wall}/>
-        <View style={styles.header}>
-        <Text style={styles.headerText}>{item.collections.toUpperCase()}</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
-);
-
-function renderItem  ({ item }) {
-  return (
-    <Item
-      item={item}
-      onPress={() => filterOut(item.collections)}
-    />
-  );
-};
-
   function renderCollections(){
-    if(!data)
+    if(!data.length)
     {
       return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
-      <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Loading your favorite walls.....</Text>
-    </View>
+                <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Loading your favorite walls.....</Text>
+              </View>
     }
     return(
-      <View style={{paddingHorizontal:10}}>
-              <FlatList
-              showsVerticalScrollIndicator ={false}
-              showsHorizontalScrollIndicator={false}
-              data={collection}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.key}
-            />
-            </View>
+      <View style={{paddingHorizontal:10, flex:1}}>
+              <CollectionScroll data = {collection} onPress={(item) => filterOut(item.collections)}/>
+      </View>
     )
   }
 
@@ -175,9 +142,7 @@ function renderItem  ({ item }) {
     <>
     <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
         <SView style={styles.container}>
-            <SView style={styles.headerContainer} />
                 {renderCollections()}
-            <SView style={styles.bodyContainer} />
         </SView>
     </>
   );
@@ -187,87 +152,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  headerContainer: {
-  },
-  Wall:{
-    width:windowWidth-30,
-    height:200*scaleHeight,
-    borderRadius:8,
-    borderTopRightRadius:8,
-  },
-  headerText:{
-    fontSize:25*scaleHeight,
-    color:'white',
-    alignItems:'center',
-    alignSelf:'center',
-    textAlign:'center',
-    fontFamily:'koliko',
-    justifyContent:'center',
-    position:'absolute',
-    top:85*scaleHeight,
-  },  
-  header:{
-    height:200*scaleHeight,
-    width:windowWidth-30,
-    position:'absolute',
-    margin:8*scaleHeight
-  },  
-  wallBoundary:{
-    flex:1,
-    margin:8*scaleHeight,
-    justifyContent:'center',
-    alignItems:'center',
-  },
-  searchBox:{
-    justifyContent:'center',
-    height:50*scaleHeight,
-    width:50*scaleWidth,
-    borderRadius:70,
-    elevation:10,
-    shadowColor:'#fff',
-    position:'absolute',
-    opacity:1,
-    bottom:45*scaleHeight,
-    right:40*scaleWidth,
-  },
-  bottomTab:{
-    justifyContent:'center',
-    alignItems:'flex-start',
-    shadowOpacity: 1,
-    height:70*scaleHeight,
-    position:'absolute',
-    bottom:0,
-    width:"100%",
-    borderTopEndRadius:25,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  },
-  modalText: {
-    marginBottom: 15*scaleHeight,
-    textAlign: "center"
-  },
-  modalItem:{
-    paddingLeft:25*scaleWidth,
-    flexDirection:'row',
-    justifyContent:'center',
-    marginVertical:5*scaleHeight
-  },
-  pill:{
-    backgroundColor:'#898989',
-    height:5*scaleHeight,
-    width:30*scaleWidth,
-    marginBottom:15,
-    alignSelf:'center'
-  },
-  icon:{
-    paddingHorizontal:10*scaleWidth,
-  }
 });
 
 export default Collections;

@@ -47,7 +47,7 @@ function filterData(data){
   var c = []
     for(var i=0;i<data.length;i++)
     {
-      if(data[i].collections.toLowerCase().split(",").includes(value))
+      if(data[i].collections.toLowerCase().split(",").includes(value.toLowerCase()))
         c.push(data[i])
     }
     setData(c)
@@ -56,7 +56,7 @@ function filterData(data){
 useEffect(() => {getData()},[]);
 
 function renderWalls(){
-    if(data)
+    if(data.length)
     {
       return <View style={{paddingHorizontal:10*scaleWidth}}>
               <FlatList
