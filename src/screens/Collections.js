@@ -4,7 +4,8 @@ import {
   Dimensions,
   TouchableOpacity,
   View,
-  StatusBar
+  StatusBar,
+  Animated
 } from 'react-native';
 import _ from 'lodash'
 import styled from 'styled-components/native'
@@ -13,6 +14,7 @@ import { useTheme } from '../themes'
 import { Linking } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import CollectionScroll from '../components/CollectionScroll'
+import { Button } from 'react-native';
 
 const SView = styled.View`
   background: ${props => props.theme.background};
@@ -27,8 +29,8 @@ const Collections = ({navigation}) => {
   const [collection, setCollection]=useState([])
   const [data, setData]=useState([])
   const [updateState, setUpdateState] = useState(0)
+  const [fadeAnimation, setFadeAnimation] = useState(new Animated.Value(0))
   const theme = useTheme()
-
   const focused = useIsFocused()
 
   async function getData(){
@@ -94,7 +96,26 @@ const Collections = ({navigation}) => {
     setCollection(fin)
   }
 
-  useEffect(() => {getData()},[]);
+  useEffect(() => {
+    getData()
+    return function(){
+    }
+  },[]);
+
+  useEffect(() => {
+    if(focused)
+      fadeIn()
+    return function(){
+    }
+  },[focused]);
+
+  function fadeIn () {
+    Animated.timing(fadeAnimation, {
+      toValue: 1,
+      duration: 800,
+      useNativeDriver: true
+    }).start();
+  };
 
   function renderCollections(){
     if(!data.length)
@@ -118,32 +139,49 @@ const Collections = ({navigation}) => {
     else if(updateState==1){
       return(
         <>
-        <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
         <TouchableOpacity activeOpacity={0.6} onPress={()=>Linking.openURL(FREE_APP)}>
           <SView style={{height:100*scaleHeight, width:"100%", backgroundColor:theme.mode=='dark'?'#AAFF00':'#7CCC00',justifyContent:'center',padding:25, alignItems:'center'}}>
             <Text style={{color:'black', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Update the app for best possible experience</Text>
           </SView>
         </TouchableOpacity>
-        <SView style={{...styles.container}}>
-          {renderCollections()}
-        </SView>
-         </>
+        {mainElement()}
+        </>
       )
     }
   }
 
   if(!focused){
+    
     return <SView style={{justifyContent:'center', flex:1, alignItems:'center'}}>
     <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Loading your favorite collections.....</Text>
   </SView>
   }
 
+  function mainElement(){
+    return (
+      <>
+      <SView style={styles.container}>
+      <Animated.View
+            style={[
+              styles.container,
+              {
+                opacity: fadeAnimation,
+              }
+            ]}
+          >
+      <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
+          <SView style={styles.container}>
+                  {renderCollections()}
+          </SView>
+          </Animated.View>
+          </SView>
+      </>
+    ); 
+  }
+
   return (
     <>
-    <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
-        <SView style={styles.container}>
-                {renderCollections()}
-        </SView>
+    {mainElement()}
     </>
   );
 };

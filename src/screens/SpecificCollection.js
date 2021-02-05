@@ -53,7 +53,11 @@ function filterData(data){
     setData(c)
 }
 
-useEffect(() => {getData()},[]);
+useEffect(() => {
+  getData()
+  return function(){
+  }
+},[]);
 
 function renderWalls(){
     if(data.length)

@@ -5,6 +5,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Linking,
+  Animated
  } from 'react-native';
 import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
@@ -32,6 +33,7 @@ const Explore = ({navigation}) => {
   const theme = useTheme()
   const [data, setData] = useState([])
   const [updateState, setUpdateState] = useState(0)
+  const [fadeAnimation, setFadeAnimation] = useState(new Animated.Value(0))
   const focused = useIsFocused()
 
   async function getData(){
@@ -63,7 +65,26 @@ const Explore = ({navigation}) => {
       })
   }
 
-  useEffect(() => {getData()},[]);
+  useEffect(() => {
+    getData()
+    return function(){
+    }
+  },[]);
+
+  useEffect(() => {
+    if(focused)
+      fadeIn()
+    return function(){
+    }
+  },[focused]);
+
+  function fadeIn () {
+    Animated.timing(fadeAnimation, {
+      toValue: 1,
+      duration: 800,
+      useNativeDriver: true
+    }).start();
+  };
 
   function renderWalls(){
     if(data)
@@ -117,12 +138,30 @@ if(updateState!=0){
           <Text style={{color:'black', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Update the app for best possible experience</Text>
         </View>
       </TouchableOpacity>
-      <View style={{...styles.container}}>
-          {renderWalls()}
-      </View>
+      {mainElement()}
        </>
     )
   }
+}
+
+function mainElement(){
+  return <>
+      <View style={styles.container}>
+      <Animated.View
+            style={[
+              styles.container,
+              {
+                opacity: fadeAnimation,
+              }
+            ]}
+          >
+          <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
+                <View style={{...styles.container}}>
+                    {renderWalls()}
+                </View>
+                </Animated.View>
+              </View>
+          </>
 }
 
 if(!focused){
@@ -133,11 +172,7 @@ if(!focused){
 
   return (
     <>
-   <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
-        <View style={{...styles.container}}>
-            {renderWalls()}
-        </View>
-        
+    {mainElement()}     
     </>
   );
 };

@@ -39,7 +39,11 @@ const SearchScreen = ({navigation}) => {
           });
     }
 
-    useEffect(() => {getData()},[]);
+    useEffect(() => {
+      getData()
+      return function(){
+      }
+    },[]);
 
 
     function searchData(val)

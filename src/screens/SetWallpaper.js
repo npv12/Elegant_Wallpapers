@@ -62,6 +62,8 @@ const SetWallpaper = ({route}) => {
 
     useEffect(() => {
       retrieveData()
+      return function(){
+      }
     },[]);
 
     async function retrieveData()
