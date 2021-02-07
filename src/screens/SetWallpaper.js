@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
-import {  
-    StyleSheet, 
+import {
+    StyleSheet,
     TouchableOpacity,
     Dimensions,
     Platform,
@@ -112,7 +112,7 @@ const SetWallpaper = ({route}) => {
     function setDelayAd(){
       setTimeout(function(){
         setAdvertCap(false)
-      },120000)
+      },12000)
     }
 
     async function setHomeWall ()
@@ -263,10 +263,10 @@ const SetWallpaper = ({route}) => {
       },1500)
     }
 
-    function  setInfoScale() {  
+    function  setInfoScale() {
       setInfoTranslate()
       setSnackbarText(`\nName: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
-      var toValue = 1; 
+      var toValue = 1;
       if(infoVisible) {
         toValue = 0.0;
       }
@@ -278,13 +278,13 @@ const SetWallpaper = ({route}) => {
           tension: 2,
           friction: 6,
           useNativeDriver:true,
-        }, 
+        },
       ).start();
       setInfoVisible(!infoVisible) ;
   }
 
-  function  setInfoTranslate() {   
-    var toValue = 0   
+  function  setInfoTranslate() {
+    var toValue = 0
     if(infoVisible) {
       toValue = 75*scaleHeight;
     }
@@ -296,12 +296,12 @@ const SetWallpaper = ({route}) => {
         tension: 3,
         friction: 8,
         useNativeDriver:true,
-      }, 
+      },
     ).start();
   }
 
-  function  setBottomTabTranslate() {   
-    var toValue = -60 *scaleHeight  
+  function  setBottomTabTranslate() {
+    var toValue = -60 *scaleHeight
     if(Visible) {
       toValue = 150*scaleHeight;
     }
@@ -313,14 +313,14 @@ const SetWallpaper = ({route}) => {
         tension: 3,
         friction: 8,
         useNativeDriver:true,
-      }, 
+      },
     ).start();
     setVisible(!Visible)
   }
 
-  function  setSnackScale(t) {  
+  function  setSnackScale(t) {
     setSnackTranslate(!t)
-    var toValue = 1; 
+    var toValue = 1;
     if(!t) {
       toValue = 0.0;
     }
@@ -332,15 +332,15 @@ const SetWallpaper = ({route}) => {
         tension: 2,
         friction: 6,
         useNativeDriver:true,
-      }, 
+      },
     ).start();
     if(t){
       setDelay()
     }
 }
 
-function  setSnackTranslate(t) {   
-  var toValue = 0   
+function  setSnackTranslate(t) {
+  var toValue = 0
   if(t) {
     toValue = 35*scaleHeight;
   }
@@ -352,7 +352,7 @@ function  setSnackTranslate(t) {
       tension: 3,
       friction: 8,
       useNativeDriver:true,
-    }, 
+    },
   ).start();
 }
     function renderExtraSpace()
@@ -432,7 +432,7 @@ function  setSnackTranslate(t) {
             </TouchableOpacity>
           </View>
         </Modal>
-        
+
         </>
       )}
     }
@@ -507,7 +507,7 @@ function  setSnackTranslate(t) {
           }
       })
       .catch(() => { console.log("File error")})
-      
+
     };
 
   return (
@@ -529,18 +529,18 @@ const styles = StyleSheet.create({
     flex: 1
   },
   snackbar:{
-    marginBottom:-100*scaleHeight, 
-    width:"80%", 
+    marginBottom:-100*scaleHeight,
+    width:"80%",
     alignSelf:'center',
-    borderTopLeftRadius:15, 
+    borderTopLeftRadius:15,
     borderTopRightRadius:15,
     fontFamily:'Linotte-Bold'
   },
   bottomTab:{
-    width:"80%", 
-    height:55*scaleHeight, 
-    bottom:0, 
-    position:'absolute', 
+    width:"80%",
+    height:55*scaleHeight,
+    bottom:0,
+    position:'absolute',
     margin:'10%',
     justifyContent:'center',
     borderTopEndRadius:15,
