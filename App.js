@@ -3,7 +3,7 @@ import {Dimensions } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator,CardStyleInterpolators, } from '@react-navigation/stack';
 import OneSignal from 'react-native-onesignal';
-import { 
+import {
   StatusBar,
   View
 } from 'react-native';
@@ -134,7 +134,7 @@ function HomeScreen(){
           }
           }} />
           <Stack.Screen name="Search" component={SearchScreen} options={{headerShown:false}}/>
-        </Stack.Navigator>  
+        </Stack.Navigator>
       </NavigationContainer>
   )
 }
@@ -164,6 +164,7 @@ class App extends Component {
 }
 
 async componentDidMount() {
+  preloadAd()
   OneSignal.setAppId(ONE_SIGNAL);
   OneSignal.setLogLevel(6, 0);
   OneSignal.setRequiresUserPrivacyConsent(this.state.requiresPrivacyConsent);
@@ -234,8 +235,8 @@ componentWillUnmount() {
   render()
   {
     return <Themes/>
-   
-    
+
+
   }
 }
 
