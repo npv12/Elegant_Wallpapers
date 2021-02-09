@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { 
+import {
   StyleSheet,
   StatusBar,
   Dimensions,
@@ -7,13 +7,11 @@ import {
   Linking,
   Animated
  } from 'react-native';
-import { secret_key } from '../../constants';
 import styled from 'styled-components/native'
-import LoadImage from '../components/LoadImage';
-import { SECRET_KEY, STANDARD_HEIGHT, STANDARD_WIDTH, VERSION_NUMBER, VERSION_URL, WALL_URL } from '../constants';
+import Wall from '../components/Wall'
+import { SECRET_KEY, STANDARD_HEIGHT, STANDARD_WIDTH, VERSION_NUMBER, VERSION_URL, WALL_URL,FREE_APP } from '../constants';
 import { useTheme } from '../themes'
 import SplashScreen from 'react-native-splash-screen';
-import { FlatList } from 'react-native-gesture-handler';
 import { useIsFocused } from '@react-navigation/native';
 
 const View = styled.View`
@@ -34,6 +32,7 @@ const Explore = ({navigation}) => {
   const [data, setData] = useState([])
   const [updateState, setUpdateState] = useState(0)
   const [fadeAnimation, setFadeAnimation] = useState(new Animated.Value(0))
+  const [offset,setOffset] = useState(0)
   const focused = useIsFocused()
 
   async function getData(){
@@ -67,6 +66,7 @@ const Explore = ({navigation}) => {
 
   useEffect(() => {
     getData()
+    //scrollToOffset(offset)
     return function(){
     }
   },[]);
@@ -86,43 +86,10 @@ const Explore = ({navigation}) => {
     }).start();
   };
 
-  function renderWalls(){
-    if(data)
-    {
-      return <View style={{paddingHorizontal:10*scaleWidth}}>
-              <FlatList
-              showsVerticalScrollIndicator ={false}
-              showsHorizontalScrollIndicator={false}
-              data={data}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.url}
-              numColumns={2}
-            />
-            </View>
-    }
-    return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
-      <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Loading your favorite walls.....</Text>
-    </View>
+  function handleScroll(event){
+    let offsety = event.nativeEvent.contentOffset.y
+    setOffset(offsety)
   }
-
-  const Item = ({ item, onPress }) => (
-    <View style={styles.wallBoundary}>
-      <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
-        <LoadImage source={item} style={styles.Wall}/>
-      </TouchableOpacity>
-    </View>
-);
-
-const renderItem = ({ item }) => {
-  return (
-    <Item
-      item={item}
-      onPress={() => navigation.navigate('Wall',{
-        item:item
-      })}
-    />
-  );
-};
 
 if(updateState!=0){
   if(updateState==2)
@@ -157,22 +124,16 @@ function mainElement(){
           >
           <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
                 <View style={{...styles.container}}>
-                    {renderWalls()}
+                    <Wall data={data} navigation={navigation}/>
                 </View>
                 </Animated.View>
               </View>
           </>
 }
 
-if(!focused){
-  return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
-  <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Loading your favorite walls.....</Text>
-</View>
-}
-
   return (
     <>
-    {mainElement()}     
+    {mainElement()}
     </>
   );
 };
@@ -183,7 +144,7 @@ const styles = StyleSheet.create({
   },
   icon:{
     paddingHorizontal:10*scaleWidth,
-  },    
+  },
   searchBox:{
     justifyContent:'center',
     height:50*scaleHeight,

@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { 
+import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
@@ -30,6 +30,7 @@ const Collections = ({navigation}) => {
   const [data, setData]=useState([])
   const [updateState, setUpdateState] = useState(0)
   const [fadeAnimation, setFadeAnimation] = useState(new Animated.Value(0))
+  const [offset, setOffset] = useState(0)
   const theme = useTheme()
   const focused = useIsFocused()
 
@@ -62,7 +63,6 @@ const Collections = ({navigation}) => {
   }
 
   function filterOut(value){
-    console.log(value)
     navigation.navigate('Collection',{
       value:value
     })
@@ -126,7 +126,7 @@ const Collections = ({navigation}) => {
     }
     return(
       <View style={{paddingHorizontal:10, flex:1}}>
-              <CollectionScroll data = {collection} onPress={(item) => filterOut(item.collections)}/>
+              <CollectionScroll data = {collection} onPress={(item) => filterOut(item.collections)} setOffset={setOffset} offset={offset}/>
       </View>
     )
   }
@@ -150,11 +150,12 @@ const Collections = ({navigation}) => {
     }
   }
 
-  if(!focused){
-    
-    return <SView style={{justifyContent:'center', flex:1, alignItems:'center'}}>
-    <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Loading your favorite collections.....</Text>
-  </SView>
+  if(focused){
+    return (
+      <>
+      {mainElement()}
+      </>
+    )
   }
 
   function mainElement(){
@@ -176,14 +177,12 @@ const Collections = ({navigation}) => {
           </Animated.View>
           </SView>
       </>
-    ); 
+    );
   }
 
-  return (
-    <>
-    {mainElement()}
-    </>
-  );
+  return <SView style={{justifyContent:'center', flex:1, alignItems:'center'}}>
+  <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Loading your favorite collections.....</Text>
+</SView>
 };
 
 const styles = StyleSheet.create({

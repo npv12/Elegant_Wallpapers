@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react';
-import { 
+import {
     StyleSheet,
     SafeAreaView,
     StatusBar,
@@ -7,15 +7,14 @@ import {
     TouchableOpacity,
   } from 'react-native';
   import styled from 'styled-components/native'
-  import { FlatList } from 'react-native-gesture-handler';
-  import LoadImage from '../components/LoadImage';
+  import Wall from '../components/Wall'
   import { SECRET_KEY, WALL_URL,STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
   import { useTheme } from '../themes'
 
   const View = styled.View`
     background: ${props => props.theme.background};
   `
-  
+
   const Text = styled.Text`
     color: ${props => props.theme.text};
   `
@@ -59,44 +58,6 @@ useEffect(() => {
   }
 },[]);
 
-function renderWalls(){
-    if(data.length)
-    {
-      return <View style={{paddingHorizontal:10*scaleWidth}}>
-              <FlatList
-              showsVerticalScrollIndicator ={false}
-              showsHorizontalScrollIndicator={false}
-              data={data}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.url}
-              numColumns={2}
-            />
-            </View>
-    }
-    return <View style={{justifyContent:'center', flex:1, alignItems:'center'}}>
-      <Text style={{color:theme.mode=='dark'?'#A9A9A9':'grey', fontSize:20*scaleHeight, fontFamily:'Linotte-Bold'}}>Loading your perfect collection.....</Text>
-    </View>
-  }
-
-  const Item = ({ item, onPress }) => (
-    <View style={styles.wallBoundary}>
-      <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
-        <LoadImage source={item} style={styles.Wall}/>
-      </TouchableOpacity>
-    </View>
-);
-
-const renderItem = ({ item }) => {
-  return (
-    <Item
-      item={item}
-      onPress={() => navigation.navigate('Wall',{
-        item:item
-      })}
-    />
-  );
-};
-
   return (
     <>
     <View style={{backgroundColor:theme.mode!='dark'?'white':'black',height:35*scaleHeight}}>
@@ -106,7 +67,7 @@ const renderItem = ({ item }) => {
         <View style={styles.header}>
             <Text style={styles.headerText}>{value.toUpperCase()}</Text>
         </View>
-      {renderWalls()}
+      <Wall data={data} navigation={navigation}/>
     </View>
     </>
   );
