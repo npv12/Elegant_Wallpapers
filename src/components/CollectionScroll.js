@@ -38,7 +38,7 @@ const CollectionScroll = ({...props}) => {
   function setDelay(){
     setTimeout(function(){
       scrollRef.current._listRef._scrollRef.scrollTo({x:0,y:props.offset,animated:true})
-    },350)
+    },550)
   }
 
 
