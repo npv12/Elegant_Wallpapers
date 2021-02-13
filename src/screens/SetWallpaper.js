@@ -8,21 +8,22 @@ import {
     Alert,
     StatusBar,
     Animated,
-    Image
+    Image,
+    View
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
-import { BlurView, VibrancyView } from "@react-native-community/blur";
+import { BlurView } from "@react-native-community/blur";
 import Modal from 'react-native-modal';
 import RNFetchBlob from 'rn-fetch-blob';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../themes'
 import _ from 'lodash';
 import Loader from '../components/Loader'
+import ImageColors from "react-native-image-colors"
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
 import loadAd from '../components/Advert';
-import ImageZoom from 'react-native-image-pan-zoom';
 import { STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
 
 const windowWidth = Dimensions.get('window').width;
@@ -30,7 +31,7 @@ const windowHeight = Dimensions.get('window').height;
 const scaleWidth = Dimensions.get('window').width/STANDARD_WIDTH
 const scaleHeight = Dimensions.get('window').height/STANDARD_HEIGHT
 
-const View = styled.View`
+const SView = styled.View`
   background: ${props => props.theme.background};
 `
 
@@ -48,6 +49,7 @@ const SetWallpaper = ({route}) => {
     const [translateBottom, setTranslateBottom] = useState(new Animated.Value(200*scaleHeight))
     const [advertCap, setAdvertCap] = useState(false)
     const [bottomMenuVisible, setBottomMenuVisible] = useState(false)
+    const [colors, setColors] = useState({average:'#FFF', vibrant:'#FFF', dominant:'#FFF'})
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -62,6 +64,15 @@ const SetWallpaper = ({route}) => {
 
     async function retrieveData()
     {
+      const col = (await ImageColors.getColors(item.thumbnail, {
+      fallback: '#000000',
+      quality: 'high',
+      pixelSpacing: 5,
+    }))
+    if(col)
+    {
+      setColors(col)
+    }
       Image.getSize(item.thumbnail, (w,h)=>{
       }).catch()
 
@@ -85,11 +96,9 @@ const SetWallpaper = ({route}) => {
       if(response.status=='success')
       {
         setIsLoading(false)
-        setSnackbarText("Wallpaper set successfully")
       }
       else{
         setIsLoading(false)
-        setSnackbarText("Something went wrong. Please try again")
       }
     }
 
@@ -265,18 +274,53 @@ const SetWallpaper = ({route}) => {
         setBottomMenuVisible(!bottomMenuVisible)
     }
 
+    function renderArrow(){
+      if(bottomMenuVisible)
+        return <View style={{marginTop:15*scaleHeight, paddingRight:10*scaleWidth}}>
+          <Icon name="down" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+        </View>
+      return <View style={{marginTop:15*scaleHeight, paddingRight:10*scaleWidth}}>
+        <Icon name="up" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+      </View>
+    }
+
+    function renderExpandedView(){
+      return(
+        <>
+        <View style={{marginTop: 50}}>
+        <Text>Colors</Text>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{...styles.box, backgroundColor: colors.average}}/>
+        <View style={{...styles.box, backgroundColor: colors.darkMuted}}/>
+        <View style={{...styles.box, backgroundColor: colors.darkVibrant}}/>
+        <View style={{...styles.box, backgroundColor: colors.dominant}}/>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{...styles.box, backgroundColor: colors.lightMuted}}/>
+        <View style={{...styles.box, backgroundColor: colors.lightVibrant}}/>
+        <View style={{...styles.box, backgroundColor: colors.muted}}/>
+        <View style={{...styles.box, backgroundColor: colors.vibrant}}/>
+        </View>
+        </View>
+        </>
+      )
+    }
+
     function renderBottomTab()
     {
       {
       return(
         <>
         <Animated.View style={[styles.bottomTab,{transform: [{translateY: translateBottom,}]}]}>
+        <BlurView
+          style={styles.bottomTab}
+          blurType="light"
+          blurAmount={30}
+          />
           <View style={{flexDirection:'row',justifyContent:'space-between'}} >
             <View style={{flexDirection:'row'}} >
               <TouchableOpacity style={{...styles.icon, marginLeft:30*scaleHeight}} onPress={toggleBottom}>
-                <View style={{marginTop:15*scaleHeight, paddingRight:10*scaleWidth}}>
-                  <Icon name="up" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
-                </View>
+                {renderArrow()}
               </TouchableOpacity>
               <Text style={styles.NameHeader}>{item.name.toUpperCase()}</Text>
               </View>
@@ -287,6 +331,7 @@ const SetWallpaper = ({route}) => {
                 <View style={styles.iconView}>
                   <Icon name="download" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
                 </View>
+
               </TouchableOpacity>
               <TouchableOpacity style={styles.icon} onPress={()=>setShowApplyModal(true)}>
                 <View style={styles.iconView}>
@@ -298,35 +343,38 @@ const SetWallpaper = ({route}) => {
               </TouchableOpacity>
             </View>
           </View>
+          {renderExpandedView()}
         </Animated.View>
+
+
           <Modal
           animationType="FadeIn"
           visible={showApplyModal}
           useNativeDriver={true}
           onBackdropPress={() => setShowApplyModal(false)}
           >
-          <View style={styles.modal}>
+          <SView style={styles.modal}>
             <TouchableOpacity onPress={()=>{
               setHomeWall()
               }}>
-              <View style={{...styles.modalItem, marginTop:30*scaleHeight}}>
+              <SView style={{...styles.modalItem, marginTop:30*scaleHeight}}>
                 <Icon name="shopping-bag" type="feather" size={25*scaleHeight} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Set Homescreen wallpaper</Text>
-              </View>
+              </SView>
             </TouchableOpacity>
             <TouchableOpacity onPress={setLockWall}>
-              <View style={styles.modalItem}>
+              <SView style={styles.modalItem}>
                 <Icon name="settings" type="feather" size={25*scaleHeight} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Set Lockscreen wallpaper</Text>
-              </View>
+              </SView>
             </TouchableOpacity>
             <TouchableOpacity onPress={setBothWall}>
-              <View style={{...styles.modalItem, marginBottom:30*scaleHeight}}>
+              <SView style={{...styles.modalItem, marginBottom:30*scaleHeight}}>
                 <Icon name="info" type="feather" size={25*scaleHeight} style={styles.icon} color={iconColor?'white':'black'}/>
                 <Text style={styles.modalText}>Set Both</Text>
-              </View>
+              </SView>
             </TouchableOpacity>
-          </View>
+          </SView>
         </Modal>
 
         </>
@@ -429,7 +477,6 @@ const styles = StyleSheet.create({
     width:"100%",
     height:300*scaleHeight,
     bottom:-10*scaleHeight,
-    backgroundColor: 'black',
     position:'absolute',
     borderTopEndRadius:25*scaleHeight,
     borderTopLeftRadius:25*scaleHeight,
@@ -476,6 +523,11 @@ const styles = StyleSheet.create({
   iconView:{
     paddingLeft: 25*scaleWidth,
     paddingTop:15*scaleHeight,
+  },
+  box:{
+    height:50,
+    width:85,
+    margin:10
   }
 });
 
