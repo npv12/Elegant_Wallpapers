@@ -8,11 +8,11 @@ import {
     Alert,
     StatusBar,
     Animated,
-    ActivityIndicator,
     Image
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
+import { BlurView, VibrancyView } from "@react-native-community/blur";
 import Modal from 'react-native-modal';
 import RNFetchBlob from 'rn-fetch-blob';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -45,7 +45,7 @@ const SetWallpaper = ({route}) => {
     const [isFav, setIsFav] = useState(false)
     const [iconColor, setIconColor] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [translateBottom, setTranslateBottom] = useState(new Animated.Value(-60*scaleHeight))
+    const [translateBottom, setTranslateBottom] = useState(new Animated.Value(200*scaleHeight))
     const [advertCap, setAdvertCap] = useState(false)
     const [bottomMenuVisible, setBottomMenuVisible] = useState(false)
 
