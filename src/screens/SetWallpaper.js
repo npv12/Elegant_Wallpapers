@@ -45,15 +45,9 @@ const SetWallpaper = ({route}) => {
     const [isFav, setIsFav] = useState(false)
     const [iconColor, setIconColor] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [Visible, setVisible] = useState(true)
-    const [snackbarText, setSnackbarText] = useState("TestSub")
-    const [infoVisible, setInfoVisible] = useState(false)
-    const [bounceValue, setBounceValue] = useState(new Animated.Value(75*scaleHeight))
-    const [scaleValue, setScaleValue] = useState(new Animated.Value(0))
-    const [scaleValueSnack, setScaleValueSnack] = useState(new Animated.Value(0.0))
-    const [bounceValueSnack, setBounceValueSnack] = useState(new Animated.Value(20*scaleHeight))
-    const [bottomTabAnim ,setBottomTabAnim] = useState(new Animated.Value(-60*scaleHeight))
+    const [translateBottom, setTranslateBottom] = useState(new Animated.Value(-60*scaleHeight))
     const [advertCap, setAdvertCap] = useState(false)
+    const [bottomMenuVisible, setBottomMenuVisible] = useState(false)
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -91,12 +85,10 @@ const SetWallpaper = ({route}) => {
       if(response.status=='success')
       {
         setIsLoading(false)
-        setSnackScale(true)
         setSnackbarText("Wallpaper set successfully")
       }
       else{
         setIsLoading(false)
-        setSnackScale(true)
         setSnackbarText("Something went wrong. Please try again")
       }
     }
@@ -141,8 +133,6 @@ const SetWallpaper = ({route}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
-          setSnackScale(true)
-          setSnackbarText("No internet connection")
         })
     }
 
@@ -172,8 +162,6 @@ const SetWallpaper = ({route}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
-          setSnackScale(true)
-          setSnackbarText("No internet connection")
         })
     }
 
@@ -203,8 +191,6 @@ const SetWallpaper = ({route}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
-          setSnackScale(true)
-          setSnackbarText("No internet connection")
         })
     }
 
@@ -252,129 +238,31 @@ const SetWallpaper = ({route}) => {
     {
       if(isFav)
       {
-        return <Icon name="heart" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+        return <View style={styles.iconView}>
+          <Icon name="heart" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+        </View>
       }
-      return <Icon name="hearto" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+      return <View style={styles.iconView}>
+        <Icon name="hearto" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+      </View>
     }
 
-    function setDelay(){
-      setTimeout(function(){
-        setSnackScale(false)
-      },1500)
-    }
-
-    function  setInfoScale() {
-      setInfoTranslate()
-      setSnackbarText(`\nName: ${item.name}\n\nAuthor: ${item.author}\n\nCollection: ${item.collections}\n\n`)
-      var toValue = 1;
-      if(infoVisible) {
-        toValue = 0.0;
-      }
-      Animated.timing(
-        scaleValue,
-        {
-          toValue: toValue,
-          velocity: 25,
-          tension: 2,
-          friction: 6,
-          useNativeDriver:true,
-        },
-      ).start();
-      setInfoVisible(!infoVisible) ;
-  }
-
-  function  setInfoTranslate() {
-    var toValue = 0
-    if(infoVisible) {
-      toValue = 75*scaleHeight;
-    }
-    Animated.spring(
-      bounceValue,
-      {
-        toValue: toValue,
-        velocity: 25,
-        tension: 3,
-        friction: 8,
-        useNativeDriver:true,
-      },
-    ).start();
-  }
-
-  function  setBottomTabTranslate() {
-    var toValue = -60 *scaleHeight
-    if(Visible) {
-      toValue = 150*scaleHeight;
-    }
-    Animated.spring(
-      bottomTabAnim,
-      {
-        toValue: toValue,
-        velocity: 25,
-        tension: 3,
-        friction: 8,
-        useNativeDriver:true,
-      },
-    ).start();
-    setVisible(!Visible)
-  }
-
-  function  setSnackScale(t) {
-    setSnackTranslate(!t)
-    var toValue = 1;
-    if(!t) {
-      toValue = 0.0;
-    }
-    Animated.timing(
-      scaleValueSnack,
-      {
-        toValue: toValue,
-        velocity: 25,
-        tension: 2,
-        friction: 6,
-        useNativeDriver:true,
-      },
-    ).start();
-    if(t){
-      setDelay()
-    }
-}
-
-function  setSnackTranslate(t) {
-  var toValue = 0
-  if(t) {
-    toValue = 35*scaleHeight;
-  }
-  Animated.spring(
-    bounceValueSnack,
-    {
-      toValue: toValue,
-      velocity: 25,
-      tension: 3,
-      friction: 8,
-      useNativeDriver:true,
-    },
-  ).start();
-}
-    function renderExtraSpace()
-    {
-        return(
-          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:26*scaleHeight,height:150*scaleHeight ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValue,},{scaleY: scaleValue},]}]}>
-            <Text style={{...styles.modalText, textAlign:'left', fontSize:16*scaleHeight, paddingTop:5*scaleHeight,}}>
-              {snackbarText}
-            </Text>
-        </Animated.View>
-        )
-    }
-
-    function renderBottomSnack()
-    {
-        return(
-          <Animated.View style={[{...styles.bottomTab, justifyContent:'flex-start',bottom:26*scaleHeight,height:60*scaleHeight ,backgroundColor:!iconColor?'white':'black'},{transform: [{translateY: bounceValueSnack,},{scaleY: scaleValueSnack},]}]}>
-            <Text style={{...styles.modalText, textAlign:'center', fontSize:16*scaleHeight, paddingTop:10*scaleHeight,}}>
-              {snackbarText}
-            </Text>
-        </Animated.View>
-        )
+    function  toggleBottom() {
+        var toValue = 0;
+        if(bottomMenuVisible) {
+          toValue = 200*scaleHeight;
+        }
+        Animated.spring(
+          translateBottom,
+          {
+            toValue: toValue,
+            velocity: 25,
+            tension: 2,
+            friction: 4,
+            useNativeDriver:true,
+          },
+        ).start();
+        setBottomMenuVisible(!bottomMenuVisible)
     }
 
     function renderBottomTab()
@@ -382,33 +270,41 @@ function  setSnackTranslate(t) {
       {
       return(
         <>
-        {renderExtraSpace()}
-        {renderBottomSnack()}
-        <View style={{...styles.bottomTab}}>
-          <View style={{flexDirection:'row', justifyContent:'space-between'}} >
-            <TouchableOpacity style={{...styles.icon, marginLeft:30*scaleHeight}} onPress={()=>setInfoScale()}>
-              <Icon name="info" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.icon} onPress={() => {
-              handleDownload()
-              setSnackScale(true)
-            }}>
-              <Icon name="download" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.icon} onPress={()=>setShowApplyModal(true)}>
-              <Icon name="arrow-up-circle" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
-            </TouchableOpacity>
-            <TouchableOpacity style={{...styles.icon, marginRight:30*scaleWidth}} onPress={()=>{addToFav()}}>
-              {renderHeart()}
-            </TouchableOpacity>
+        <Animated.View style={[styles.bottomTab,{transform: [{translateY: translateBottom,}]}]}>
+          <View style={{flexDirection:'row',justifyContent:'space-between'}} >
+            <View style={{flexDirection:'row'}} >
+              <TouchableOpacity style={{...styles.icon, marginLeft:30*scaleHeight}} onPress={toggleBottom}>
+                <View style={{marginTop:15*scaleHeight, paddingRight:10*scaleWidth}}>
+                  <Icon name="up" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+                </View>
+              </TouchableOpacity>
+              <Text style={styles.NameHeader}>{item.name.toUpperCase()}</Text>
+              </View>
+              <View style={{flexDirection:'row', justifyContent: 'flex-end'}}>
+              <TouchableOpacity style={styles.icon} onPress={() => {
+                handleDownload()
+              }}>
+                <View style={styles.iconView}>
+                  <Icon name="download" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.icon} onPress={()=>setShowApplyModal(true)}>
+                <View style={styles.iconView}>
+                  <Icon name="arrow-up-circle" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity style={{...styles.icon, marginRight:30*scaleWidth}} onPress={()=>{addToFav()}}>
+                {renderHeart()}
+              </TouchableOpacity>
+            </View>
           </View>
-          </View>
+        </Animated.View>
           <Modal
           animationType="FadeIn"
           visible={showApplyModal}
           useNativeDriver={true}
           onBackdropPress={() => setShowApplyModal(false)}
-        >
+          >
           <View style={styles.modal}>
             <TouchableOpacity onPress={()=>{
               setHomeWall()
@@ -469,8 +365,6 @@ function  setSnackTranslate(t) {
 
     async function handleDownload() {
       showAd()
-      setSnackScale(true)
-      setSnackbarText("Download started")
       if (Platform.OS === 'android') {
         const granted = await getPermissionAndroid();
         if (!granted) {
@@ -494,15 +388,10 @@ function  setSnackTranslate(t) {
               .fetch('GET', item.url)
               .then(res => {
                 setIsLoading(false)
-                LoadAdvert()
-                setSnackScale(true)
-                setSnackbarText("Download complete")
               })
               .catch(error => console.log("error: ",error));
           }
           else{
-            setSnackScale(true)
-            setSnackbarText("Wallpaper already downloaded");
             setIsLoading(false)
           }
       })
@@ -537,19 +426,16 @@ const styles = StyleSheet.create({
     fontFamily:'Linotte-Bold'
   },
   bottomTab:{
-    width:"80%",
-    height:55*scaleHeight,
-    bottom:0,
+    width:"100%",
+    height:300*scaleHeight,
+    bottom:-10*scaleHeight,
+    backgroundColor: 'black',
     position:'absolute',
-    margin:'10%',
-    justifyContent:'center',
-    borderTopEndRadius:15*scaleHeight,
-    borderTopLeftRadius:15*scaleHeight,
-    borderBottomEndRadius:15*scaleHeight,
-    borderBottomLeftRadius:15*scaleHeight
-  },
-  icon:{
-    marginHorizontal:10*scaleHeight,
+    borderTopEndRadius:25*scaleHeight,
+    borderTopLeftRadius:25*scaleHeight,
+    borderBottomEndRadius:25*scaleHeight,
+    borderBottomLeftRadius:25*scaleHeight,
+    paddingTop: 14
   },
   modal:{
     height:210*scaleHeight,
@@ -582,6 +468,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
+  NameHeader:{
+    fontSize: 20*scaleHeight,
+    fontFamily:'Linotte-Bold',
+    marginTop: 15*scaleHeight
+  },
+  iconView:{
+    paddingLeft: 25*scaleWidth,
+    paddingTop:15*scaleHeight,
+  }
 });
 
 export default SetWallpaper;
