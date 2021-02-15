@@ -28,6 +28,7 @@ import styled from 'styled-components/native'
 import Clipboard from '@react-native-clipboard/clipboard';
 import LoadImage from '../components/LoadImage';
 import loadAd from '../components/Advert';
+import ColorBox from '../components/ColorBox'
 import { STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
 
 const windowWidth = Dimensions.get('window').width;
@@ -123,7 +124,6 @@ const SetWallpaper = ({route, navigation}) => {
       if(!advertCap)  {
         loadAd()
         setAdvertCap(true)
-        setDelayAd()
       }
     }
 
@@ -272,11 +272,11 @@ const SetWallpaper = ({route, navigation}) => {
       if(isFav)
       {
         return <View style={styles.iconView}>
-          <Icon name="heart" type='antdesign' size={25*scaleHeight} color='white'/>
+          <Icon name="heart" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
         </View>
       }
       return <View style={styles.iconView}>
-        <Icon name="hearto" type='antdesign' size={25*scaleHeight} color='white'/>
+        <Icon name="hearto" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
       </View>
     }
 
@@ -303,10 +303,10 @@ const SetWallpaper = ({route, navigation}) => {
     function renderArrow(){
       if(bottomMenuVisible)
         return <View style={{marginTop:15*scaleHeight, paddingRight:10*scaleWidth}}>
-          <Icon name="down" type='antdesign' size={25*scaleHeight} color='white'/>
+          <Icon name="down" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
         </View>
       return <View style={{marginTop:15*scaleHeight, paddingRight:10*scaleWidth}}>
-        <Icon name="up" type='antdesign' size={25*scaleHeight} color='white'/>
+        <Icon name="up" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
       </View>
     }
 
@@ -324,10 +324,10 @@ const SetWallpaper = ({route, navigation}) => {
 
     //collextionBox for the flatlist
     function renderCollectionBox({item}){
-      return <TouchableOpacity style={{...styles.box, backgroundColor: 'rgba(0,0,0,0.6)', width:windowWidth/2-50, height: 65}} onPress={()=>{navigation.navigate('Collection',{
+      return <TouchableOpacity style={{...styles.box, backgroundColor: 'rgba(255,255,255,0.5)', width:windowWidth/3, height: 55}} onPress={()=>{navigation.navigate('Collection',{
         value:item
       })}}>
-                <Text style={{fontSize:20,color:'white'}}>{item}</Text>
+                <Text style={{fontSize:20}}>{item.toUpperCase()}</Text>
               </TouchableOpacity>
     }
 
@@ -335,35 +335,48 @@ const SetWallpaper = ({route, navigation}) => {
     function renderExpandedView(){
       return(
         <ScrollView>
-          <View style={{marginTop: 50}}>
-            <Text style={{...styles.bottomHeader}}>Colors</Text>
+          <View >
+            <Text style={{...styles.bottomHeader, fontSize:24, marginHorizontal:20}}>Colors</Text>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}} >
-              <TouchableOpacity style={{...styles.box, backgroundColor: colors.average}} activeOpacity={0.8} onPress={()=>copyToClip(colors.average)}/>
-              <TouchableOpacity style={{...styles.box, backgroundColor: colors.darkMuted}} activeOpacity={0.8} onPress={()=>copyToClip(colors.darkMuted)}/>
-              <TouchableOpacity style={{...styles.box, backgroundColor: colors.darkVibrant}} activeOpacity={0.8} onPress={()=>copyToClip(colors.darkVibrant)}/>
-              <TouchableOpacity style={{...styles.box, backgroundColor: colors.dominant}} activeOpacity={0.8} onPress={()=>copyToClip(colors.dominant)}/>
+              <ColorBox color = {colors.average}/>
+              <ColorBox color = {colors.darkMuted}/>
+              <ColorBox color = {colors.darkVibrant}/>
             </View>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <TouchableOpacity style={{...styles.box, backgroundColor: colors.lightMuted}} activeOpacity={0.8} onPress={()=>copyToClip(colors.lightMuted)}/>
-              <TouchableOpacity style={{...styles.box, backgroundColor: colors.lightVibrant}} activeOpacity={0.8} onPress={()=>copyToClip(colors.lightVibrant)}/>
-              <TouchableOpacity style={{...styles.box, backgroundColor: colors.muted}} activeOpacity={0.8} onPress={()=>copyToClip(colors.muted)}/>
-              <TouchableOpacity style={{...styles.box, backgroundColor: colors.vibrant}} activeOpacity={0.8} onPress={()=>copyToClip(colors.vibrant)}/>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}} >
+              <ColorBox color = {colors.dominant}/>
+              <ColorBox color = {colors.lightMuted}/>
+              <ColorBox color = {colors.lightVibrant}/>
             </View>
-            <Text style={{...styles.bottomHeader}}>Collections</Text>
-            <View style={{justifyContent: 'space-between', alignItems: 'center'}}>
-              <FlatList
-              horizontal
-              data={variousCollection}
-              renderItem={renderCollectionBox}
-              keyExtractor={(item) => item}
-            />
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}} >
+              <ColorBox color = {colors.muted}/>
+              <ColorBox color = {colors.vibrant}/>
+              <ColorBox/>
             </View>
-            <Text style={styles.bottomHeader}>Resolution</Text>
-            <View style={{justifyContent: 'space-between', alignItems: 'center'}}>
-              <TouchableOpacity style={{...styles.box, backgroundColor: 'rgba(0,0,0,0.6)', width:windowWidth/2-50, height: 65}} onPress={()=>{navigation.navigate('Collection',{value:item})}}>
-                <Text style={{fontSize:20,color:'white'}}>{item.resolution}</Text>
-              </TouchableOpacity>
+            <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+              <View style={{...styles.box, backgroundColor: 'rgba(255,255,255,0.6)', width:windowWidth/2-25, height: 105}}>
+                <View>
+                  <Text style={{...styles.bottomHeader,fontSize:24}}>{item.resolution}</Text>
+                </View>
+                <Text style={styles.bottomHeader}>RESOLUTION</Text>
+              </View>
+              <View style={{...styles.box, backgroundColor: 'rgba(255,255,255,0.6)', width:windowWidth/2-25, height: 105}}>
+                <View>
+                  <Text style={{...styles.bottomHeader,fontSize:24}}>{item.author}</Text>
+                </View>
+                <Text style={styles.bottomHeader}>AUTHOR</Text>
+              </View>
             </View>
+            <View style={{justifyContent: 'space-between', alignItems: 'flex-start'}}>
+                <Text style={{...styles.bottomHeader, fontSize:24, marginHorizontal:20, marginTop:20}}>Collections</Text>
+                <View style={{justifyContent: 'space-between', alignItems: 'center'}}>
+                  <FlatList
+                  horizontal
+                  data={variousCollection}
+                  renderItem={renderCollectionBox}
+                  keyExtractor={(item) => item}
+                />
+                </View>
+              </View>
           </View>
           <View style={{height:100, width:windowWidth}}/>
         </ScrollView>
@@ -379,28 +392,28 @@ const SetWallpaper = ({route, navigation}) => {
         <Animated.View style={[styles.bottomTab,{transform: [{translateY: translateBottom,}]}]}>
         <BlurView
           style={{...styles.bottomTab, backgroundColor: 'rgba(255,255,255,0.1)'}}
-          blurType="dark"
-          blurAmount={27}
+          blurType="light"
+          blurAmount={11}
           />
           <View style={{flexDirection:'row',justifyContent:'space-between'}} >
             <View style={{flexDirection:'row'}} >
               <TouchableOpacity style={{...styles.icon, marginLeft:30*scaleHeight}} onPress={toggleBottom}>
                 {renderArrow()}
               </TouchableOpacity>
-              <Text style={{...styles.NameHeader, color:'white'}}>{item.name.toUpperCase()}</Text>
+              <Text style={{...styles.NameHeader}}>{item.name.toUpperCase()}</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent: 'flex-end'}}>
               <TouchableOpacity style={styles.icon} onPress={() => {
                 handleDownload()
               }}>
                 <View style={styles.iconView}>
-                  <Icon name="download" type='feather' size={25*scaleHeight} color='white'/>
+                  <Icon name="download" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
                 </View>
 
               </TouchableOpacity>
               <TouchableOpacity style={styles.icon} onPress={()=>setShowApplyModal(true)}>
                 <View style={styles.iconView}>
-                  <Icon name="arrow-up-circle" type='feather' size={25*scaleHeight} color='white'/>
+                  <Icon name="arrow-up-circle" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={{...styles.icon, marginRight:30*scaleWidth}} onPress={()=>{addToFav()}}>
@@ -408,7 +421,7 @@ const SetWallpaper = ({route, navigation}) => {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{height:14, width: windowWidth}}/>
+          <View style={{height:35, width: windowWidth}}/>
           {renderExpandedView()}
         </Animated.View>
           <Modal
@@ -610,8 +623,8 @@ const styles = StyleSheet.create({
     borderBottomRightRadius:15,
   },
   bottomHeader:{
-    fontSize:22,
-    textAlign: 'center',
+    fontSize:16,
+    fontFamily: 'Gotham-Black'
   }
 });
 
