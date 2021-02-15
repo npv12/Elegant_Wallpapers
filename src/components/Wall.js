@@ -26,7 +26,6 @@ const windowWidth = Dimensions.get('window').width;
 const Wall = ({...props}) => {
   const theme = useTheme()
   const length = props.data.length
-  console.log(length)
 
   function renderWalls(){
     if(!props.data || props.data.length==0)
@@ -56,7 +55,7 @@ const Wall = ({...props}) => {
 );
 
 const renderItem = ({ item }) => {
-  
+
   return (
     <Item
       item={item}

@@ -183,8 +183,6 @@ async componentDidMount() {
       };
 
       const button2 = { text: "Complete", onPress: () => { notifReceivedEvent.complete(notif); }};
-
-        console.log("Complete notification?", "Test");
     });
     OneSignal.setNotificationOpenedHandler(notification => {
         this.OSLog("OneSignal: notification opened:", notification);

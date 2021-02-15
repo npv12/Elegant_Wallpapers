@@ -5,12 +5,25 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Clipboard,
+  ToastAndroid
 } from 'react-native';
 
 export default function ColorBox (props) {
+  //copies the color to clipboard when the color is selected
+  function copyToClip(){
+    Clipboard.setString(props.color);
+    ToastAndroid.showWithGravityAndOffset(
+      'Color has been copied',
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+  }
     return (
-      <TouchableOpacity style={styles.container} activeOpacity={0.5}>
+      <TouchableOpacity style={styles.container} activeOpacity={0.5} onPress={copyToClip}>
         <View style={{...styles.circle,backgroundColor: props.color}}/>
         <Text style={styles.header}>{props.color}</Text>
       </TouchableOpacity>
@@ -34,6 +47,7 @@ const styles = StyleSheet.create({
   },
   header:{
     fontSize: 18,
-    marginTop: 2
+    marginTop: 2,
+    color:'white'
   }
 });

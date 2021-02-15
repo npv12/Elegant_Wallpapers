@@ -11,8 +11,8 @@ import {
     Image,
     ScrollView,
     View,
-    ToastAndroid,
-    FlatList
+    FlatList,
+    ToastAndroid
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ManageWallpaper, { TYPE } from 'react-native-manage-wallpaper';
@@ -25,7 +25,6 @@ import _ from 'lodash';
 import Loader from '../components/Loader'
 import ImageColors from "react-native-image-colors"
 import styled from 'styled-components/native'
-import Clipboard from '@react-native-clipboard/clipboard';
 import LoadImage from '../components/LoadImage';
 import loadAd from '../components/Advert';
 import ColorBox from '../components/ColorBox'
@@ -52,10 +51,13 @@ const SetWallpaper = ({route, navigation}) => {
     const [iconColor, setIconColor] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [translateBottom, setTranslateBottom] = useState(new Animated.Value(200*scaleHeight))
+    const [translateSnack, setTranslateSnack] = useState(new Animated.Value(300*scaleHeight))
     const [advertCap, setAdvertCap] = useState(false)
     const [bottomMenuVisible, setBottomMenuVisible] = useState(false)
     const [colors, setColors] = useState({average:'#FFF', vibrant:'#FFF', dominant:'#FFF'})
     const [variousCollection, setVariousCollections] = useState([])
+    const [snackVisible,setSnackVisible] = useState(false)
+    const [snack, setSnack] = useState('HEY')
 
     if(theme.mode=='dark' && !iconColor)
     setIconColor(true)
@@ -68,6 +70,7 @@ const SetWallpaper = ({route, navigation}) => {
       }
     },[]);
 
+    //retrieve data from storage
     async function retrieveData()
     {
       //extract colors
@@ -112,10 +115,12 @@ const SetWallpaper = ({route, navigation}) => {
     {
       if(response.status=='success')
       {
+        showSnackbarText("Wallpaper set successfully")
         setIsLoading(false)
       }
       else{
         setIsLoading(false)
+        showSnackbarText("Something went wrong")
       }
     }
 
@@ -162,6 +167,7 @@ const SetWallpaper = ({route, navigation}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
+          showSnackbarText("Something went wrong")
         })
     }
 
@@ -192,6 +198,7 @@ const SetWallpaper = ({route, navigation}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
+          showSnackbarText("Something went wrong")
         })
     }
 
@@ -222,6 +229,7 @@ const SetWallpaper = ({route, navigation}) => {
         }).catch((e)=>{
           console.log(e)
           setIsLoading(false)
+          showSnackbarText("Something went wrong")
         })
     }
 
@@ -266,17 +274,104 @@ const SetWallpaper = ({route, navigation}) => {
       }
     }
 
+    //have to check for perms before the app decides to crash itself up
+    const getPermissionAndroid = async () => {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Image Download Permission',
+            message: 'Your permission is required to save images to your device',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          return true;
+        }
+        Alert.alert(
+          'Save remote Image',
+          'Grant Me Permission to save Image',
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+          {cancelable: false},
+        );
+      } catch (err) {
+        Alert.alert(
+          'Save remote Image',
+          'Failed to save Image: ' + err.message,
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+          {cancelable: false},
+        );
+      }
+    };
+
+    function showSnackbarText(text){
+      ToastAndroid.showWithGravityAndOffset(
+        text,
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+        25,
+        50
+      );
+
+    }
+
+    //wallpaper downloader.
+    async function handleDownload() {
+      showAd()
+      showSnackbarText("Download Started")
+      if (Platform.OS === 'android') {
+        const granted = await getPermissionAndroid();
+        if (!granted) {
+          return;
+        }
+      }
+      let dirs = RNFetchBlob.fs.dirs.SDCardDir
+      let extension = item.url.split('.').pop()
+      if(extension== 'jpg' || extension=='jpeg' || extension=='png')
+        ;
+      else {
+        extension = 'jpg'
+      }
+      const PATH = (dirs + `/Pictures/Elegant-Walls/` + item.name + '_' + item.author + '.' + extension)
+      RNFetchBlob.fs.exists(PATH)
+      .then((exist) => {
+          if(!exist)
+          {
+            RNFetchBlob.config({
+              addAndroidDownloads:{
+                useDownloadManager:true,
+                notification:true,
+                mime:'image',
+                path:PATH,
+              }
+            })
+              .fetch('GET', item.url)
+              .then(res => {
+                showSnackbarText("Download completed")
+              })
+              .catch(error => console.log("error: ",error));
+              showSnackbarText("Something went wrong")
+          }
+          else{
+            showSnackbarText("File exists")
+          }
+      })
+      .catch(() => { console.log("File error")})
+
+    };
+
     //lets make everything into separate components coz why not?
     function renderHeart()
     {
       if(isFav)
       {
         return <View style={styles.iconView}>
-          <Icon name="heart" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+          <Icon name="heart" type='antdesign' size={25*scaleHeight} color='white'/>
         </View>
       }
       return <View style={styles.iconView}>
-        <Icon name="hearto" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+        <Icon name="hearto" type='antdesign' size={25*scaleHeight} color='white'/>
       </View>
     }
 
@@ -303,31 +398,19 @@ const SetWallpaper = ({route, navigation}) => {
     function renderArrow(){
       if(bottomMenuVisible)
         return <View style={{marginTop:15*scaleHeight, paddingRight:10*scaleWidth}}>
-          <Icon name="down" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+          <Icon name="down" type='antdesign' size={25*scaleHeight} color='white'/>
         </View>
       return <View style={{marginTop:15*scaleHeight, paddingRight:10*scaleWidth}}>
-        <Icon name="up" type='antdesign' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+        <Icon name="up" type='antdesign' size={25*scaleHeight} color='white'/>
       </View>
-    }
-
-    //copies the color to clipboard when the color is selected
-    function copyToClip(colors){
-      Clipboard.setString(colors);
-      ToastAndroid.showWithGravityAndOffset(
-        'Color has been copied',
-        ToastAndroid.SHORT,
-        ToastAndroid.BOTTOM,
-        25,
-        50
-      );
     }
 
     //collextionBox for the flatlist
     function renderCollectionBox({item}){
-      return <TouchableOpacity style={{...styles.box, backgroundColor: 'rgba(255,255,255,0.5)', width:windowWidth/3, height: 55}} onPress={()=>{navigation.navigate('Collection',{
+      return <TouchableOpacity style={{...styles.box, backgroundColor: 'rgba(0,0,0,0.38)', width:windowWidth/3, height: 55}} onPress={()=>{navigation.navigate('Collection',{
         value:item
       })}}>
-                <Text style={{fontSize:20}}>{item.toUpperCase()}</Text>
+                <Text style={{fontSize:20,color:'white'}}>{item.toUpperCase()}</Text>
               </TouchableOpacity>
     }
 
@@ -336,7 +419,7 @@ const SetWallpaper = ({route, navigation}) => {
       return(
         <ScrollView>
           <View >
-            <Text style={{...styles.bottomHeader, fontSize:24, marginHorizontal:20}}>Colors</Text>
+            <Text style={{...styles.bottomHeader, fontSize:24, marginHorizontal:20, color:'white'}}>Colors</Text>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}} >
               <ColorBox color = {colors.average}/>
               <ColorBox color = {colors.darkMuted}/>
@@ -353,21 +436,21 @@ const SetWallpaper = ({route, navigation}) => {
               <ColorBox/>
             </View>
             <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-              <View style={{...styles.box, backgroundColor: 'rgba(255,255,255,0.6)', width:windowWidth/2-25, height: 105}}>
+              <View style={{...styles.box, backgroundColor: 'rgba(0,0,0,0.4)', width:windowWidth/3, height: 105}}>
                 <View>
-                  <Text style={{...styles.bottomHeader,fontSize:24}}>{item.resolution}</Text>
+                  <Text style={{...styles.bottomHeader,fontSize:20,color:'white'}}>{item.resolution}</Text>
                 </View>
-                <Text style={styles.bottomHeader}>RESOLUTION</Text>
+                <Text style={{...styles.bottomHeader,color:'white', fontSize:15}}>RESOLUTION</Text>
               </View>
-              <View style={{...styles.box, backgroundColor: 'rgba(255,255,255,0.6)', width:windowWidth/2-25, height: 105}}>
+              <View style={{...styles.box, backgroundColor: 'rgba(0,0,0,0.4)', width:2*windowWidth/3-40, height: 105}}>
                 <View>
-                  <Text style={{...styles.bottomHeader,fontSize:24}}>{item.author}</Text>
+                  <Text style={{...styles.bottomHeader,fontSize:24,color:'white', fontSize:20}}>{item.author}</Text>
                 </View>
-                <Text style={styles.bottomHeader}>AUTHOR</Text>
+                <Text style={{...styles.bottomHeader,color:'white', fontSize:15}}>AUTHOR</Text>
               </View>
             </View>
             <View style={{justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                <Text style={{...styles.bottomHeader, fontSize:24, marginHorizontal:20, marginTop:20}}>Collections</Text>
+                <Text style={{...styles.bottomHeader, fontSize:24, marginHorizontal:20, marginTop:20,color:'white'}}>Tags</Text>
                 <View style={{justifyContent: 'space-between', alignItems: 'center'}}>
                   <FlatList
                   horizontal
@@ -391,29 +474,29 @@ const SetWallpaper = ({route, navigation}) => {
         <>
         <Animated.View style={[styles.bottomTab,{transform: [{translateY: translateBottom,}]}]}>
         <BlurView
-          style={{...styles.bottomTab, backgroundColor: 'rgba(255,255,255,0.1)'}}
-          blurType="light"
-          blurAmount={11}
+          style={{...styles.bottomTab, backgroundColor: 'rgba(0,0,0,0.1)'}}
+          blurType="dark"
+          blurAmount={15}
           />
           <View style={{flexDirection:'row',justifyContent:'space-between'}} >
             <View style={{flexDirection:'row'}} >
               <TouchableOpacity style={{...styles.icon, marginLeft:30*scaleHeight}} onPress={toggleBottom}>
                 {renderArrow()}
               </TouchableOpacity>
-              <Text style={{...styles.NameHeader}}>{item.name.toUpperCase()}</Text>
+              <Text style={{...styles.NameHeader,color:'white'}}>{item.name.toUpperCase()}</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent: 'flex-end'}}>
               <TouchableOpacity style={styles.icon} onPress={() => {
                 handleDownload()
               }}>
                 <View style={styles.iconView}>
-                  <Icon name="download" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+                  <Icon name="download" type='feather' size={25*scaleHeight} color='white'/>
                 </View>
 
               </TouchableOpacity>
               <TouchableOpacity style={styles.icon} onPress={()=>setShowApplyModal(true)}>
                 <View style={styles.iconView}>
-                  <Icon name="arrow-up-circle" type='feather' size={25*scaleHeight} color={iconColor?'white':'black'}/>
+                  <Icon name="arrow-up-circle" type='feather' size={25*scaleHeight} color='white'/>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={{...styles.icon, marginRight:30*scaleWidth}} onPress={()=>{addToFav()}}>
@@ -453,85 +536,9 @@ const SetWallpaper = ({route, navigation}) => {
             </TouchableOpacity>
           </SView>
         </Modal>
-
         </>
       )}
     }
-
-    //have to check for perms before the app decides to crash itself up
-    const getPermissionAndroid = async () => {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'Image Download Permission',
-            message: 'Your permission is required to save images to your device',
-            buttonNegative: 'Cancel',
-            buttonPositive: 'OK',
-          },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          return true;
-        }
-        Alert.alert(
-          'Save remote Image',
-          'Grant Me Permission to save Image',
-          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
-          {cancelable: false},
-        );
-      } catch (err) {
-        Alert.alert(
-          'Save remote Image',
-          'Failed to save Image: ' + err.message,
-          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
-          {cancelable: false},
-        );
-      }
-    };
-
-    //wallpaper downloader.
-    async function handleDownload() {
-      showAd()
-      if (Platform.OS === 'android') {
-        const granted = await getPermissionAndroid();
-        if (!granted) {
-          return;
-        }
-      }
-      let dirs = RNFetchBlob.fs.dirs.SDCardDir
-      let extension = item.url.split('.').pop()
-      console.log(extension)
-      if(extension== 'jpg' || extension=='jpeg' || extension=='png')
-        console.log(extension)
-      else {
-        extension = 'jpg'
-      }
-      const PATH = (dirs + `/Pictures/Elegant-Walls/` + item.name + '_' + item.author + '.' + extension)
-      RNFetchBlob.fs.exists(PATH)
-      .then((exist) => {
-          if(!exist)
-          {
-            RNFetchBlob.config({
-              addAndroidDownloads:{
-                useDownloadManager:true,
-                notification:true,
-                mime:'image',
-                path:PATH,
-              }
-            })
-              .fetch('GET', item.url)
-              .then(res => {
-                setIsLoading(false)
-              })
-              .catch(error => console.log("error: ",error));
-          }
-          else{
-            setIsLoading(false)
-          }
-      })
-      .catch(() => { console.log("File error")})
-
-    };
 
   return (
     <View style={{flex:1}}>
@@ -624,7 +631,7 @@ const styles = StyleSheet.create({
   },
   bottomHeader:{
     fontSize:16,
-    fontFamily: 'Gotham-Black'
+    fontFamily: 'Linotte-Bold'
   }
 });
 
