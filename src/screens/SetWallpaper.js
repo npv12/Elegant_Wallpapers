@@ -486,7 +486,14 @@ const SetWallpaper = ({route, navigation}) => {
         }
       }
       let dirs = RNFetchBlob.fs.dirs.SDCardDir
-      const PATH = (dirs + `/Pictures/Elegant-Walls/` + item.name + '_' + item.author + '.jpg')
+      let extension = item.url.split('.').pop()
+      console.log(extension)
+      if(extension== 'jpg' || extension=='jpeg' || extension=='png')
+        console.log(extension)
+      else {
+        extension = 'jpg'
+      }
+      const PATH = (dirs + `/Pictures/Elegant-Walls/` + item.name + '_' + item.author + '.' + extension)
       RNFetchBlob.fs.exists(PATH)
       .then((exist) => {
           if(!exist)
