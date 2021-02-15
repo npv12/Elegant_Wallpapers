@@ -13,7 +13,7 @@ const View = styled.View`
 
 const Text = styled.Text`
   color: ${props => props.theme.text};
-  
+
 `
 
 const scaleWidth = Dimensions.get('window').width/STANDARD_WIDTH
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     fontFamily:'Manrope-medium'
   },
   changelogContainer:{
-    width:200*scaleWidth, 
+    width:200*scaleWidth,
     height:300*scaleHeight,
     borderTopEndRadius:25,
     borderBottomEndRadius:25,
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius:25
   },
   test:{
-    width:200*scaleWidth, 
+    width:200*scaleWidth,
     height:300*scaleHeight,
     borderTopEndRadius:25,
     borderBottomEndRadius:25,

@@ -40,14 +40,15 @@ class ScrollableModal extends ModalBaseScene<State> {
         isVisible={this.props.visible}
         onSwipeComplete={this.close}
         swipeDirection={['down']}
-        onBackdropPress={() => this.props.changeVisible(false)} 
-        onDismiss={()=>this.isVisible()} 
+        onBackdropPress={() => this.props.changeVisible(false)}
+        onDismiss={()=>this.isVisible()}
         scrollTo={this.handleScrollTo}
         scrollOffset={this.state.scrollOffset}
         scrollOffsetMax={400 - 300} // content height - ScrollView height
         propagateSwipe={true}
         style={styles.modal}>
         <View style={styles.scrollableModal}>
+          <View style={{height:25, width:"100%",borderTopLeftRadius:25, borderTopRightRadius:25,backgroundColor: '#AAFF00',}}/>
           <ScrollView
             ref={this.scrollViewRef}
             onScroll={this.handleOnScroll}
@@ -74,6 +75,8 @@ const styles = StyleSheet.create({
   },
   scrollableModal: {
     height: 300*scaleHeight,
+    borderTopLeftRadius:25,
+    borderTopRightRadius:25
   },
   scrollableModalContent1: {
     height: 400*scaleHeight,
@@ -81,8 +84,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding:25 * scaleHeight,
-    borderTopLeftRadius:25,
-    borderTopRightRadius:25
+
   },
   scrollableModalText1: {
     fontSize: 20*scaleHeight,
