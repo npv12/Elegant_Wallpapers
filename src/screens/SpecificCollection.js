@@ -63,10 +63,10 @@ useEffect(() => {
     <View style={{backgroundColor:theme.mode!='dark'?'white':'black',height:35*scaleHeight}}>
     </View>
     <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
+    <View style={styles.header}>
+        <Text style={styles.headerText}>{value.toUpperCase()}</Text>
+    </View>
     <View style={styles.container}>
-        <View style={styles.header}>
-            <Text style={styles.headerText}>{value.toUpperCase()}</Text>
-        </View>
       <Wall data={data} navigation={navigation}/>
     </View>
     </>

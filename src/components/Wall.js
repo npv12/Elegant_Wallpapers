@@ -25,6 +25,8 @@ const windowWidth = Dimensions.get('window').width;
 
 const Wall = ({...props}) => {
   const theme = useTheme()
+  const length = props.data.length
+  console.log(length)
 
   function renderWalls(){
     if(!props.data || props.data.length==0)
@@ -41,18 +43,20 @@ const Wall = ({...props}) => {
             numColumns={2}
             scrollsToTop={false}
           />
+
           </View>
   }
 
   const Item = ({ item, onPress }) => (
-    <View style={styles.wallBoundary}>
-      <TouchableOpacity onPress={onPress} activeOpacity={0.9}>
+    <View >
+      <TouchableOpacity style={styles.wallBoundary} onPress={onPress} activeOpacity={0.9}>
         <LoadImage source={item} style={styles.Wall}/>
       </TouchableOpacity>
     </View>
 );
 
 const renderItem = ({ item }) => {
+  
   return (
     <Item
       item={item}

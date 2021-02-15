@@ -1,3 +1,5 @@
+//Component that takes out the scroll out of the collection Tab. Collection tab was already way too cluttered and was making my life dificult. Maybe this helps :(
+
 import React, {useEffect,useRef} from 'react';
 import {
   StyleSheet,
