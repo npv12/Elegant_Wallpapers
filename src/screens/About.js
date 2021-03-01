@@ -1,8 +1,8 @@
 import React, { useEffect,useState } from 'react';
-import {StyleSheet,TouchableOpacity,Dimensions,Linking,StatusBar } from 'react-native';
+import {StyleSheet,TouchableOpacity,Dimensions,Linking,StatusBar,Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import styled from 'styled-components/native'
-import { CREDITS_URL, DISCLAIMER_TEXT, FREE_APP, MADNESS_TELE, PRANAV_TELE, PRO_APP, UNFUNNYGAY_TELE, VERSION_URL,VERSION_NUMBER,STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
+import { CREDITS_URL, DISCLAIMER_TEXT, FREE_APP, MADNESS_TELE, PRANAV_TELE, PRO_APP, UNFUNNYGAY_TELE, VERSION_URL,VERSION_NUMBER,STANDARD_HEIGHT,STANDARD_WIDTH, CONTRIBUTORS } from '../constants';
 import { useTheme } from '../themes'
 import Modal from 'react-native-modal';
 import ScrollableModal from '../components/ScrollableModal';
@@ -23,6 +23,7 @@ const About = () => {
   const theme = useTheme()
   const [changelogVisible, setChangelogVisible] = useState(false)
   const [changelog, setChangelog] = useState('')
+  const [contributors, setContributors] = useState(null)
 
   async function getData(){
     fetch(VERSION_URL, {
@@ -35,6 +36,17 @@ const About = () => {
       .catch((error) => {
         console.log(error);
       })
+
+      fetch(CONTRIBUTORS, {
+        method: 'GET',
+      })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          setContributors(responseJson)
+        })
+        .catch((error) => {
+          console.log(error);
+        })
   }
 
   useEffect(() => {getData()},[]);
@@ -46,6 +58,17 @@ const About = () => {
     return(
       <ScrollableModal visible={changelogVisible} changeVisible={setChangelogVisible} changelog={changelog}/>
   )
+  }
+
+  function Authors(){
+    if(contributors)
+      return contributors.map(function(data){
+        return (<TouchableOpacity onPress={()=>Linking.openURL(data.url)} activeOpacity={0.6}>
+        <Text style={styles.item}>{data.name}</Text>
+        <Text style={{...styles.item, fontSize:16*scaleHeight, paddingTop:5*scaleHeight, color:'#898989'}}>{data.title}</Text>
+      </TouchableOpacity>)
+      })
+    else return null
   }
   return (
     <View style={styles.container}>
@@ -62,18 +85,8 @@ const About = () => {
         <TouchableOpacity onPress={()=>Linking.openURL(CREDITS_URL)}  style={{paddingTop:8*scaleHeight}} activeOpacity={0.6}>
             <Text style={styles.item}>Licences</Text>
         </TouchableOpacity>
-        <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Authors</Text>
-          <TouchableOpacity onPress={()=>Linking.openURL(UNFUNNYGAY_TELE)} activeOpacity={0.6}>
-            <Text style={styles.item}>Sarath</Text>
-            <Text style={{...styles.item, fontSize:16*scaleHeight, paddingTop:5*scaleHeight, color:'#898989'}}>Project manager/Founder</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>Linking.openURL(PRANAV_TELE)} activeOpacity={0.6}>
-            <Text style={styles.item}>Pranav Santhosh</Text>
-            <Text style={{...styles.item, fontSize:16*scaleHeight, paddingTop:5*scaleHeight, color:'#898989'}}>App developer</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>Linking.openURL(MADNESS_TELE)} activeOpacity={0.6}>
-            <Text style={styles.item}>Join telegram channel</Text>
-          </TouchableOpacity>
+        <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Contributors</Text>
+            {Authors()}
           <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Support Development</Text>
           <TouchableOpacity onPress={()=>Linking.openURL(FREE_APP)} activeOpacity={0.6}>
             <Text style={styles.item}>Rate</Text>
@@ -82,6 +95,10 @@ const About = () => {
           <TouchableOpacity onPress={()=>Linking.openURL(PRO_APP)} activeOpacity={0.6}>
             <Text style={styles.item}>Pro</Text>
             <Text style={{...styles.item, fontSize:16*scaleHeight, paddingTop:5*scaleHeight, color:'#898989'}}>Buy the pro app and go adfree</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>Linking.openURL(MADNESS_TELE)} activeOpacity={0.6}>
+            <Text style={styles.item}>Join telegram channel</Text>
+            <Text style={{...styles.item, fontSize:16*scaleHeight, paddingTop:5*scaleHeight, color:'#898989'}}>Report bugs, suggest features or just simply have fun</Text>
           </TouchableOpacity>
           <View>
           <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Disclaimer</Text>
