@@ -59,12 +59,11 @@ const SetWallpaper = ({route, navigation}) => {
     const [snackVisible,setSnackVisible] = useState(false)
     const [snack, setSnack] = useState('HEY')
 
-    if(theme.mode=='dark' && !iconColor)
-    setIconColor(true)
-  else if(theme.mode=='light' && iconColor)
-    setIconColor(false)
-
     useEffect(() => {
+      if(theme.mode=='dark' && !iconColor)
+        setIconColor(true)
+      else if(theme.mode=='light' && iconColor)
+        setIconColor(false)
       retrieveData()
       return function(){
       }
@@ -444,7 +443,7 @@ const SetWallpaper = ({route, navigation}) => {
               </View>
               <View style={{...styles.box, backgroundColor: 'rgba(0,0,0,0.4)', width:2*windowWidth/3-40, height: 105}}>
                 <View>
-                  <Text style={{...styles.bottomHeader,fontSize:24,color:'white', fontSize:20}}>{item.author}</Text>
+                  <Text style={{...styles.bottomHeader,color:'white', fontSize:20}}>{item.author}</Text>
                 </View>
                 <Text style={{...styles.bottomHeader,color:'white', fontSize:15}}>AUTHOR</Text>
               </View>
@@ -472,12 +471,7 @@ const SetWallpaper = ({route, navigation}) => {
       {
       return(
         <>
-        <Animated.View style={[styles.bottomTab,{transform: [{translateY: translateBottom,}]}]}>
-        <BlurView
-          style={{...styles.bottomTab, backgroundColor: 'rgba(0,0,0,0.1)'}}
-          blurType="dark"
-          blurAmount={15}
-          />
+        <Animated.View style={[{...styles.bottomTab, backgroundColor:'rgba(0,0,0,0.45)'},{transform: [{translateY: translateBottom,}]}]}>
           <View style={{flexDirection:'row',justifyContent:'space-between'}} >
             <View style={{flexDirection:'row'}} >
               <TouchableOpacity style={{...styles.icon, marginLeft:30*scaleHeight}} onPress={toggleBottom}>
