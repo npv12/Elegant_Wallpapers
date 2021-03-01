@@ -135,7 +135,7 @@ const SetWallpaper = ({route, navigation}) => {
     function setDelayAd(){
       setTimeout(function(){
         setAdvertCap(false)
-      },12000)
+      },80000)
     }
 
     //sets wall by first downloading using rnfetch so that app doesn't crash
