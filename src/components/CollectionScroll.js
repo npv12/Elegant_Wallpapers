@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   Wall:{
     width:windowWidth-40,
-    height:180*scaleHeight,
+    height:200*scaleHeight,
     borderTopRightRadius:20,
     borderTopLeftRadius:20,
     borderBottomLeftRadius:20,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     fontFamily:'koliko',
     justifyContent:'center',
     position:'absolute',
-    top:85*scaleHeight,
+    top:95*scaleHeight,
   },
   header:{
     position:'absolute',
