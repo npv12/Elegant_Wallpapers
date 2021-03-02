@@ -52,7 +52,6 @@ const SetWallpaper = ({route, navigation}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [translateBottom, setTranslateBottom] = useState(new Animated.Value(200*scaleHeight))
     const [translateSnack, setTranslateSnack] = useState(new Animated.Value(300*scaleHeight))
-    const [advertCap, setAdvertCap] = useState(false)
     const [bottomMenuVisible, setBottomMenuVisible] = useState(false)
     const [colors, setColors] = useState({average:'#FFF', vibrant:'#FFF', dominant:'#FFF'})
     const [variousCollection, setVariousCollections] = useState([])
@@ -125,18 +124,7 @@ const SetWallpaper = ({route, navigation}) => {
 
     //this will show ad and cap it up
     function showAd(){
-      if(!advertCap)  {
-        loadAd()
-        setAdvertCap(true)
-        setDelayAd()
-      }
-    }
-
-    //hax for cap
-    function setDelayAd(){
-      setTimeout(function(){
-        setAdvertCap(false)
-      },100000/2)
+      loadAd()
     }
 
     //sets wall by first downloading using rnfetch so that app doesn't crash
