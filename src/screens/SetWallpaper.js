@@ -136,7 +136,7 @@ const SetWallpaper = ({route, navigation}) => {
     function setDelayAd(){
       setTimeout(function(){
         setAdvertCap(false)
-      },80000)
+      },100000/2)
     }
 
     //sets wall by first downloading using rnfetch so that app doesn't crash
@@ -152,7 +152,7 @@ const SetWallpaper = ({route, navigation}) => {
         appendExt : 'png'
       })
       .fetch('GET', item.url, {
-        //some headers ..
+        //some headers ... if you have any
       })
       .then((res) => {
         var PATH = 'file://' + res.path()
@@ -351,7 +351,6 @@ const SetWallpaper = ({route, navigation}) => {
                 showSnackbarText("Download completed")
               })
               .catch(error => showSnackbarText("Something went wrong"));
-              
           }
           else{
             showSnackbarText("File exists")
