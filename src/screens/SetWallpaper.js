@@ -350,8 +350,8 @@ const SetWallpaper = ({route, navigation}) => {
               .then(res => {
                 showSnackbarText("Download completed")
               })
-              .catch(error => console.log("error: ",error));
-              showSnackbarText("Something went wrong")
+              .catch(error => showSnackbarText("Something went wrong"));
+              
           }
           else{
             showSnackbarText("File exists")
