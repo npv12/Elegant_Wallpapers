@@ -128,6 +128,7 @@ const SetWallpaper = ({route, navigation}) => {
       if(!advertCap)  {
         loadAd()
         setAdvertCap(true)
+        setDelayAd()
       }
     }
 
