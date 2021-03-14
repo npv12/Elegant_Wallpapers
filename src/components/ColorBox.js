@@ -7,9 +7,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   ToastAndroid,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import {STANDARD_HEIGHT,STANDARD_WIDTH} from '../constants'
+import Clipboard from '@react-native-clipboard/clipboard'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

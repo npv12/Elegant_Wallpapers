@@ -470,10 +470,10 @@ const SetWallpaper = ({route, navigation}) => {
         <Animated.View style={[{...styles.bottomTab, backgroundColor:'rgba(0,0,0,0.45)'},{transform: [{translateY: translateBottom,}]}]}>
           <View style={{flexDirection:'row',justifyContent:'space-between'}} >
             <View style={{flexDirection:'row'}} >
-              <TouchableOpacity style={{...styles.icon, marginLeft:30*scaleHeight}} onPress={toggleBottom}>
+              <TouchableOpacity style={{...styles.icon, marginLeft:30*scaleHeight, flexDirection:'row'}} onPress={toggleBottom}>
                 {renderArrow()}
+                <Text style={{...styles.NameHeader,color:'white'}}>{nameOfWall}</Text>
               </TouchableOpacity>
-              <Text style={{...styles.NameHeader,color:'white'}}>{nameOfWall}</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent: 'flex-end'}}>
               <TouchableOpacity style={styles.icon} onPress={() => {

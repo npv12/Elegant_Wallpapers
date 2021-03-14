@@ -50,7 +50,7 @@ const Settings = ({navigation}) => {
               <Title style={{...styles.item, paddingTop:25*scaleHeight}}>Terms of use</Title>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>Linking.openURL(CREDITS_URL)}  style={{paddingTop:8*scaleHeight}} activeOpacity={0.6}>
-              <Title style={styles.item}>Licences</Title>
+            <Title style={{...styles.item, paddingTop:25*scaleHeight}}>Licences</Title>
             </TouchableOpacity>
           </View>
           <Title style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Version</Title>
