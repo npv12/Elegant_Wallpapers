@@ -90,6 +90,7 @@ const BottomTab = (props) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>{
           props.navigation.navigate('Settings')
+          setBottomMenuVisible(false)
           toggleSubview()
           }}>
           <View style={styles.modalItem}>
@@ -99,6 +100,7 @@ const BottomTab = (props) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>{
           toggleSubview()
+          setBottomMenuVisible(false)
           props.navigation.navigate('About')
           }}>
           <View style={styles.modalItem}>

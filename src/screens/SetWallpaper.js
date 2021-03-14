@@ -50,15 +50,23 @@ const SetWallpaper = ({route, navigation}) => {
     const [isFav, setIsFav] = useState(false)
     const [iconColor, setIconColor] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [translateBottom, setTranslateBottom] = useState(new Animated.Value(200*scaleHeight))
+    const [translateBottom, setTranslateBottom] = useState(new Animated.Value(300*scaleHeight))
     const [translateSnack, setTranslateSnack] = useState(new Animated.Value(300*scaleHeight))
     const [bottomMenuVisible, setBottomMenuVisible] = useState(false)
     const [colors, setColors] = useState({average:'#FFF', vibrant:'#FFF', dominant:'#FFF'})
     const [variousCollection, setVariousCollections] = useState([])
     const [snackVisible,setSnackVisible] = useState(false)
-    const [snack, setSnack] = useState('HEY')
+    const [nameOfWall, setNameOfWal] = useState(item.name)
+
 
     useEffect(() => {
+      if(item.name.length > 17)
+        {
+          var temp = item.name.slice(0,17)
+          temp += '...'
+          setNameOfWal(temp)
+        }
+      else  setNameOfWal(item.name)
       if(theme.mode=='dark' && !iconColor)
         setIconColor(true)
       else if(theme.mode=='light' && iconColor)
@@ -366,7 +374,7 @@ const SetWallpaper = ({route, navigation}) => {
     function  toggleBottom() {
         var toValue = 0;
         if(bottomMenuVisible) {
-          toValue = 200*scaleHeight;
+          toValue = 300*scaleHeight;
         }
         Animated.spring(
           translateBottom,
@@ -384,11 +392,11 @@ const SetWallpaper = ({route, navigation}) => {
     //renders the arrow on the bottom tab
     function renderArrow(){
       if(bottomMenuVisible)
-        return <View style={{marginTop:15*scaleHeight, paddingRight:10*scaleWidth}}>
-          <Icon name="down" type='antdesign' size={25*scaleHeight} color='white'/>
+        return <View style={{marginTop:17*scaleHeight, paddingRight:10*scaleWidth}}>
+          <Icon name="down" type='antdesign' size={22*scaleHeight} color='white'/>
         </View>
-      return <View style={{marginTop:15*scaleHeight, paddingRight:10*scaleWidth}}>
-        <Icon name="up" type='antdesign' size={25*scaleHeight} color='white'/>
+      return <View style={{marginTop:17*scaleHeight, paddingRight:10*scaleWidth}}>
+        <Icon name="up" type='antdesign' size={22*scaleHeight} color='white'/>
       </View>
     }
 
@@ -406,7 +414,7 @@ const SetWallpaper = ({route, navigation}) => {
       return(
         <ScrollView>
           <View >
-            <Text style={{...styles.bottomHeader, fontSize:24, marginHorizontal:20, color:'white'}}>Colors</Text>
+            <Text style={{...styles.bottomHeader, fontSize:22 * scaleHeight, marginHorizontal:20 * scaleHeight, color:'white'}}>Colors</Text>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}} >
               <ColorBox color = {colors.average}/>
               <ColorBox color = {colors.darkMuted}/>
@@ -465,7 +473,7 @@ const SetWallpaper = ({route, navigation}) => {
               <TouchableOpacity style={{...styles.icon, marginLeft:30*scaleHeight}} onPress={toggleBottom}>
                 {renderArrow()}
               </TouchableOpacity>
-              <Text style={{...styles.NameHeader,color:'white'}}>{item.name.toUpperCase()}</Text>
+              <Text style={{...styles.NameHeader,color:'white'}}>{nameOfWall}</Text>
               </View>
               <View style={{flexDirection:'row', justifyContent: 'flex-end'}}>
               <TouchableOpacity style={styles.icon} onPress={() => {
@@ -550,8 +558,8 @@ const styles = StyleSheet.create({
   },
   bottomTab:{
     width:"100%",
-    height:300*scaleHeight,
-    bottom:-10*scaleHeight,
+    height:500*scaleHeight,
+    bottom:-120*scaleHeight,
     position:'absolute',
     borderTopEndRadius:25*scaleHeight,
     borderTopLeftRadius:25*scaleHeight,

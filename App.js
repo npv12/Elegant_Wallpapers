@@ -1,5 +1,5 @@
 import React, { Component,useEffect,useState } from 'react';
-import {Dimensions } from 'react-native';
+import {Dimensions,Alert,PermissionsAndroid } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator,CardStyleInterpolators, } from '@react-navigation/stack';
 import OneSignal from 'react-native-onesignal';
@@ -66,6 +66,36 @@ function TopTabs({navigation}) {
     </>
   );
 }
+
+const getPermissionAndroid = async () => {
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      {
+        title: 'Image Download Permission',
+        message: 'Your permission is required to save images to your device',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'OK',
+      },
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      return true;
+    }
+    Alert.alert(
+      'Save remote Image',
+      'Grant Me Permission to save Image',
+      [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+      {cancelable: false},
+    );
+  } catch (err) {
+    Alert.alert(
+      'Save remote Image',
+      'Failed to save Image: ' + err.message,
+      [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+      {cancelable: false},
+    );
+  }
+};
 
 const Stack = createStackNavigator();
 
@@ -165,15 +195,16 @@ class App extends Component {
 
 async componentDidMount() {
   preloadAd()
+  getPermissionAndroid()
   OneSignal.setAppId(ONE_SIGNAL);
   OneSignal.setLogLevel(6, 0);
   OneSignal.setRequiresUserPrivacyConsent(this.state.requiresPrivacyConsent);
   OneSignal.promptForPushNotificationsWithUserResponse(response => {
-      this.OSLog("Prompt response:", response);
+    //  this.OSLog("Prompt response:", response);
   });
 
   OneSignal.setNotificationWillShowInForegroundHandler(notifReceivedEvent => {
-      this.OSLog("OneSignal: notification will show in foreground:", notifReceivedEvent);
+     // this.OSLog("OneSignal: notification will show in foreground:", notifReceivedEvent);
       let notif = notifReceivedEvent.getNotification();
 
       const button1 = {
@@ -185,20 +216,20 @@ async componentDidMount() {
       const button2 = { text: "Complete", onPress: () => { notifReceivedEvent.complete(notif); }};
     });
     OneSignal.setNotificationOpenedHandler(notification => {
-        this.OSLog("OneSignal: notification opened:", notification);
+       // this.OSLog("OneSignal: notification opened:", notification);
     });
     OneSignal.setInAppMessageClickHandler(event => {
-        this.OSLog("OneSignal IAM clicked:", event);
+       // this.OSLog("OneSignal IAM clicked:", event);
     });
     OneSignal.addEmailSubscriptionObserver((event) => {
-        this.OSLog("OneSignal: email subscription changed: ", event);
+       // this.OSLog("OneSignal: email subscription changed: ", event);
     });
     OneSignal.addSubscriptionObserver(event => {
-        this.OSLog("OneSignal: subscription changed:", event);
-        this.setState({ isSubscribed: event.to.isSubscribed})
+      //  this.OSLog("OneSignal: subscription changed:", event);
+      //  this.setState({ isSubscribed: event.to.isSubscribed})
     });
     OneSignal.addPermissionObserver(event => {
-        this.OSLog("OneSignal: permission changed:", event);
+      //  this.OSLog("OneSignal: permission changed:", event);
     });
     const state = await OneSignal.getDeviceState();
 

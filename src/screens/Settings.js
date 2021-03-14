@@ -3,7 +3,7 @@ import { View, StyleSheet,Switch,TouchableOpacity,Linking,Dimensions,StatusBar }
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import { ScrollView } from 'react-native-gesture-handler';
-import { PRIVACY_POLICY_URL, TERMS_OF_USE_URL, VERSION_NUMBER,STANDARD_HEIGHT,STANDARD_WIDTH } from '../constants';
+import { PRIVACY_POLICY_URL, TERMS_OF_USE_URL, VERSION_NUMBER,STANDARD_HEIGHT,STANDARD_WIDTH, CREDITS_URL } from '../constants';
 import { useTheme } from '../themes'
 import styled from 'styled-components/native'
 
@@ -48,6 +48,9 @@ const Settings = ({navigation}) => {
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>Linking.openURL(TERMS_OF_USE_URL)} activeOpacity={0.6}>
               <Title style={{...styles.item, paddingTop:25*scaleHeight}}>Terms of use</Title>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=>Linking.openURL(CREDITS_URL)}  style={{paddingTop:8*scaleHeight}} activeOpacity={0.6}>
+              <Title style={styles.item}>Licences</Title>
             </TouchableOpacity>
           </View>
           <Title style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Version</Title>

@@ -54,9 +54,7 @@ class ScrollableModal extends ModalBaseScene<State> {
             onScroll={this.handleOnScroll}
             scrollEventThrottle={16}>
             <View style={styles.scrollableModalContent1}>
-            <Text style={{...styles.scrollableModalText1, fontSize:25}}>
-                Changelog
-            </Text>
+
               <Text style={styles.scrollableModalText1}>
                 {this.props.changelog}
               </Text>
@@ -81,16 +79,15 @@ const styles = StyleSheet.create({
   scrollableModalContent1: {
     height: 400*scaleHeight,
     backgroundColor: '#AAFF00',
-    alignItems: 'center',
     justifyContent: 'flex-start',
-    padding:25 * scaleHeight,
+    paddingHorizontal:25 * scaleHeight,
 
   },
   scrollableModalText1: {
     fontSize: 20*scaleHeight,
     color: 'black',
     textAlign:'justify',
-    paddingTop:35,
+    paddingTop:15,
     fontFamily:'Linotte-Bold'
   },
 });

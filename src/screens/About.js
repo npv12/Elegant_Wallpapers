@@ -6,6 +6,7 @@ import { CREDITS_URL, DISCLAIMER_TEXT, FREE_APP, MADNESS_TELE, PRANAV_TELE, PRO_
 import { useTheme } from '../themes'
 import Modal from 'react-native-modal';
 import ScrollableModal from '../components/ScrollableModal';
+import Loader from '../components/Loader'
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -24,6 +25,7 @@ const About = () => {
   const [changelogVisible, setChangelogVisible] = useState(false)
   const [changelog, setChangelog] = useState('')
   const [contributors, setContributors] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   async function getData(){
     fetch(VERSION_URL, {
@@ -43,13 +45,16 @@ const About = () => {
         .then((response) => response.json())
         .then((responseJson) => {
           setContributors(responseJson)
+          setLoading(false)
         })
         .catch((error) => {
           console.log(error);
         })
   }
 
-  useEffect(() => {getData()},[]);
+  useEffect(() => {
+    getData()
+  },[]);
 
   function openChangelog(){
     setChangelogVisible(!changelogVisible)
@@ -72,18 +77,16 @@ const About = () => {
   }
   return (
     <View style={styles.container}>
+      <Loader loading={loading}/>
       <StatusBar translucent={true} backgroundColor={'transparent'} barStyle ={theme.mode=='dark'?'light-content':'dark-content'}/>
       <ScrollView>
-      <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00', paddingTop:5*scaleHeight}}>Legal</Text>
+      <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00', paddingTop:5*scaleHeight}}>Info</Text>
         <View>
             <Text style={styles.item}>Version</Text>
             <Text style={{...styles.item, fontSize:16*scaleHeight, paddingTop:5*scaleHeight, color:'#898989'}}>{VERSION_NUMBER}</Text>
         </View>
         <TouchableOpacity onPress={()=>openChangelog()} activeOpacity={0.6}>
             <Text style={styles.item}>Changelog</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>Linking.openURL(CREDITS_URL)}  style={{paddingTop:8*scaleHeight}} activeOpacity={0.6}>
-            <Text style={styles.item}>Licences</Text>
         </TouchableOpacity>
         <Text style={{...styles.header,color:theme.mode=='dark'?'#AAFF00':'#7CCC00'}}>Contributors</Text>
             {Authors()}
