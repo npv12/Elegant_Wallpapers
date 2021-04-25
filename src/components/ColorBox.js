@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    marginVertical: 10*scaleHeight,
+    width:"100%",
+    marginVertical: 8*scaleHeight,
   },
   circle:{
     height:35*scaleHeight,
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10*scaleWidth
   },
   header:{
-    fontSize: 18*scaleHeight,
+    fontSize: 15*scaleHeight,
     marginTop: 2*scaleHeight,
     color:'white'
   }

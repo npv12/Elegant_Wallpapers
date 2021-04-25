@@ -81,13 +81,16 @@ const SetWallpaper = ({route, navigation}) => {
     async function retrieveData()
     {
       //extract colors
-      const col = (await ImageColors.getColors(item.thumbnail, {
+      var col = {"average": "#787C83", "darkMuted": "#101818", "darkVibrant": "#000000", "dominant": "#101818", "lightMuted": "#E8E8F0", "lightVibrant": "#000000", "muted": "#788090", "platform": "android", "vibrant": "#000000"}
+      setColors(col)
+      col = (await ImageColors.getColors(item.thumbnail, {
       fallback: '#000000',
       quality: 'high',
       pixelSpacing: 5,
     }))
     if(col)
     {
+      console.log(col)
       setColors(col)
     }
 
