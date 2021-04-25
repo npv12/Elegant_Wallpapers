@@ -57,6 +57,7 @@ const SetWallpaper = ({route, navigation}) => {
     const [variousCollection, setVariousCollections] = useState([])
     const [snackVisible,setSnackVisible] = useState(false)
     const [nameOfWall, setNameOfWal] = useState(item.name)
+    const [isDownloading, setIsDownloading] = useState(false)
 
 
     useEffect(() => {
@@ -314,6 +315,14 @@ const SetWallpaper = ({route, navigation}) => {
 
     //wallpaper downloader.
     async function handleDownload() {
+      if(isDownloading)
+      {
+        showSnackbarText("File is downloading")
+        return
+      }
+      else{
+        setIsDownloading(true)
+      }
       showAd()
       showSnackbarText("Download Started")
       if (Platform.OS === 'android') {
@@ -350,6 +359,7 @@ const SetWallpaper = ({route, navigation}) => {
           }
           else{
             showSnackbarText("File exists")
+            setIsDownloading(false)
           }
       })
       .catch(() => { console.log("File error")})
