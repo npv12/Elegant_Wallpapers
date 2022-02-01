@@ -6,7 +6,6 @@ import {
   StatusBar,
   View
 } from 'react-native';
-import admob, { MaxAdContentRating } from '@react-native-firebase/admob';
 
 import Explore from './src/screens/Explore';
 import Collections from './src/screens/Collections';
@@ -23,7 +22,6 @@ import BottomTab from './src/components/BottomTab';
 import SearchScreen from './src/screens/SearchScreen'
 import { useTheme } from './src/themes'
 import { ONE_SIGNAL } from './src/constants';
-import { LoadAdvert } from './src/components/Advert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createMaterialTopTabNavigator();
@@ -108,16 +106,6 @@ class App extends Component {
 }
 
 async componentDidMount() {
-  admob()
-  .setRequestConfiguration({
-    maxAdContentRating: MaxAdContentRating.PG,
-    tagForChildDirectedTreatment: true,
-    tagForUnderAgeOfConsent: true,
-  })
-  .then(() => {
-    console.log("Admob config set")
-  });
-  LoadAdvert()
   OneSignal.setAppId(ONE_SIGNAL);
   OneSignal.setLogLevel(6, 0);
   OneSignal.setRequiresUserPrivacyConsent(this.state.requiresPrivacyConsent);

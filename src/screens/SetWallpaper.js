@@ -19,7 +19,6 @@ import _, { delay, set } from 'lodash';
 import Loader from '../components/Loader'
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
-import { LoadAdvert, ShowAdvert } from '../components/Advert';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -92,7 +91,6 @@ const SetWallpaper = ({route}) => {
     async function setHomeWall ()
     {
       setShowApplyModal(false)
-      ShowAdvert()
       setIsLoading(true)
       RNFetchBlob
       .config({
@@ -123,7 +121,6 @@ const SetWallpaper = ({route}) => {
     function setLockWall ()
     {
       setShowApplyModal(false)
-      ShowAdvert()
       setIsLoading(true)
       RNFetchBlob
       .config({
@@ -154,7 +151,6 @@ const SetWallpaper = ({route}) => {
     function setBothWall ()
     {
       setShowApplyModal(false)
-      ShowAdvert()
       setIsLoading(true)
       RNFetchBlob
       .config({
@@ -348,7 +344,6 @@ function  setSnackTranslate(t) {
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={() => {
               handleDownload()
-              ShowAdvert()
               setSnackScale(true)
             }}>
               <Icon name="download" type='feather' size={25} color={iconColor?'white':'black'}/>
