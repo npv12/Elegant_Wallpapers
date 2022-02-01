@@ -1,5 +1,4 @@
 import { AdEventType, InterstitialAd } from '@react-native-firebase/admob';
-import { InterstitialAdManager,AdSettings } from 'react-native-fbads';
 import { ADVERT_CAP_TIME, FB_PLACEMENT_AD, ADMOB_UNIT_ID } from '../constants';
 
 var shouldShowAd = true
