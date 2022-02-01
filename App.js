@@ -18,7 +18,6 @@ import About from './src/screens/About';
 import Settings from './src/screens/Settings'
 import Fav from './src/screens/favorite';
 import ThemeManager from './src/themes';
-import { app_id } from './constants';
 import BottomTab from './src/components/BottomTab';
 import SearchScreen from './src/screens/SearchScreen'
 import { useTheme } from './src/themes'
