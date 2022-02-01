@@ -18,6 +18,7 @@ import _ from 'lodash';
 import Loader from '../components/Loader'
 import styled from 'styled-components/native'
 import LoadImage from '../components/LoadImage';
+import { ShowAdvert } from '../components/Advert';
 
 const View = styled.View`
   background: ${props => props.theme.background};
@@ -97,6 +98,7 @@ const SetWallpaper = ({route}) => {
 
     function setHomeWall ()
     {
+      ShowAdvert()
       ManageWallpaper.setWallpaper(
         {
           uri: item.url,
@@ -109,6 +111,7 @@ const SetWallpaper = ({route}) => {
 
     function setLockWall ()
     {
+      ShowAdvert()
       ManageWallpaper.setWallpaper(
         {
           uri: item.url,
@@ -120,6 +123,7 @@ const SetWallpaper = ({route}) => {
 
     function setBothWall ()
     {
+      ShowAdvert()
       ManageWallpaper.setWallpaper(
         {
           uri: item.url,
@@ -191,6 +195,7 @@ const SetWallpaper = ({route}) => {
             <TouchableOpacity style={styles.icon} onPress={() => {
               setIsLoading(true)
               handleDownload()
+              ShowAdvert()
             }}>
               <Icon name="download" type='feather' size={25} color={iconColor?'white':'black'}/>
             </TouchableOpacity>

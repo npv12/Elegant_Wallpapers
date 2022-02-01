@@ -5,6 +5,7 @@ import OneSignal from 'react-native-onesignal';
 import { 
   StatusBar,
 } from 'react-native';
+import admob, { MaxAdContentRating } from '@react-native-firebase/admob';
 
 import Explore from './src/screens/Explore';
 import Collections from './src/screens/Collections';
@@ -20,6 +21,7 @@ import { app_id } from './constants';
 import BottomTab from './src/components/BottomTab';
 import { useTheme } from './src/themes'
 import { ONE_SIGNAL } from './src/constants';
+import { LoadAdvert } from './src/components/Advert';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -87,6 +89,16 @@ class App extends Component {
 }
 
 async componentDidMount() {
+  admob()
+  .setRequestConfiguration({
+    maxAdContentRating: MaxAdContentRating.PG,
+    tagForChildDirectedTreatment: true,
+    tagForUnderAgeOfConsent: true,
+  })
+  .then(() => {
+    console.log("Admob config set")
+  });
+  LoadAdvert()
   OneSignal.setAppId(ONE_SIGNAL);
   OneSignal.setLogLevel(6, 0);
   OneSignal.setRequiresUserPrivacyConsent(this.state.requiresPrivacyConsent);
