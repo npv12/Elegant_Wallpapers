@@ -16,20 +16,14 @@ import {
 	WALL_URL,
 	STANDARD_HEIGHT,
 	STANDARD_WIDTH,
-} from "../constants";
-import { useTheme } from "../themes";
+} from "../../constants";
+import { useTheme } from "../../themes";
 import { Linking } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
-import ScrollableCollection from "../components/ScrollableCollection";
+import ScrollableCollection from "../../components/ScrollableCollection";
 import { Button } from "react-native";
+import { Text, View as SView } from "../../components/StyledComponents";
 
-const SView = styled.View`
-	background: ${(props) => props.theme.background};
-`;
-
-const Text = styled.Text`
-	color: ${(props) => props.theme.text};
-`;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Collections = ({ navigation }) => {
@@ -138,8 +132,6 @@ const Collections = ({ navigation }) => {
 				<ScrollableCollection
 					data={collection}
 					onPress={(item) => filterOut(item.collections)}
-					setOffset={setOffset}
-					offset={offset}
 				/>
 			</View>
 		);
