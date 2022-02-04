@@ -7,6 +7,7 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import styled from "styled-components/native";
+import { Text, View } from "../components/StyledComponents";
 import Wall from "../components/Wall";
 import {
 	SECRET_KEY,
@@ -15,14 +16,6 @@ import {
 	STANDARD_WIDTH,
 } from "../constants";
 import { useTheme } from "../themes";
-
-const View = styled.View`
-	background: ${(props) => props.theme.background};
-`;
-
-const Text = styled.Text`
-	color: ${(props) => props.theme.text};
-`;
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

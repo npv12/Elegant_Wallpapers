@@ -9,7 +9,6 @@ import {
 	StatusBar,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import SplashScreen from "react-native-splash-screen";
 import { ScrollView } from "react-native-gesture-handler";
 import {
 	PRIVACY_POLICY_URL,
@@ -20,15 +19,11 @@ import {
 	CREDITS_URL,
 } from "../constants";
 import { useTheme } from "../themes";
-import styled from "styled-components/native";
+import {
+	Text as Title,
+	View as Container,
+} from "../components/StyledComponents";
 
-const Container = styled.View`
-	background: ${(props) => props.theme.background};
-`;
-
-const Title = styled.Text`
-	color: ${(props) => props.theme.text};
-`;
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 

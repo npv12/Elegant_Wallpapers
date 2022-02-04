@@ -29,19 +29,12 @@ import LoadingImage from "../components/LoadingImage";
 import loadAd from "../components/Advert";
 import ColoredBox from "../components/ColoredBox";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../constants";
+import { Text, View as SView } from "../components/StyledComponents";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
-
-const SView = styled.View`
-	background: ${(props) => props.theme.background};
-`;
-
-const Text = styled.Text`
-	color: ${(props) => props.theme.text};
-`;
 
 const SetWallpaper = ({ route, navigation }) => {
 	const theme = useTheme();
@@ -57,7 +50,7 @@ const SetWallpaper = ({ route, navigation }) => {
 		new Animated.Value(300 * scaleHeight)
 	);
 	const [bottomMenuVisible, setBottomMenuVisible] = useState(false);
-	const [colors, setColors] = useState({
+	const [colors, setColors] = useState<any>({
 		average: "#FFF",
 		vibrant: "#FFF",
 		dominant: "#FFF",
@@ -82,7 +75,7 @@ const SetWallpaper = ({ route, navigation }) => {
 	//retrieve data from storage
 	async function retrieveData() {
 		//extract colors
-		var col = {
+		var col: any = {
 			average: "#787C83",
 			darkMuted: "#101818",
 			darkVibrant: "#000000",
@@ -320,7 +313,7 @@ const SetWallpaper = ({ route, navigation }) => {
 			}
 		}
 		let dirs = RNFetchBlob.fs.dirs.SDCardDir;
-		let extension = item.url.split(".").pop();
+		let extension: any = item.url.split(".").pop();
 		if (extension == "jpg" || extension == "jpeg" || extension == "png");
 		else {
 			extension = "jpg";
@@ -652,8 +645,8 @@ const SetWallpaper = ({ route, navigation }) => {
 						{renderExpandedView()}
 					</Animated.View>
 					<Modal
-						animationType="FadeIn"
-						visible={showApplyModal}
+						animationIn="slideInDown"
+						isVisible={showApplyModal}
 						useNativeDriver={true}
 						onBackdropPress={() => setShowApplyModal(false)}
 					>
@@ -720,11 +713,7 @@ const SetWallpaper = ({ route, navigation }) => {
 				barStyle={theme.mode == "dark" ? "light-content" : "dark-content"}
 			/>
 			<View style={styles.container}>
-				<LoadingImage
-					source={item}
-					resizeMode="cover"
-					style={{ height: "100%", width: "100%" }}
-				/>
+				<LoadingImage source={item} style={{ height: "100%", width: "100%" }} />
 				{renderBottomTab()}
 				<Loader loading={isLoading} />
 			</View>
@@ -812,6 +801,7 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontFamily: "Linotte-Bold",
 	},
+	icon: {},
 });
 
 export default SetWallpaper;

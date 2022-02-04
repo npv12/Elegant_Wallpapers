@@ -5,14 +5,7 @@ import styled from "styled-components/native";
 import Wall from "../components/Wall";
 import { useTheme } from "../themes";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../constants";
-
-const View = styled.View`
-	background: ${(props) => props.theme.background};
-`;
-
-const Text = styled.Text`
-	color: ${(props) => props.theme.text};
-`;
+import { View } from "../components/StyledComponents";
 
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;

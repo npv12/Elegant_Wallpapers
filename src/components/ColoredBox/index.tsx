@@ -4,7 +4,7 @@ import Clipboard from "@react-native-clipboard/clipboard";
 import styles from "./styles";
 
 interface IProps {
-	color: string;
+	color?: string;
 }
 
 export default function ColoredBox(props: IProps) {

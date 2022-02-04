@@ -10,7 +10,7 @@ import { View } from "react-native";
 import admob, { MaxAdContentRating } from "@react-native-firebase/admob";
 
 import Explore from "./src/screens/Explore";
-import Collections from "./src/screens/Collections";
+import Collections from "./src/screens/Collections/index.tsx";
 import { NavigationContainer } from "@react-navigation/native";
 import SetWallpaper from "./src/screens/SetWallpaper";
 import SpecificCollection from "./src/screens/SpecificCollection";
