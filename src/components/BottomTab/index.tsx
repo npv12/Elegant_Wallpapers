@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, Dimensions, Animated } from "react-native";
+import { TouchableOpacity, Dimensions } from "react-native";
 import { Icon } from "react-native-elements";
 import { useTheme } from "../../themes";
 import { STANDARD_HEIGHT } from "../../constants";
@@ -8,7 +8,6 @@ import BottomModal from "./modal";
 import { View } from "../StyledComponents";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
-const bounceValue = new Animated.Value(165 * scaleHeight);
 
 const BottomTab = ({ navigation }) => {
 	const [iconColor, setIconColor] = useState(false);
@@ -17,26 +16,6 @@ const BottomTab = ({ navigation }) => {
 
 	if (theme.mode == "dark" && !iconColor) setIconColor(true);
 	else if (theme.mode == "light" && iconColor) setIconColor(false);
-
-	function toggleSubview() {
-		var toValue = 0;
-		if (bottomMenuVisible) {
-			toValue = 200 * scaleHeight;
-		}
-		Animated.spring(bounceValue, {
-			toValue: toValue,
-			velocity: 25,
-			tension: 2,
-			friction: 4,
-			useNativeDriver: true,
-		}).start();
-
-		if (bottomMenuVisible) {
-			setTimeout(function () {
-				setBottomMenuVisible(false);
-			}, 200);
-		} else setBottomMenuVisible(!bottomMenuVisible);
-	}
 
 	return (
 		<>
@@ -51,7 +30,7 @@ const BottomTab = ({ navigation }) => {
 				>
 					<TouchableOpacity
 						onPress={() => {
-							toggleSubview();
+							setBottomMenuVisible(true);
 						}}
 					>
 						<Icon
@@ -91,8 +70,6 @@ const BottomTab = ({ navigation }) => {
 			<BottomModal
 				visible={bottomMenuVisible}
 				setVisibility={setBottomMenuVisible}
-				toggleSubview={toggleSubview}
-				bounceValue={bounceValue}
 				navigation={navigation}
 			/>
 		</>
