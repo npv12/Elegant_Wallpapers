@@ -8,7 +8,7 @@ import {
 	Animated,
 } from "react-native";
 import styled from "styled-components/native";
-import Wall from "../components/Wall";
+import Wall from "../../components/Wall";
 import {
 	SECRET_KEY,
 	STANDARD_HEIGHT,
@@ -17,18 +17,11 @@ import {
 	VERSION_URL,
 	WALL_URL,
 	FREE_APP,
-} from "../constants";
-import { useTheme } from "../themes";
+} from "../../constants";
+import { useTheme } from "../../themes";
 import SplashScreen from "react-native-splash-screen";
 import { useIsFocused } from "@react-navigation/native";
-
-const View = styled.View`
-	background: ${(props) => props.theme.background};
-`;
-
-const Text = styled.Text`
-	color: ${(props) => props.theme.text};
-`;
+import { Text, View } from "../../components/StyledComponents";
 
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
@@ -213,7 +206,6 @@ const styles = StyleSheet.create({
 			width: 0,
 			height: 2,
 		},
-		shadowOpacity: 0.25,
 		shadowRadius: 3.84,
 		elevation: 5,
 	},
@@ -247,7 +239,6 @@ const styles = StyleSheet.create({
 	modalItem: {
 		paddingLeft: 25 * scaleWidth,
 		flexDirection: "row",
-		justifyContent: "center",
 		marginVertical: 5 * scaleHeight,
 		width: windowWidth,
 		justifyContent: "flex-start",
