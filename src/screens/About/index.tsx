@@ -22,19 +22,12 @@ import {
 	STANDARD_HEIGHT,
 	STANDARD_WIDTH,
 	CONTRIBUTORS,
-} from "../constants";
-import { useTheme } from "../themes";
+} from "../../constants";
+import { useTheme } from "../../themes";
 import Modal from "react-native-modal";
-import ScrollableModal from "../components/ScrollableModal";
-import Loader from "../components/Loader";
-
-const View = styled.View`
-	background: ${(props) => props.theme.background};
-`;
-
-const Text = styled.Text`
-	color: ${(props) => props.theme.text};
-`;
+import ScrollableModal from "../../components/ScrollableModal";
+import Loader from "../../components/Loader";
+import { Text, View } from "../../components/StyledComponents";
 
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
