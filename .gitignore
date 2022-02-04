@@ -6,3 +6,4 @@ android/app/frames.jks
 node_modules
 android/.gradle
 android/app/build
+.vscode
