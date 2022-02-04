@@ -5,6 +5,26 @@ const scaleWidth = Dimensions.get("window").width / STANDARD_HEIGHT;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const styles = StyleSheet.create({
+	bottomContainer: {
+		flexDirection: "row",
+	},
+	bottomTab: {
+		justifyContent: "flex-end",
+		height: "20%",
+		borderTopRightRadius: 30 * scaleHeight,
+		borderTopLeftRadius: 30 * scaleHeight,
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		elevation: 5,
+	},
+	container: {
+		height: "6%",
+		justifyContent: "center",
+		paddingLeft: "3%",
+	},
 	icon: {
 		paddingHorizontal: "2%",
 	},
@@ -20,19 +40,6 @@ const styles = StyleSheet.create({
 		bottom: "50%",
 		right: "7%",
 	},
-	headerContainer: {},
-	bottomTab: {
-		justifyContent: "flex-end",
-		height: "20%",
-		borderTopRightRadius: 30 * scaleHeight,
-		borderTopLeftRadius: 30 * scaleHeight,
-		shadowColor: "#000",
-		shadowOffset: {
-			width: 0,
-			height: 2,
-		},
-		elevation: 5,
-	},
 	openButton: {
 		backgroundColor: "#F194FF",
 		borderRadius: 20 * scaleHeight,
@@ -44,7 +51,7 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		textAlign: "center",
 	},
-	modalText: {
+	modalTextStyle: {
 		marginBottom: 15 * scaleHeight,
 		textAlign: "center",
 		fontFamily: "Linotte-Bold",

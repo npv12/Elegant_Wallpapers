@@ -44,7 +44,7 @@ export default function BottomModal(props: IProps) {
 							style={styles.icon}
 							color={iconColor}
 						/>
-						<Text style={styles.modalText}>Upgrade to Pro</Text>
+						<Text style={styles.modalTextStyle}>Upgrade to Pro</Text>
 					</View>
 				</TouchableOpacity>
 				<TouchableOpacity
@@ -61,7 +61,7 @@ export default function BottomModal(props: IProps) {
 							style={styles.icon}
 							color={iconColor}
 						/>
-						<Text style={styles.modalText}>Settings</Text>
+						<Text style={styles.modalTextStyle}>Settings</Text>
 					</View>
 				</TouchableOpacity>
 				<TouchableOpacity
@@ -78,7 +78,7 @@ export default function BottomModal(props: IProps) {
 							style={styles.icon}
 							color={iconColor}
 						/>
-						<Text style={styles.modalText}>About</Text>
+						<Text style={styles.modalTextStyle}>About</Text>
 					</View>
 				</TouchableOpacity>
 			</View>
