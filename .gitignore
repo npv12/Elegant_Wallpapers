@@ -9,3 +9,4 @@ android/app/build
 .vscode
 package-lock.json
 yarn.lock
+.idea
