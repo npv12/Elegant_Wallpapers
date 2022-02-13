@@ -362,6 +362,7 @@ const SetWallpaper = ({ route, navigation }) => {
 						type="antdesign"
 						size={25 * scaleHeight}
 						color="white"
+						tvParallaxProperties
 					/>
 				</View>
 			);
@@ -373,6 +374,7 @@ const SetWallpaper = ({ route, navigation }) => {
 					type="antdesign"
 					size={25 * scaleHeight}
 					color="white"
+					tvParallaxProperties
 				/>
 			</View>
 		);
@@ -406,6 +408,7 @@ const SetWallpaper = ({ route, navigation }) => {
 						type="antdesign"
 						size={22 * scaleHeight}
 						color="white"
+						tvParallaxProperties
 					/>
 				</View>
 			);
@@ -418,6 +421,7 @@ const SetWallpaper = ({ route, navigation }) => {
 					type="antdesign"
 					size={22 * scaleHeight}
 					color="white"
+					tvParallaxProperties
 				/>
 			</View>
 		);
@@ -614,6 +618,7 @@ const SetWallpaper = ({ route, navigation }) => {
 											type="feather"
 											size={25 * scaleHeight}
 											color="white"
+											tvParallaxProperties
 										/>
 									</View>
 								</TouchableOpacity>
@@ -627,6 +632,7 @@ const SetWallpaper = ({ route, navigation }) => {
 											type="feather"
 											size={25 * scaleHeight}
 											color="white"
+											tvParallaxProperties
 										/>
 									</View>
 								</TouchableOpacity>
@@ -664,6 +670,7 @@ const SetWallpaper = ({ route, navigation }) => {
 										size={25 * scaleHeight}
 										style={styles.icon}
 										color={iconColor ? "white" : "black"}
+										tvParallaxProperties
 									/>
 									<Text style={styles.modalText}>Set Homescreen wallpaper</Text>
 								</SView>
@@ -676,6 +683,7 @@ const SetWallpaper = ({ route, navigation }) => {
 										size={25 * scaleHeight}
 										style={styles.icon}
 										color={iconColor ? "white" : "black"}
+										tvParallaxProperties
 									/>
 									<Text style={styles.modalText}>Set Lockscreen wallpaper</Text>
 								</SView>
@@ -693,6 +701,7 @@ const SetWallpaper = ({ route, navigation }) => {
 										size={25 * scaleHeight}
 										style={styles.icon}
 										color={iconColor ? "white" : "black"}
+										tvParallaxProperties
 									/>
 									<Text style={styles.modalText}>Set Both</Text>
 								</SView>

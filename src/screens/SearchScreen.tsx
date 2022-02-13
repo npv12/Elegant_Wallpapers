@@ -72,6 +72,7 @@ const SearchScreen = ({ navigation }) => {
 						size={45 * scaleHeight}
 						color="grey"
 						style={{ paddingBottom: 35 * scaleHeight }}
+						tvParallaxProperties
 					/>
 					<Text
 						style={{
@@ -106,6 +107,7 @@ const SearchScreen = ({ navigation }) => {
 					size={45 * scaleHeight}
 					color="grey"
 					style={{ paddingBottom: 35 * scaleHeight }}
+					tvParallaxProperties
 				/>
 				<Text
 					style={{
@@ -159,6 +161,7 @@ const SearchScreen = ({ navigation }) => {
 						size={25}
 						style={styles.icon}
 						color={theme.mode == "dark" ? "white" : "black"}
+						tvParallaxProperties
 					/>
 				</TouchableOpacity>
 				<TextInput
@@ -181,6 +184,7 @@ const SearchScreen = ({ navigation }) => {
 					size={25}
 					style={styles.icon}
 					color={theme.mode != "dark" ? "white" : "black"}
+					tvParallaxProperties
 				/>
 			</View>
 		);
