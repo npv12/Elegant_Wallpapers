@@ -40,9 +40,8 @@ function TopTabs({ navigation }) {
 	}
 	useEffect(() => {
 		fetchTheme();
+		setText(theme.mode == "dark");
 	}, []);
-	if (theme.mode == "dark" && !text) setText(true);
-	else if (theme.mode == "light" && text) setText(false);
 	return (
 		<>
 			<View
