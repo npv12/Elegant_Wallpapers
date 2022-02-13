@@ -1,62 +1,37 @@
 import React, { useEffect, useState } from "react";
-import {
-	StyleSheet,
-	TouchableOpacity,
-	Dimensions,
-	Linking,
-	StatusBar,
-	Image,
-} from "react-native";
+import { TouchableOpacity, Dimensions, Linking, StatusBar } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import styled from "styled-components/native";
 import {
-	CREDITS_URL,
 	DISCLAIMER_TEXT,
 	FREE_APP,
 	MADNESS_TELE,
-	PRANAV_TELE,
 	PRO_APP,
-	UNFUNNYGAY_TELE,
 	VERSION_URL,
 	VERSION_NUMBER,
 	STANDARD_HEIGHT,
-	STANDARD_WIDTH,
-	CONTRIBUTORS,
 } from "../../constants";
 import { useTheme } from "../../themes";
-import Modal from "react-native-modal";
 import ScrollableModal from "../../components/ScrollableModal";
 import Loader from "../../components/Loader";
 import { Text, View } from "../../components/StyledComponents";
+import styles from "./styles";
+import Authors from "./authors";
 
-const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const About = () => {
 	const theme = useTheme();
 	const [changelogVisible, setChangelogVisible] = useState(false);
 	const [changelog, setChangelog] = useState("");
-	const [contributors, setContributors] = useState(null);
 	const [loading, setLoading] = useState(true);
 
-	async function getData() {
+	async function getVersion() {
 		fetch(VERSION_URL, {
 			method: "GET",
 		})
 			.then((response) => response.json())
 			.then((responseJson) => {
 				setChangelog(responseJson.Changelogs);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-
-		fetch(CONTRIBUTORS, {
-			method: "GET",
-		})
-			.then((response) => response.json())
-			.then((responseJson) => {
-				setContributors(responseJson);
 				setLoading(false);
 			})
 			.catch((error) => {
@@ -65,46 +40,13 @@ const About = () => {
 	}
 
 	useEffect(() => {
-		getData();
+		getVersion();
 	}, []);
 
 	function openChangelog() {
 		setChangelogVisible(!changelogVisible);
 	}
-	function renderModal() {
-		return (
-			<ScrollableModal
-				visible={changelogVisible}
-				changeVisible={setChangelogVisible}
-				changelog={changelog}
-			/>
-		);
-	}
 
-	function Authors() {
-		if (contributors)
-			return contributors.map(function (data) {
-				return (
-					<TouchableOpacity
-						onPress={() => Linking.openURL(data.url)}
-						activeOpacity={0.6}
-					>
-						<Text style={styles.item}>{data.name}</Text>
-						<Text
-							style={{
-								...styles.item,
-								fontSize: 16 * scaleHeight,
-								paddingTop: 5 * scaleHeight,
-								color: "#898989",
-							}}
-						>
-							{data.title}
-						</Text>
-					</TouchableOpacity>
-				);
-			});
-		else return null;
-	}
 	return (
 		<View style={styles.container}>
 			<Loader loading={loading} />
@@ -125,16 +67,7 @@ const About = () => {
 				</Text>
 				<View>
 					<Text style={styles.item}>Version</Text>
-					<Text
-						style={{
-							...styles.item,
-							fontSize: 16 * scaleHeight,
-							paddingTop: 5 * scaleHeight,
-							color: "#898989",
-						}}
-					>
-						{VERSION_NUMBER}
-					</Text>
+					<Text style={styles.itemText}>{VERSION_NUMBER}</Text>
 				</View>
 				<TouchableOpacity onPress={() => openChangelog()} activeOpacity={0.6}>
 					<Text style={styles.item}>Changelog</Text>
@@ -147,7 +80,7 @@ const About = () => {
 				>
 					Contributors
 				</Text>
-				{Authors()}
+				<Authors />
 				<Text
 					style={{
 						...styles.header,
@@ -161,14 +94,7 @@ const About = () => {
 					activeOpacity={0.6}
 				>
 					<Text style={styles.item}>Rate</Text>
-					<Text
-						style={{
-							...styles.item,
-							fontSize: 16 * scaleHeight,
-							paddingTop: 5 * scaleHeight,
-							color: "#898989",
-						}}
-					>
+					<Text style={styles.itemText}>
 						Love the app? Rate it at playstore
 					</Text>
 				</TouchableOpacity>
@@ -177,30 +103,14 @@ const About = () => {
 					activeOpacity={0.6}
 				>
 					<Text style={styles.item}>Pro</Text>
-					<Text
-						style={{
-							...styles.item,
-							fontSize: 16 * scaleHeight,
-							paddingTop: 5 * scaleHeight,
-							color: "#898989",
-						}}
-					>
-						Buy the pro app and go adfree
-					</Text>
+					<Text style={styles.itemText}>Buy the pro app and go adfree</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
 					onPress={() => Linking.openURL(MADNESS_TELE)}
 					activeOpacity={0.6}
 				>
 					<Text style={styles.item}>Join telegram channel</Text>
-					<Text
-						style={{
-							...styles.item,
-							fontSize: 16 * scaleHeight,
-							paddingTop: 5 * scaleHeight,
-							color: "#898989",
-						}}
-					>
+					<Text style={styles.itemText}>
 						Report bugs, suggest features or just simply have fun
 					</Text>
 				</TouchableOpacity>
@@ -213,61 +123,16 @@ const About = () => {
 					>
 						Disclaimer
 					</Text>
-					<Text
-						style={{
-							...styles.item,
-							fontSize: 16 * scaleHeight,
-							paddingTop: 5 * scaleHeight,
-							color: "#898989",
-							textAlign: "justify",
-						}}
-					>
-						{DISCLAIMER_TEXT}
-					</Text>
+					<Text style={styles.itemText}>{DISCLAIMER_TEXT}</Text>
 				</View>
 			</ScrollView>
-			{renderModal()}
+			<ScrollableModal
+				visible={changelogVisible}
+				changeVisible={setChangelogVisible}
+				changelog={changelog}
+			/>
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-	header: {
-		fontSize: 25 * scaleHeight,
-		paddingHorizontal: 25 * scaleWidth,
-		paddingTop: 50 * scaleHeight,
-		fontFamily: "Linotte-Bold",
-	},
-	item: {
-		paddingHorizontal: 25 * scaleWidth,
-		fontSize: 18 * scaleHeight,
-		paddingTop: 15 * scaleHeight,
-		fontFamily: "Manrope-medium",
-	},
-	changelogContainer: {
-		width: 200 * scaleWidth,
-		height: 300 * scaleHeight,
-		borderTopEndRadius: 25,
-		borderBottomEndRadius: 25,
-		borderTopLeftRadius: 25,
-		borderBottomLeftRadius: 25,
-	},
-	test: {
-		width: 200 * scaleWidth,
-		height: 300 * scaleHeight,
-		borderTopEndRadius: 25,
-		borderBottomEndRadius: 25,
-		borderTopLeftRadius: 25,
-		borderBottomLeftRadius: 25,
-		alignContent: "center",
-		alignItems: "center",
-		paddingTop: 35,
-		padding: 15,
-	},
-	scroll: {},
-});
 
 export default About;
