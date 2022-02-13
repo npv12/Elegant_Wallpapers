@@ -314,8 +314,7 @@ const SetWallpaper = ({ route, navigation }) => {
 		}
 		let dirs = RNFetchBlob.fs.dirs.SDCardDir;
 		let extension: any = item.url.split(".").pop();
-		if (extension == "jpg" || extension == "jpeg" || extension == "png");
-		else {
+		if (extension != "jpg" && extension != "jpeg" && extension != "png") {
 			extension = "jpg";
 		}
 		const PATH =
