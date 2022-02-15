@@ -7,7 +7,6 @@ import {
 } from "@react-navigation/stack";
 import OneSignal from "react-native-onesignal";
 import { View } from "react-native";
-import admob, { MaxAdContentRating } from "@react-native-firebase/admob";
 
 import Explore from "./src/screens/Explore";
 import Collections from "./src/screens/Collections/index.tsx";
@@ -233,21 +232,6 @@ class App extends Component {
 		OneSignal.promptForPushNotificationsWithUserResponse((response) => {
 			//  this.OSLog("Prompt response:", response);
 		});
-		admob()
-			.setRequestConfiguration({
-				// Update all future requests suitable for parental guidance
-				maxAdContentRating: MaxAdContentRating.PG,
-
-				// Indicates that you want your content treated as child-directed for purposes of COPPA.
-				tagForChildDirectedTreatment: true,
-
-				// Indicates that you want the ad request to be handled in a
-				// manner suitable for users under the age of consent.
-				tagForUnderAgeOfConsent: true,
-			})
-			.then(() => {
-				console.log("Config set successfully");
-			});
 
 		OneSignal.setNotificationWillShowInForegroundHandler(
 			(notifReceivedEvent) => {

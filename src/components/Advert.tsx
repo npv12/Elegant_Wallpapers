@@ -1,8 +1,6 @@
-import { AdEventType, InterstitialAd } from "@react-native-firebase/admob";
 import { ADVERT_CAP_TIME, FB_PLACEMENT_AD, ADMOB_UNIT_ID } from "../constants";
 
 var shouldShowAd = true;
-const interstitialAd = InterstitialAd.createForAdRequest(ADMOB_UNIT_ID);
 
 export default function loadAd() {
 	console.log(shouldShowAd, "Should the ad be shown?");
