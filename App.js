@@ -1,72 +1,12 @@
-import React, { Component, useEffect, useState } from "react";
-import { Dimensions, Alert, PermissionsAndroid } from "react-native";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import {
-	createStackNavigator,
-	CardStyleInterpolators,
-} from "@react-navigation/stack";
+import React, { Component, useEffect } from "react";
+import { Alert, PermissionsAndroid } from "react-native";
 import OneSignal from "react-native-onesignal";
-import { View } from "react-native";
-
-import Explore from "./src/screens/Explore";
-import Collections from "./src/screens/Collections/index.tsx";
-import { NavigationContainer } from "@react-navigation/native";
-import SetWallpaper from "./src/screens/SetWallpaper";
-import SpecificCollection from "./src/screens/SpecificCollection";
-import About from "./src/screens/About";
-import Settings from "./src/screens/Settings";
-import Fav from "./src/screens/favorite";
 import ThemeManager from "./src/themes";
-import BottomTab from "./src/components/BottomTab";
-import SearchScreen from "./src/screens/SearchScreen";
 import { useTheme } from "./src/themes";
-import { ONE_SIGNAL, STANDARD_HEIGHT } from "./src/constants";
+import { ONE_SIGNAL } from "./src/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { preloadAd } from "./src/components/Advert";
-
-const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
-
-const Tab = createMaterialTopTabNavigator();
-
-function TopTabs({ navigation }) {
-	const theme = useTheme();
-	const [text, setText] = useState(false);
-	async function fetchTheme() {
-		var temp = await AsyncStorage.getItem("theme");
-		if (temp) {
-			theme.setMode(temp);
-		}
-	}
-	useEffect(() => {
-		fetchTheme();
-		setText(theme.mode == "dark");
-	}, []);
-	return (
-		<>
-			<View
-				style={{
-					backgroundColor: !text ? "white" : "black",
-					height: 35 * scaleHeight,
-				}}
-			></View>
-			<Tab.Navigator
-				tabBarOptions={{
-					labelStyle: {
-						fontSize: 14 * scaleHeight,
-						color: text ? "white" : "black",
-						fontFamily: "koliko",
-					},
-					style: { backgroundColor: text ? "black" : "white" },
-					indicatorStyle: { backgroundColor: text ? "white" : "black" },
-				}}
-			>
-				<Tab.Screen name="Explore" component={Explore} />
-				<Tab.Screen name="Collections" component={Collections} />
-			</Tab.Navigator>
-			<BottomTab navigation={navigation} />
-		</>
-	);
-}
+import HomeScreen from "./src/screens/HomeScreen";
 
 const getPermissionAndroid = async () => {
 	try {
@@ -98,11 +38,8 @@ const getPermissionAndroid = async () => {
 	}
 };
 
-const Stack = createStackNavigator();
-
-function HomeScreen() {
+function Themes() {
 	const theme = useTheme();
-	const [text, setText] = useState(false);
 	async function fetchTheme() {
 		var temp = await AsyncStorage.getItem("theme");
 		if (temp) {
@@ -112,100 +49,11 @@ function HomeScreen() {
 	useEffect(() => {
 		fetchTheme();
 	}, []);
-	if (theme.mode == "dark" && !text) setText(true);
-	else if (theme.mode == "light" && text) setText(false);
-	return (
-		<NavigationContainer>
-			<Stack.Navigator
-				initialRouteName="Home"
-				screenOptions={{
-					cardStyleInterpolator:
-						CardStyleInterpolators.forRevealFromBottomAndroid,
-				}}
-			>
-				<Stack.Screen
-					name="Home"
-					component={TopTabs}
-					options={{ headerShown: false }}
-				/>
-				<Stack.Screen
-					name="Wall"
-					component={SetWallpaper}
-					options={{ headerShown: false }}
-				/>
-				<Stack.Screen
-					name="Collection"
-					component={SpecificCollection}
-					options={{ headerShown: false }}
-				/>
-				<Stack.Screen
-					name="Settings"
-					component={Settings}
-					options={{
-						title: "Settings",
-						headerTitleAlign: "center",
-						headerTintColor: text ? "white" : "black",
-						headerTitleStyle: {
-							fontFamily: "Linotte-Bold",
-							fontWeight: "normal",
-							fontSize: 23 * scaleHeight,
-						},
-						headerStyle: {
-							backgroundColor: !text ? "white" : "black",
-						},
-					}}
-				/>
-				<Stack.Screen
-					name="About"
-					component={About}
-					options={{
-						title: "About Elegant",
-						headerTitleAlign: "center",
-						headerTintColor: text ? "white" : "black",
-						headerTitleStyle: {
-							fontFamily: "Linotte-Bold",
-							fontWeight: "normal",
-							fontSize: 23 * scaleHeight,
-						},
-						headerStyle: {
-							backgroundColor: !text ? "white" : "black",
-						},
-					}}
-				/>
-				<Stack.Screen
-					name="Fav"
-					component={Fav}
-					options={{
-						title: "Favorite",
-						headerTitleAlign: "center",
-						headerTintColor: text ? "white" : "black",
-						headerTitleStyle: {
-							fontFamily: "Linotte-Bold",
-							fontWeight: "normal",
-							fontSize: 23 * scaleHeight,
-						},
-						headerStyle: {
-							backgroundColor: !text ? "white" : "black",
-						},
-					}}
-				/>
-				<Stack.Screen
-					name="Search"
-					component={SearchScreen}
-					options={{ headerShown: false }}
-				/>
-			</Stack.Navigator>
-		</NavigationContainer>
-	);
-}
 
-function Themes() {
 	return (
-		<>
-			<ThemeManager>
-				<HomeScreen />
-			</ThemeManager>
-		</>
+		<ThemeManager>
+			<HomeScreen />
+		</ThemeManager>
 	);
 }
 
