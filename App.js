@@ -1,12 +1,8 @@
-import React, { Component, useEffect } from "react";
+import React, { Component } from "react";
 import { Alert, PermissionsAndroid } from "react-native";
 import OneSignal from "react-native-onesignal";
-import ThemeManager from "./src/themes";
-import { useTheme } from "./src/themes";
 import { ONE_SIGNAL } from "./src/constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { preloadAd } from "./src/components/Advert";
-import HomeScreen from "./src/screens/HomeScreen";
 
 const getPermissionAndroid = async () => {
 	try {
@@ -37,25 +33,6 @@ const getPermissionAndroid = async () => {
 		);
 	}
 };
-
-function Themes() {
-	const theme = useTheme();
-	async function fetchTheme() {
-		var temp = await AsyncStorage.getItem("theme");
-		if (temp) {
-			theme.setMode(temp);
-		}
-	}
-	useEffect(() => {
-		fetchTheme();
-	}, []);
-
-	return (
-		<ThemeManager>
-			<HomeScreen />
-		</ThemeManager>
-	);
-}
 
 class App extends Component {
 	constructor(props) {

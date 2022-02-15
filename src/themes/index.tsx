@@ -40,8 +40,8 @@ const ManageThemeProvider = ({ children }) => {
 	);
 };
 
-const ThemeManager = ({ children }) => (
+const Themes = ({ children }) => (
 	<ManageThemeProvider>{children}</ManageThemeProvider>
 );
 
-export default ThemeManager;
+export default Themes;
