@@ -1,38 +1,9 @@
 import React, { Component } from "react";
-import { Alert, PermissionsAndroid } from "react-native";
 import OneSignal from "react-native-onesignal";
 import { ONE_SIGNAL } from "./src/constants";
 import { preloadAd } from "./src/components/Advert";
-
-const getPermissionAndroid = async () => {
-	try {
-		const granted = await PermissionsAndroid.request(
-			PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-			{
-				title: "Image Download Permission",
-				message: "Your permission is required to save images to your device",
-				buttonNegative: "Cancel",
-				buttonPositive: "OK",
-			}
-		);
-		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-			return true;
-		}
-		Alert.alert(
-			"Save remote Image",
-			"Grant Me Permission to save Image",
-			[{ text: "OK", onPress: () => console.log("OK Pressed") }],
-			{ cancelable: false }
-		);
-	} catch (err) {
-		Alert.alert(
-			"Save remote Image",
-			"Failed to save Image: " + err.message,
-			[{ text: "OK", onPress: () => console.log("OK Pressed") }],
-			{ cancelable: false }
-		);
-	}
-};
+import ThemeManager from "./src/screens/ThemeManager";
+import { getStoragePermissionAndroid } from "./src/utils";
 
 class App extends Component {
 	constructor(props) {
@@ -50,7 +21,7 @@ class App extends Component {
 
 	async componentDidMount() {
 		preloadAd();
-		getPermissionAndroid();
+		getStoragePermissionAndroid();
 		OneSignal.setAppId(ONE_SIGNAL);
 		OneSignal.setLogLevel(6, 0);
 		OneSignal.setRequiresUserPrivacyConsent(this.state.requiresPrivacyConsent);
@@ -125,7 +96,7 @@ class App extends Component {
 	};
 
 	render() {
-		return <Themes />;
+		return <ThemeManager />;
 	}
 }
 
