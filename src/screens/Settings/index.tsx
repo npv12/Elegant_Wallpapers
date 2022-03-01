@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import {
 	View,
-	StyleSheet,
 	TouchableOpacity,
 	Linking,
 	Dimensions,
@@ -13,17 +12,16 @@ import {
 	TERMS_OF_USE_URL,
 	VERSION_NUMBER,
 	STANDARD_HEIGHT,
-	STANDARD_WIDTH,
 	CREDITS_URL,
-} from "../constants";
+} from "../../constants";
 import {
 	Text as Title,
 	View as Container,
-} from "../components/StyledComponents";
-import { TypeAppContext } from "../types";
-import { AppContext } from "../context/AppContext";
+} from "../../components/StyledComponents";
+import { TypeAppContext } from "../../types";
+import { AppContext } from "../../context/AppContext";
+import styles from "./styles";
 
-const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Settings = ({ navigation }) => {
@@ -44,13 +42,7 @@ const Settings = ({ navigation }) => {
 				>
 					Appearence
 				</Title>
-				<View
-					style={{
-						flexDirection: "row",
-						justifyContent: "space-between",
-						paddingEnd: 15 * scaleWidth,
-					}}
-				>
+				<View style={styles.appearanceContainer}>
 					<Title style={styles.item}>Dark Theme</Title>
 				</View>
 				<Title
@@ -63,14 +55,7 @@ const Settings = ({ navigation }) => {
 				</Title>
 				<View>
 					<Title style={styles.item}>Wallpaper is stored to</Title>
-					<Title
-						style={{
-							...styles.item,
-							fontSize: 16 * scaleHeight,
-							paddingTop: 5 * scaleHeight,
-							color: "#898989",
-						}}
-					>
+					<Title style={styles.versionTitle}>
 						/storage/emulated/0/Pictures/Elegant-Walls
 					</Title>
 				</View>
@@ -120,38 +105,11 @@ const Settings = ({ navigation }) => {
 					activeOpacity={0.6}
 				>
 					<Title style={styles.item}>Elegant version</Title>
-					<Title
-						style={{
-							...styles.item,
-							fontSize: 16 * scaleHeight,
-							paddingTop: 5 * scaleHeight,
-							color: "#898989",
-						}}
-					>
-						{VERSION_NUMBER}
-					</Title>
+					<Title style={styles.versionTitle}>{VERSION_NUMBER}</Title>
 				</TouchableOpacity>
 			</ScrollView>
 		</Container>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-	header: {
-		fontSize: 25 * scaleHeight > 20 ? 25 * scaleHeight : 20,
-		padding: 25 * scaleHeight,
-		paddingTop: 50 * scaleHeight,
-		fontFamily: "Linotte-Bold",
-	},
-	item: {
-		paddingHorizontal: 25 * scaleWidth,
-		fontSize: 16 * scaleHeight > 12 ? 16 * scaleHeight : 12,
-		paddingTop: 5 * scaleHeight,
-		fontFamily: "Manrope-medium",
-	},
-});
 
 export default Settings;
