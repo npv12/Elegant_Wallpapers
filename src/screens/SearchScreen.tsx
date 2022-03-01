@@ -13,7 +13,7 @@ import { TextInput } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
 import LoadingImage from "../components/LoadingImage";
 import { WALL_URL, STANDARD_HEIGHT, STANDARD_WIDTH } from "../constants";
-import { TypeAppContext } from "../types/themes";
+import { TypeAppContext } from "../types";
 import { AppContext } from "../context/AppContext";
 
 const windowWidth = Dimensions.get("window").width;

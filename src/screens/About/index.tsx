@@ -15,7 +15,7 @@ import Loader from "../../components/Loader";
 import { Text, View } from "../../components/StyledComponents";
 import styles from "./styles";
 import Authors from "./authors";
-import { TypeAppContext } from "../../types/themes";
+import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;

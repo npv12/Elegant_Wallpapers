@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { View, Modal, ActivityIndicator } from "react-native";
 import { AppContext } from "../../context/AppContext";
-import { TypeAppContext } from "../../types/themes";
+import { TypeAppContext } from "../../types";
 import styles from "./styles";
 
 const Loader = ({ loading }) => {

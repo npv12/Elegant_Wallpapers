@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect, useContext } from "react";
 import { StatusBar, Appearance, NativeEventSubscription } from "react-native";
-import { TypeAppContext } from "../types/themes";
+import { TypeAppContext } from "../types";
 import darkColor from "./dark";
 import lightColor from "./light";
 import { AppContext } from "../context/AppContext";

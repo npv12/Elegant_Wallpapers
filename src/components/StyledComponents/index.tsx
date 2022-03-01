@@ -1,6 +1,6 @@
 import React, { ReactNode, useContext } from "react";
 import { View as RNView, Text as RNText } from "react-native"
-import { TypeAppContext } from "../../types/themes";
+import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 
 /*

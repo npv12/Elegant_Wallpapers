@@ -5,7 +5,7 @@ import Modal from "react-native-modal";
 import { PRO_APP, STANDARD_HEIGHT } from "../../constants";
 import styles from "./styles";
 import { View, Text } from "../StyledComponents";
-import { TypeAppContext } from "../../types/themes";
+import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 

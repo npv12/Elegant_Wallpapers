@@ -20,7 +20,7 @@ import {
 	Text as Title,
 	View as Container,
 } from "../components/StyledComponents";
-import { TypeAppContext } from "../types/themes";
+import { TypeAppContext } from "../types";
 import { AppContext } from "../context/AppContext";
 
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;

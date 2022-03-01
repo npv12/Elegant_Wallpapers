@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Dimensions, StatusBar } from "react-native";
 import { STANDARD_HEIGHT } from "../../constants";
 import { View } from "../../components/StyledComponents";
-import { TypeAppContext } from "../../types/themes";
+import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import styles from "./styles";
 import ScrollableCollection from "../../components/ScrollableCollection";

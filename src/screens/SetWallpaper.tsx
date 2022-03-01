@@ -28,7 +28,7 @@ import loadAd from "../components/Advert";
 import ColoredBox from "../components/ColoredBox";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../constants";
 import { Text, View as SView } from "../components/StyledComponents";
-import { TypeAppContext } from "../types/themes";
+import { TypeAppContext } from "../types";
 import { AppContext } from "../context/AppContext";
 
 const windowWidth = Dimensions.get("window").width;

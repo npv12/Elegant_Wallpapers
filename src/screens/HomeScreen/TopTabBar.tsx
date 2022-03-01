@@ -7,7 +7,7 @@ import Explore from "../Explore";
 import Collections from "../Collections";
 import BottomTab from "../../components/BottomTab";
 import { STANDARD_HEIGHT } from "../../constants";
-import { TypeAppContext } from "../../types/themes";
+import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;

@@ -1,12 +1,14 @@
 import React, { createContext, useState, ReactNode } from "react";
-import { colorScheme, TypeAppContext } from "../types/themes";
+import { colorScheme, TypeAppContext, TypeWallData } from "../types";
 import lightColor from "../Themes/light";
 
 const initialContext: TypeAppContext = {
 	theme: lightColor,
-	setTheme: (): void => { },
+	setTheme: (): void => {},
 	mode: "light",
-	setMode: (): void => { },
+	setMode: (): void => {},
+	wallpaperData: [],
+	setWallpaperData: (): void => {}
 };
 
 export const AppContext = createContext<TypeAppContext>(initialContext);
@@ -18,6 +20,7 @@ export const AppContextProvider = ({
 }): JSX.Element => {
 	const [theme, setTheme] = useState<colorScheme>(initialContext.theme);
 	const [mode, setMode] = useState<string>(initialContext.mode);
+	const [wallpaperData, setWallpaperData] = useState<Array<TypeWallData>>(initialContext.wallpaperData)
 
 	return (
 		<AppContext.Provider
@@ -26,6 +29,8 @@ export const AppContextProvider = ({
 				setTheme,
 				mode,
 				setMode,
+				wallpaperData,
+				setWallpaperData
 			}}
 		>
 			{children}

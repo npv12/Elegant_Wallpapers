@@ -5,7 +5,7 @@ import { STANDARD_HEIGHT } from "../../constants";
 import styles from "./styles";
 import BottomModal from "./modal";
 import { View } from "../StyledComponents";
-import { TypeAppContext } from "../../types/themes";
+import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;

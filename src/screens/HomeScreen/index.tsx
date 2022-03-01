@@ -13,7 +13,7 @@ import Favorite from "../Favorite";
 import SearchScreen from "../../screens/SearchScreen";
 import { STANDARD_HEIGHT } from "../../constants";
 import TopTabBar from "./TopTabBar";
-import { TypeAppContext } from "../../types/themes";
+import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;

@@ -13,7 +13,7 @@ import {
 import { Linking } from "react-native";
 import ScrollableCollection from "../../components/ScrollableCollection";
 import { Text, View as SView } from "../../components/StyledComponents";
-import { TypeAppContext } from "../../types/themes";
+import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import { getCollectionsFromData } from "./utils";
 import styles from "./styles";

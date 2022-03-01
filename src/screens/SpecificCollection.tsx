@@ -11,7 +11,7 @@ import {
 	STANDARD_HEIGHT,
 } from "../constants";
 import { AppContext } from "../context/AppContext";
-import { TypeAppContext } from "../types/themes";
+import { TypeAppContext } from "../types";
 
 const windowWidth = Dimensions.get("window").width;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;

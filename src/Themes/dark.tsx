@@ -1,4 +1,4 @@
-import { colorScheme } from "../types/themes";
+import { colorScheme } from "../types";
 
 const darkColor: colorScheme = {
 	background: "#000000",

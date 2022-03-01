@@ -16,7 +16,7 @@ import {
 } from "../../constants";
 import SplashScreen from "react-native-splash-screen";
 import { Text, View } from "../../components/StyledComponents";
-import { TypeAppContext } from "../../types/themes";
+import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import ScrollableCollection from "../../components/ScrollableCollection";
 
