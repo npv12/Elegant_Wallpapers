@@ -1,5 +1,10 @@
 import React, { createContext, useState, ReactNode } from "react";
-import { collectionData, colorScheme, TypeAppContext, TypeWallData } from "../types";
+import {
+	collectionData,
+	colorScheme,
+	TypeAppContext,
+	TypeWallData,
+} from "../types";
 import lightColor from "../Themes/light";
 
 const initialContext: TypeAppContext = {
@@ -12,7 +17,7 @@ const initialContext: TypeAppContext = {
 	collectionData: [],
 	setCollectionData: (): void => {},
 	updateState: 0,
-	setUpdateState: (): void => {}
+	setUpdateState: (): void => {},
 };
 
 export const AppContext = createContext<TypeAppContext>(initialContext);
@@ -24,9 +29,15 @@ export const AppContextProvider = ({
 }): JSX.Element => {
 	const [theme, setTheme] = useState<colorScheme>(initialContext.theme);
 	const [mode, setMode] = useState<string>(initialContext.mode);
-	const [wallpaperData, setWallpaperData] = useState<Array<TypeWallData>>(initialContext.wallpaperData)
-	const [collectionData, setCollectionData] = useState<Array<collectionData>>(initialContext.collectionData)
-	const [updateState, setUpdateState] = useState<number>(initialContext.updateState)
+	const [wallpaperData, setWallpaperData] = useState<Array<TypeWallData>>(
+		initialContext.wallpaperData
+	);
+	const [collectionData, setCollectionData] = useState<Array<collectionData>>(
+		initialContext.collectionData
+	);
+	const [updateState, setUpdateState] = useState<number>(
+		initialContext.updateState
+	);
 
 	return (
 		<AppContext.Provider
@@ -40,7 +51,7 @@ export const AppContextProvider = ({
 				collectionData,
 				setCollectionData,
 				updateState,
-				setUpdateState
+				setUpdateState,
 			}}
 		>
 			{children}

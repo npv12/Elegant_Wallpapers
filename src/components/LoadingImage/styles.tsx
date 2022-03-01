@@ -1,11 +1,6 @@
-import React from "react";
-import { Image, ActivityIndicator, StyleSheet, Dimensions } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { STANDARD_WIDTH, STANDARD_HEIGHT } from "../../constants";
-import styled from "styled-components/native";
-import { View } from "../StyledComponents";
+import { StyleSheet, Dimensions } from "react-native";
+import { STANDARD_HEIGHT } from "../../constants";
 
-const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const styles = StyleSheet.create({

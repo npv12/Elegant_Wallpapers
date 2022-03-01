@@ -1,12 +1,6 @@
 import React, { useContext } from "react";
-import {
-	TouchableOpacity,
-	View,
-	StatusBar,
-} from "react-native";
-import {
-	FREE_APP,
-} from "../../constants";
+import { TouchableOpacity, View, StatusBar } from "react-native";
+import { FREE_APP } from "../../constants";
 import { Linking } from "react-native";
 import ScrollableCollection from "../../components/ScrollableCollection";
 import { Text, View as SView } from "../../components/StyledComponents";
@@ -15,40 +9,37 @@ import { AppContext } from "../../context/AppContext";
 import styles from "./styles";
 
 /**
- * This is the screen which renders how a colleciton screen should be like. 
+ * This is the screen which renders how a colleciton screen should be like.
  * This is still a wip TODO
  * We need to improve how data is fetched in general and commonaise it and better write logaic for update state
  * @returns JSX component
  */
 
-const Collections = ({route}) => {
-	const { mode, wallpaperData, collectionData, updateState } = useContext<TypeAppContext>(AppContext);
+const Collections = ({ route }) => {
+	const { mode, wallpaperData, collectionData, updateState } =
+		useContext<TypeAppContext>(AppContext);
 	const { isCollection } = route.params;
 
 	function renderCollections() {
 		if (wallpaperData.length) {
 			return (
 				<View style={{ paddingHorizontal: 10, flex: 1 }}>
-					<ScrollableCollection
-						data={collectionData}
-						isCollection={true}
-					/>
+					<ScrollableCollection data={collectionData} isCollection={true} />
 				</View>
 			);
 		}
-
 	}
 
 	function renderWallpaper() {
 		if (wallpaperData.length) {
 			return (
-				<View style={{flex:1}}>
+				<View style={{ flex: 1 }}>
 					<StatusBar
 						translucent={true}
 						backgroundColor={"transparent"}
 						barStyle={mode == "dark" ? "light-content" : "dark-content"}
 					/>
-					<View style={{ flex:1}}>
+					<View style={{ flex: 1 }}>
 						<ScrollableCollection data={wallpaperData} />
 					</View>
 				</View>
@@ -68,7 +59,7 @@ const Collections = ({route}) => {
 					<Text
 						style={{
 							color: mode == "dark" ? "#A9A9A9" : "grey",
-							...styles.header
+							...styles.header,
 						}}
 					>
 						Update the app to view the walls.
@@ -84,12 +75,15 @@ const Collections = ({route}) => {
 					onPress={() => Linking.openURL(FREE_APP)}
 				>
 					<SView
-						style={{ ...styles.forceUpdateContainer, backgroundColor: mode == "dark" ? "#AAFF00" : "#7CCC00" }}
+						style={{
+							...styles.forceUpdateContainer,
+							backgroundColor: mode == "dark" ? "#AAFF00" : "#7CCC00",
+						}}
 					>
 						<Text
 							style={{
 								color: "black",
-								...styles.header
+								...styles.header,
 							}}
 						>
 							Update the app for best possible experience
@@ -102,7 +96,11 @@ const Collections = ({route}) => {
 						backgroundColor={"transparent"}
 						barStyle={mode == "dark" ? "light-content" : "dark-content"}
 					/>
-					<SView style={isCollection ? styles.collectionContainer : styles.container}>{isCollection ? renderCollections() : renderWallpaper()}</SView>
+					<SView
+						style={isCollection ? styles.collectionContainer : styles.container}
+					>
+						{isCollection ? renderCollections() : renderWallpaper()}
+					</SView>
 				</SView>
 			</>
 		);
@@ -112,7 +110,7 @@ const Collections = ({route}) => {
 			<Text
 				style={{
 					color: mode == "dark" ? "#A9A9A9" : "grey",
-					...styles.header
+					...styles.header,
 				}}
 			>
 				Loading your favorite collections.....

@@ -1,10 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-	StatusBar,
-	Dimensions,
-	View,
-	Text,
-} from "react-native";
+import { StatusBar, Dimensions, View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import { STANDARD_HEIGHT } from "../../constants";
 import { TypeAppContext } from "../../types";
@@ -37,28 +32,32 @@ const SearchScreen = () => {
 					backgroundColor: mode != "dark" ? "white" : "black",
 				}}
 			>
-				<SearchBox setEmpty={setEmpty} setWalls={setWalls}/>
-				{!empty? <ScrollableCollection data={walls}/>: (
-			<View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
-				<Icon
-					name="search"
-					type="feather"
-					size={45 * scaleHeight}
-					color="grey"
-					style={{ paddingBottom: 35 * scaleHeight }}
-					tvParallaxProperties
-				/>
-				<Text
-					style={{
-						color: mode == "dark" ? "#A9A9A9" : "grey",
-						fontSize: 20 * scaleHeight,
-						fontFamily: "Linotte-Bold",
-					}}
-				>
-					Try searching for something
-				</Text>
-			</View>
-		)}
+				<SearchBox setEmpty={setEmpty} setWalls={setWalls} />
+				{!empty ? (
+					<ScrollableCollection data={walls} />
+				) : (
+					<View
+						style={{ justifyContent: "center", flex: 1, alignItems: "center" }}
+					>
+						<Icon
+							name="search"
+							type="feather"
+							size={45 * scaleHeight}
+							color="grey"
+							style={{ paddingBottom: 35 * scaleHeight }}
+							tvParallaxProperties
+						/>
+						<Text
+							style={{
+								color: mode == "dark" ? "#A9A9A9" : "grey",
+								fontSize: 20 * scaleHeight,
+								fontFamily: "Linotte-Bold",
+							}}
+						>
+							Try searching for something
+						</Text>
+					</View>
+				)}
 			</View>
 		</>
 	);

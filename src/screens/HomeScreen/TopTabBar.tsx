@@ -36,8 +36,16 @@ export default function TopTabBar({ navigation }) {
 					},
 				}}
 			>
-				<Tab.Screen name="Explore" component={Collections} initialParams={{ isCollection: false }}/>
-				<Tab.Screen name="Collections" component={Collections} initialParams={{ isCollection: true }}/>
+				<Tab.Screen
+					name="Explore"
+					component={Collections}
+					initialParams={{ isCollection: false }}
+				/>
+				<Tab.Screen
+					name="Collections"
+					component={Collections}
+					initialParams={{ isCollection: true }}
+				/>
 			</Tab.Navigator>
 			<BottomTab navigation={navigation} />
 		</>

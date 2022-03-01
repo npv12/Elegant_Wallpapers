@@ -11,19 +11,25 @@ import About from "../../screens/About";
 import Settings from "../../screens/Settings";
 import Favorite from "../Favorite";
 import SearchScreen from "../../screens/SearchScreen";
-import { STANDARD_HEIGHT, VERSION_NUMBER, VERSION_URL, WALL_URL } from "../../constants";
+import {
+	STANDARD_HEIGHT,
+	VERSION_NUMBER,
+	VERSION_URL,
+	WALL_URL,
+} from "../../constants";
 import TopTabBar from "./TopTabBar";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
-import { getCollectionsFromData } from "./utils";
 import SplashScreen from "react-native-splash-screen";
+import { getCollectionsFromData } from "../../utils";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Stack = createStackNavigator();
 
 export default function HomeScreen() {
-	const { theme, setWallpaperData, setCollectionData, setUpdateState } = useContext<TypeAppContext>(AppContext);
+	const { theme, setWallpaperData, setCollectionData, setUpdateState } =
+		useContext<TypeAppContext>(AppContext);
 
 	// Fetch all data regarding the wallpapers
 	async function getData() {
@@ -34,7 +40,7 @@ export default function HomeScreen() {
 			.then((data) => {
 				setWallpaperData(data);
 				SplashScreen.hide();
-				setCollectionData(getCollectionsFromData(data))
+				setCollectionData(getCollectionsFromData(data));
 			})
 			.catch((error) => {
 				console.log(error);

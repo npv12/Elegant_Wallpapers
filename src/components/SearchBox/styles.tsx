@@ -1,7 +1,4 @@
-import {
-	StyleSheet,
-	Dimensions,
-} from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../../constants";
 
 const windowWidth = Dimensions.get("window").width;
@@ -22,7 +19,7 @@ const styles = StyleSheet.create({
 		fontSize: 18 * scaleHeight,
 		margin: 18 * scaleHeight,
 		fontFamily: "Linotte-Bold",
-	}
+	},
 });
 
 export default styles;

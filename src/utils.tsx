@@ -4,6 +4,7 @@
  */
 
 import { PermissionsAndroid } from "react-native";
+import { collectionData, TypeWallData } from "./types";
 
 /**
  * args: Takes no arguments
@@ -26,3 +27,52 @@ export const getStoragePermissionAndroid = async (): Promise<boolean> => {
 	}
 	return false;
 };
+
+export function searchForWall(
+	searchString: string,
+	wallpaperData: Array<TypeWallData>,
+	setEmpty,
+	setWalls
+) {
+	if (searchString && wallpaperData) setEmpty(false);
+	else {
+		setEmpty(true);
+		return;
+	}
+	var c = [];
+	for (var i = 0; i < wallpaperData.length; i++) {
+		if (
+			wallpaperData[i].name.toLowerCase().includes(searchString.toLowerCase())
+		)
+			c.push(wallpaperData[i]);
+		else if (
+			wallpaperData[i].collections
+				.toLowerCase()
+				.includes(searchString.toLowerCase())
+		)
+			c.push(wallpaperData[i]);
+	}
+	setWalls(c);
+}
+
+export function getCollectionsFromData(data: Array<any>) {
+	var collectionNames = [];
+	var finalCollections: Array<collectionData> = [];
+
+	for (var i = 0; i < data.length; i++) {
+		var separateCollections = data[i].collections.toLowerCase().split(","); // Separates the different collections that are separated by a comma.
+		for (var j = 0; j < separateCollections.length; j++) {
+			if (!collectionNames.includes(separateCollections[j])) {
+				var t: collectionData = {
+					collections: separateCollections[j],
+					url: data[i].url,
+					thumbnail: data[i].thumbnail,
+					key: (i + j).toString(), // The key doesn't really matter so lets keep it this way?
+				};
+				collectionNames.push(separateCollections[j]);
+				finalCollections.push(t);
+			}
+		}
+	}
+	return finalCollections;
+}
