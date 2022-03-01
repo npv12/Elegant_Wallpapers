@@ -1,5 +1,9 @@
 import React, { ReactNode, useContext } from "react";
-import { View as RNView, Text as RNText } from "react-native";
+import {
+	View as RNView,
+	Text as RNText,
+	StatusBar as RNStatusbar,
+} from "react-native";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 
@@ -47,5 +51,16 @@ export const Text = ({
 		>
 			{children}
 		</RNText>
+	);
+};
+
+export const StatusBar = () => {
+	const { theme } = useContext<TypeAppContext>(AppContext);
+	return (
+		<RNStatusbar
+			translucent={true}
+			backgroundColor={"transparent"}
+			barStyle={theme.statusbarContent}
+		/>
 	);
 };

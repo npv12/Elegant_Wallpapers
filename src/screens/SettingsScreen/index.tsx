@@ -1,11 +1,5 @@
 import React, { useContext } from "react";
-import {
-	View,
-	TouchableOpacity,
-	Linking,
-	Dimensions,
-	StatusBar,
-} from "react-native";
+import { View, TouchableOpacity, Linking, Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import {
 	PRIVACY_POLICY_URL,
@@ -17,6 +11,7 @@ import {
 import {
 	Text as Title,
 	View as Container,
+	StatusBar,
 } from "../../components/StyledComponents";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
@@ -28,11 +23,7 @@ const SettingsScreen = ({ navigation }) => {
 	const { mode } = useContext<TypeAppContext>(AppContext);
 	return (
 		<Container style={styles.container}>
-			<StatusBar
-				translucent={true}
-				backgroundColor={"transparent"}
-				barStyle={mode == "dark" ? "light-content" : "dark-content"}
-			/>
+			<StatusBar />
 			<ScrollView>
 				<Title
 					style={{

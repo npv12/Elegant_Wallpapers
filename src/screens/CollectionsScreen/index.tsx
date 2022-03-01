@@ -1,9 +1,13 @@
 import React, { useContext } from "react";
-import { TouchableOpacity, View, StatusBar } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { FREE_APP } from "../../constants";
 import { Linking } from "react-native";
 import ScrollableCollection from "../../components/ScrollableCollection";
-import { Text, View as SView } from "../../components/StyledComponents";
+import {
+	Text,
+	View as SView,
+	StatusBar,
+} from "../../components/StyledComponents";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import styles from "./styles";
@@ -34,11 +38,7 @@ const CollectionsScreen = ({ route }) => {
 		if (wallpaperData.length) {
 			return (
 				<View style={{ flex: 1 }}>
-					<StatusBar
-						translucent={true}
-						backgroundColor={"transparent"}
-						barStyle={mode == "dark" ? "light-content" : "dark-content"}
-					/>
+					<StatusBar />
 					<View style={{ flex: 1 }}>
 						<ScrollableCollection data={wallpaperData} />
 					</View>
@@ -91,11 +91,7 @@ const CollectionsScreen = ({ route }) => {
 					</SView>
 				</TouchableOpacity>
 				<SView style={styles.container}>
-					<StatusBar
-						translucent={true}
-						backgroundColor={"transparent"}
-						barStyle={mode == "dark" ? "light-content" : "dark-content"}
-					/>
+					<StatusBar />
 					<SView
 						style={isCollection ? styles.collectionContainer : styles.container}
 					>

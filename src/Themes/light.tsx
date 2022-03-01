@@ -6,6 +6,7 @@ const lightColor: colorScheme = {
 	backgroundAlt: "#eaeaeb",
 	borderAlt: "#bdbdbd",
 	text: "#171717",
+	statusbarContent: "light-content",
 };
 
 export default lightColor;

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { TouchableOpacity, Dimensions, Linking, StatusBar } from "react-native";
+import { TouchableOpacity, Dimensions, Linking } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import {
 	DISCLAIMER_TEXT,
@@ -12,7 +12,7 @@ import {
 } from "../../constants";
 import ScrollableModal from "../../components/ScrollableModal";
 import Loader from "../../components/Loader";
-import { Text, View } from "../../components/StyledComponents";
+import { StatusBar, Text, View } from "../../components/StyledComponents";
 import styles from "./styles";
 import Authors from "./authors";
 import { TypeAppContext } from "../../types";
@@ -47,11 +47,7 @@ const AboutScreen = () => {
 	return (
 		<View style={styles.container}>
 			<Loader loading={loading} />
-			<StatusBar
-				translucent={true}
-				backgroundColor={"transparent"}
-				barStyle={mode == "dark" ? "light-content" : "dark-content"}
-			/>
+			<StatusBar />
 			<ScrollView>
 				<Text
 					style={{

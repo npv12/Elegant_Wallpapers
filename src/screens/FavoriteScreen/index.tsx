@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext, useEffect, useState } from "react";
-import { Dimensions, StatusBar } from "react-native";
+import { Dimensions } from "react-native";
 import { STANDARD_HEIGHT } from "../../constants";
-import { View } from "../../components/StyledComponents";
+import { View, StatusBar } from "../../components/StyledComponents";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import styles from "./styles";
@@ -29,11 +29,7 @@ const FavoriteScreen = () => {
 					height: 35 * scaleHeight,
 				}}
 			></View>
-			<StatusBar
-				translucent={true}
-				backgroundColor={"transparent"}
-				barStyle={mode == "dark" ? "light-content" : "dark-content"}
-			/>
+			<StatusBar />
 			<View style={styles.container}>
 				<ScrollableCollection data={data} />
 			</View>

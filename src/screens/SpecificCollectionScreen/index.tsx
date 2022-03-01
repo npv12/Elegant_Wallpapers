@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StatusBar } from "react-native";
 import ScrollableCollection from "../../components/ScrollableCollection";
-import { Text, View } from "../../components/StyledComponents";
+import { Text, View, StatusBar } from "../../components/StyledComponents";
 import { AppContext } from "../../context/AppContext";
 import { TypeAppContext } from "../../types";
 import { findImagesForCollection } from "../../utils";
@@ -19,11 +18,7 @@ const SpecificCollectionScreen = ({ route }) => {
 	return (
 		<>
 			<View style={styles.header}></View>
-			<StatusBar
-				translucent={true}
-				backgroundColor={"transparent"}
-				barStyle={mode == "dark" ? "light-content" : "dark-content"}
-			/>
+			<StatusBar />
 			<View style={styles.title}>
 				<Text style={styles.titleText}>{value.toUpperCase()}</Text>
 			</View>

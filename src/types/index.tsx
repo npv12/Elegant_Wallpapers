@@ -6,6 +6,7 @@ export type colorScheme = {
 	backgroundAlt: string;
 	borderAlt: string;
 	text: string;
+	statusbarContent: "dark-content" | "light-content";
 };
 
 export type TypeAppContext = {
