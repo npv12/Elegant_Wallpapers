@@ -5,7 +5,7 @@ import {
 	CardStyleInterpolators,
 } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import SetWallpaper from "../../screens/SetWallpaper";
+import SetWallpaperScreen from "../../screens/SetWallpaperScreen";
 import SpecificCollectionScreen from "../SpecificCollectionScreen";
 import AboutScreen from "../../screens/AboutScreen";
 import SettingsScreen from "../SettingsScreen";
@@ -79,7 +79,7 @@ export default function HomeScreen() {
 				/>
 				<Stack.Screen
 					name="Wall"
-					component={SetWallpaper}
+					component={SetWallpaperScreen}
 					options={{ headerShown: false }}
 				/>
 				<Stack.Screen
