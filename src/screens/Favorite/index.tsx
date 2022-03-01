@@ -1,12 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useContext, useEffect, useState } from "react";
 import { Dimensions, StatusBar } from "react-native";
-import Wall from "../../components/Wall";
 import { STANDARD_HEIGHT } from "../../constants";
 import { View } from "../../components/StyledComponents";
 import { TypeThemeContext } from "../../types/themes";
 import { ThemeContext } from "../../Themes/ThemeContext";
 import styles from "./styles";
+import ScrollableCollection from "../../components/ScrollableCollection";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
@@ -35,7 +35,7 @@ const Favorite = ({ navigation }) => {
 				barStyle={mode == "dark" ? "light-content" : "dark-content"}
 			/>
 			<View style={styles.container}>
-				<Wall data={data} navigation={navigation} />
+				<ScrollableCollection data={data} />
 			</View>
 		</>
 	);

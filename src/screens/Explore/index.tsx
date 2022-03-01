@@ -8,7 +8,6 @@ import {
 	Animated,
 } from "react-native";
 import styled from "styled-components/native";
-import Wall from "../../components/Wall";
 import {
 	SECRET_KEY,
 	STANDARD_HEIGHT,
@@ -23,6 +22,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { Text, View } from "../../components/StyledComponents";
 import { TypeThemeContext } from "../../types/themes";
 import { ThemeContext } from "../../Themes/ThemeContext";
+import ScrollableCollection from "../../components/ScrollableCollection";
 
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
@@ -162,7 +162,7 @@ const Explore = ({ navigation }) => {
 							barStyle={mode == "dark" ? "light-content" : "dark-content"}
 						/>
 						<View style={{ ...styles.container }}>
-							<Wall data={data} navigation={navigation} />
+							<ScrollableCollection data={data} />
 						</View>
 					</Animated.View>
 				</View>

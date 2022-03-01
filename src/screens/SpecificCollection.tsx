@@ -7,8 +7,8 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import styled from "styled-components/native";
+import ScrollableCollection from "../components/ScrollableCollection";
 import { Text, View } from "../components/StyledComponents";
-import Wall from "../components/Wall";
 import {
 	SECRET_KEY,
 	WALL_URL,
@@ -77,7 +77,7 @@ const SpecificCollection = ({ navigation, route }) => {
 				<Text style={styles.headerText}>{value.toUpperCase()}</Text>
 			</View>
 			<View style={styles.container}>
-				<Wall data={data} navigation={navigation} />
+				<ScrollableCollection data={data} />
 			</View>
 		</>
 	);

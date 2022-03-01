@@ -7,6 +7,12 @@ const windowWidth = Dimensions.get("window").width;
 const styles = StyleSheet.create({
 	container: { flex: 1 },
 	Wall: {
+		width: (windowWidth / 2) * 0.88,
+		height: 250 * scaleHeight,
+		borderRadius: 5,
+		borderTopRightRadius: 5,
+	},
+	Collection: {
 		width: windowWidth - 40,
 		height: 200 * scaleHeight,
 		borderTopRightRadius: 20,

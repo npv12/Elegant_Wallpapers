@@ -62,12 +62,6 @@ const Collections = ({ navigation }) => {
 			});
 	}
 
-	function filterOut(value) {
-		navigation.navigate("Collection", {
-			value: value,
-		});
-	}
-
 	function convertData(data) {
 		var c = [];
 		var fin = [];
@@ -132,7 +126,7 @@ const Collections = ({ navigation }) => {
 			<View style={{ paddingHorizontal: 10, flex: 1 }}>
 				<ScrollableCollection
 					data={collection}
-					onPress={(item) => filterOut(item.collections)}
+					isCollection={true}
 				/>
 			</View>
 		);
