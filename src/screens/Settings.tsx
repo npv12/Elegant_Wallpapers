@@ -54,15 +54,6 @@ const Settings = ({ navigation }) => {
 					}}
 				>
 					<Title style={styles.item}>Dark Theme</Title>
-					<Switch
-						value={mode === "dark"}
-						onValueChange={(value) => {
-							setMode(value ? "dark" : "light");
-							AsyncStorage.setItem("theme", value ? "dark" : "light");
-						}}
-						thumbColor={mode == "dark" ? "#AAFF00" : "black"}
-						style={{ ...styles.item }}
-					/>
 				</View>
 				<Title
 					style={{
