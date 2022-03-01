@@ -1,9 +1,4 @@
-type collectionData = {
-    key: string,
-    thumbnail: string,
-    url: string,
-    collections: string
-}
+import { collectionData } from "../../types";
 
 export function getCollectionsFromData(data: Array<any>) {
     var collectionNames: Map<string, string> = new Map();

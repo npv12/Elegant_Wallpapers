@@ -15,6 +15,8 @@ export type TypeAppContext = {
 	setMode: Dispatch<SetStateAction<string>>;
 	wallpaperData: Array<TypeWallData>
 	setWallpaperData: Dispatch<SetStateAction<Array<TypeWallData>>>
+	collectionData: Array<collectionData>
+	setCollectionData: Dispatch<SetStateAction<Array<collectionData>>>
 };
 
 export type TypeWallData = {
@@ -25,4 +27,11 @@ export type TypeWallData = {
 	url: string, 
 	resolution: string, 
 	dominantColor: string
+}
+
+export type collectionData = {
+    key: string,
+    thumbnail: string,
+    url: string,
+    collections: string
 }
