@@ -15,7 +15,7 @@ import ScrollableCollection from "../../components/ScrollableCollection";
 import { Text, View as SView } from "../../components/StyledComponents";
 import { TypeThemeContext } from "../../types/themes";
 import { ThemeContext } from "../../Themes/ThemeContext";
-import { convertData } from "./utils";
+import { getCollectionsFromData } from "./utils";
 import styles from "./styles";
 
 /**
@@ -38,7 +38,7 @@ const Collections = () => {
 			.then((response) => response.json())
 			.then((data) => {
 				setData(data);
-				setCollection(convertData(data))
+				setCollection(getCollectionsFromData(data))
 			})
 			.catch((error) => {
 				console.log(error);
