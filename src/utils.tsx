@@ -76,3 +76,18 @@ export function getCollectionsFromData(data: Array<any>) {
 	}
 	return finalCollections;
 }
+
+export function findImagesForCollection(
+	data: Array<TypeWallData>,
+	value: string,
+	setData: any
+) {
+	var collection = [];
+	for (var i = 0; i < data.length; i++) {
+		if (
+			data[i].collections.toLowerCase().split(",").includes(value.toLowerCase())
+		)
+			collection.push(data[i]);
+	}
+	setData(collection);
+}
