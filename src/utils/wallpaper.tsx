@@ -1,4 +1,4 @@
-import RNFetchBlob from "rn-fetch-blob";
+import ReactNativeBlobUtil from "react-native-blob-util";
 import ManageWallpaper, { TYPE } from "react-native-manage-wallpaper";
 import { getStoragePermissionAndroid, showSnackbarText } from ".";
 import { Platform } from "react-native";
@@ -13,27 +13,27 @@ export async function setImageAsWall(
 	setShowApplyModal(false);
 	// loadAd();
 	// setIsLoading(true);
-	// RNFetchBlob.config({
-	// 	fileCache: true,
-	// 	appendExt: "png",
-	// })
-	// 	.fetch("GET", url)
-	// 	.then((res) => {
-	// 		console.log("Applying wall " + type);
-	// 		var PATH = "file://" + res.path();
-	// 		ManageWallpaper.setWallpaper(
-	// 			{
-	// 				uri: PATH,
-	// 			},
-	// 			callback,
-	// 			type === "home" ? TYPE.HOME : type === "lock" ? TYPE.LOCK : TYPE.BOTH
-	// 		);
-	// 	})
-	// 	.catch((e) => {
-	// 		console.log(e);
-	// 		//setIsLoading(false);
-	// 		showSnackbarText("Something went wrong");
-	// 	});
+	ReactNativeBlobUtil.config({
+		fileCache: true,
+		appendExt: "png",
+	})
+		.fetch("GET", url)
+		.then((res) => {
+			console.log("Applying wall " + type);
+			var PATH = "file://" + res.path();
+			ManageWallpaper.setWallpaper(
+				{
+					uri: PATH,
+				},
+				callback,
+				type === "home" ? TYPE.HOME : type === "lock" ? TYPE.LOCK : TYPE.BOTH
+			);
+		})
+		.catch((e) => {
+			console.log(e);
+			//setIsLoading(false);
+			showSnackbarText("Something went wrong");
+		});
 }
 
 export //wallpaper downloader.
@@ -52,7 +52,7 @@ async function handleDownload(item) {
 			return;
 		}
 	}
-	let dirs = RNFetchBlob.fs.dirs.SDCardDir;
+	let dirs = ReactNativeBlobUtil.fs.dirs.SDCardDir;
 	let extension: any = item.url.split(".").pop();
 	if (extension != "jpg" && extension != "jpeg" && extension != "png") {
 		extension = "jpg";
@@ -65,29 +65,29 @@ async function handleDownload(item) {
 		item.author +
 		"." +
 		extension;
-	// RNFetchBlob.fs
-	// 	.exists(PATH)
-	// 	.then((exist) => {
-	// 		if (!exist) {
-	// 			RNFetchBlob.config({
-	// 				addAndroidDownloads: {
-	// 					useDownloadManager: true,
-	// 					notification: true,
-	// 					mime: "image",
-	// 					path: PATH,
-	// 				},
-	// 			})
-	// 				.fetch("GET", item.url)
-	// 				.then((res) => {
-	// 					showSnackbarText("Download completed");
-	// 				})
-	// 				.catch((error) => showSnackbarText("Something went wrong"));
-	// 		} else {
-	// 			showSnackbarText("File exists");
-	// 			//setIsDownloading(false);
-	// 		}
-	// 	})
-	// 	.catch(() => {
-	// 		console.log("File error");
-	// 	});
+	ReactNativeBlobUtil.fs
+		.exists(PATH)
+		.then((exist) => {
+			if (!exist) {
+				ReactNativeBlobUtil.config({
+					addAndroidDownloads: {
+						useDownloadManager: true,
+						notification: true,
+						mime: "image",
+						path: PATH,
+					},
+				})
+					.fetch("GET", item.url)
+					.then((res) => {
+						showSnackbarText("Download completed");
+					})
+					.catch((error) => showSnackbarText("Something went wrong"));
+			} else {
+				showSnackbarText("File exists");
+				//setIsDownloading(false);
+			}
+		})
+		.catch(() => {
+			console.log("File error");
+		});
 }
