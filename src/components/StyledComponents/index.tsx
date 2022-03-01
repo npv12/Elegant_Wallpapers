@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext } from "react";
 import { View as RNView, Text as RNText } from "react-native"
-import { TypeThemeContext } from "../../types/themes";
-import { ThemeContext } from "../../Themes/ThemeContext";
+import { TypeAppContext } from "../../types/themes";
+import { AppContext } from "../../context/AppContext";
 
 /*
 These house a special set of components. These are just like special components but with a set of preapplied styles
@@ -16,7 +16,7 @@ export const View = ({ style,
 	children?: ReactNode;
 	style?: any
 }): JSX.Element => {
-	const { theme } = useContext<TypeThemeContext>(ThemeContext)
+	const { theme } = useContext<TypeAppContext>(AppContext)
 	return <RNView style={{
 		backgroundColor: theme.background,
 		...style,
@@ -29,7 +29,7 @@ export const Text = ({ style,
 	children?: ReactNode;
 	style?: any
 }): JSX.Element => {
-	const { theme } = useContext<TypeThemeContext>(ThemeContext)
+	const { theme } = useContext<TypeAppContext>(AppContext)
 	return <RNText style={{
 		color: theme.text,
 		...style

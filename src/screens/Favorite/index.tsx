@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Dimensions, StatusBar } from "react-native";
 import { STANDARD_HEIGHT } from "../../constants";
 import { View } from "../../components/StyledComponents";
-import { TypeThemeContext } from "../../types/themes";
-import { ThemeContext } from "../../Themes/ThemeContext";
+import { TypeAppContext } from "../../types/themes";
+import { AppContext } from "../../context/AppContext";
 import styles from "./styles";
 import ScrollableCollection from "../../components/ScrollableCollection";
 
@@ -12,7 +12,7 @@ const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Favorite = () => {
 	const [data, setData] = useState([]);
-	const { mode } = useContext<TypeThemeContext>(ThemeContext);
+	const { mode } = useContext<TypeAppContext>(AppContext);
 	useEffect(() => {
 		retrieveData();
 	}, []);

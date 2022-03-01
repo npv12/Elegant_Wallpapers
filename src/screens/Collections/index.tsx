@@ -13,8 +13,8 @@ import {
 import { Linking } from "react-native";
 import ScrollableCollection from "../../components/ScrollableCollection";
 import { Text, View as SView } from "../../components/StyledComponents";
-import { TypeThemeContext } from "../../types/themes";
-import { ThemeContext } from "../../Themes/ThemeContext";
+import { TypeAppContext } from "../../types/themes";
+import { AppContext } from "../../context/AppContext";
 import { getCollectionsFromData } from "./utils";
 import styles from "./styles";
 
@@ -29,7 +29,7 @@ const Collections = () => {
 	const [collection, setCollection] = useState([]);
 	const [data, setData] = useState([]);
 	const [updateState, setUpdateState] = useState(0);
-	const { mode } = useContext<TypeThemeContext>(ThemeContext);
+	const { mode } = useContext<TypeAppContext>(AppContext);
 
 	async function getData() {
 		fetch(WALL_URL, {

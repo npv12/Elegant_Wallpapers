@@ -5,7 +5,7 @@ import { preloadAd } from "./src/components/Advert";
 import { getStoragePermissionAndroid } from "./src/utils";
 import HomeScreen from "./src/screens/HomeScreen";
 import Themes from "./src/Themes"
-import { ThemeContextProvider } from "./src/Themes/ThemeContext";
+import { AppContextProvider } from "./src/context/AppContext";
 
 function App() {
   const [emailAddress, setEmailAddress] = React.useState<string>("");
@@ -34,11 +34,11 @@ function App() {
     []
   );
   return (
-    <ThemeContextProvider>
+    <AppContextProvider>
       <Themes>
         <HomeScreen />
       </Themes>
-    </ThemeContextProvider>
+    </AppContextProvider>
   );
 }
 

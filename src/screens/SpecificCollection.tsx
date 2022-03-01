@@ -10,8 +10,8 @@ import {
 	WALL_URL,
 	STANDARD_HEIGHT,
 } from "../constants";
-import { ThemeContext } from "../Themes/ThemeContext";
-import { TypeThemeContext } from "../types/themes";
+import { AppContext } from "../context/AppContext";
+import { TypeAppContext } from "../types/themes";
 
 const windowWidth = Dimensions.get("window").width;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
@@ -19,7 +19,7 @@ const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 const SpecificCollection = ({ route }) => {
 	const { value } = route.params;
 	const [data, setData] = useState([]);
-	const { theme, mode } = useContext<TypeThemeContext>(ThemeContext);
+	const { theme, mode } = useContext<TypeAppContext>(AppContext);
 
 	async function getData() {
 		fetch(WALL_URL, {

@@ -13,15 +13,15 @@ import Favorite from "../Favorite";
 import SearchScreen from "../../screens/SearchScreen";
 import { STANDARD_HEIGHT } from "../../constants";
 import TopTabBar from "./TopTabBar";
-import { TypeThemeContext } from "../../types/themes";
-import { ThemeContext } from "../../Themes/ThemeContext";
+import { TypeAppContext } from "../../types/themes";
+import { AppContext } from "../../context/AppContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Stack = createStackNavigator();
 
 export default function HomeScreen() {
-	const { theme } = useContext<TypeThemeContext>(ThemeContext);
+	const { theme } = useContext<TypeAppContext>(AppContext);
 
 	return (
 		<NavigationContainer>

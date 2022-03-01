@@ -7,15 +7,15 @@ import Explore from "../Explore";
 import Collections from "../Collections";
 import BottomTab from "../../components/BottomTab";
 import { STANDARD_HEIGHT } from "../../constants";
-import { TypeThemeContext } from "../../types/themes";
-import { ThemeContext } from "../../Themes/ThemeContext";
+import { TypeAppContext } from "../../types/themes";
+import { AppContext } from "../../context/AppContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function TopTabBar({ navigation }) {
-	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
+	const { theme, mode, setMode } = useContext<TypeAppContext>(AppContext);
 	return (
 		<>
 			<View

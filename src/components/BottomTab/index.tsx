@@ -5,13 +5,13 @@ import { STANDARD_HEIGHT } from "../../constants";
 import styles from "./styles";
 import BottomModal from "./modal";
 import { View } from "../StyledComponents";
-import { TypeThemeContext } from "../../types/themes";
-import { ThemeContext } from "../../Themes/ThemeContext";
+import { TypeAppContext } from "../../types/themes";
+import { AppContext } from "../../context/AppContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const BottomTab = ({ navigation }) => {
-	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
+	const { theme, mode, setMode } = useContext<TypeAppContext>(AppContext);
 	const iconColor = mode == "dark" ? "white" : "black";
 	const [modalVisible, setmodalVisible] = useState(false);
 

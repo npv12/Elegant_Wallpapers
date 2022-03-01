@@ -20,14 +20,14 @@ import {
 	Text as Title,
 	View as Container,
 } from "../components/StyledComponents";
-import { TypeThemeContext } from "../types/themes";
-import { ThemeContext } from "../Themes/ThemeContext";
+import { TypeAppContext } from "../types/themes";
+import { AppContext } from "../context/AppContext";
 
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Settings = ({ navigation }) => {
-	const { mode } = useContext<TypeThemeContext>(ThemeContext);
+	const { mode } = useContext<TypeAppContext>(AppContext);
 	return (
 		<Container style={styles.container}>
 			<StatusBar

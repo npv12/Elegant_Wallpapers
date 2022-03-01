@@ -8,7 +8,7 @@ export type colorScheme = {
 	text: string;
 };
 
-export type TypeThemeContext = {
+export type TypeAppContext = {
 	theme: colorScheme;
 	setTheme: Dispatch<SetStateAction<colorScheme>>;
 	mode: string;

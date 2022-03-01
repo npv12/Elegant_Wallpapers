@@ -13,8 +13,8 @@ import { TextInput } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
 import LoadingImage from "../components/LoadingImage";
 import { WALL_URL, STANDARD_HEIGHT, STANDARD_WIDTH } from "../constants";
-import { TypeThemeContext } from "../types/themes";
-import { ThemeContext } from "../Themes/ThemeContext";
+import { TypeAppContext } from "../types/themes";
+import { AppContext } from "../context/AppContext";
 
 const windowWidth = Dimensions.get("window").width;
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
@@ -25,7 +25,7 @@ const SearchScreen = ({ navigation }) => {
 	const [data, setData] = useState([]);
 	const [empty, setEmpty] = useState(true);
 	const [walls, setWalls] = useState([]);
-	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
+	const { theme, mode, setMode } = useContext<TypeAppContext>(AppContext);
 
 	async function getData() {
 		fetch(WALL_URL, {

@@ -16,8 +16,8 @@ import {
 } from "../../constants";
 import SplashScreen from "react-native-splash-screen";
 import { Text, View } from "../../components/StyledComponents";
-import { TypeThemeContext } from "../../types/themes";
-import { ThemeContext } from "../../Themes/ThemeContext";
+import { TypeAppContext } from "../../types/themes";
+import { AppContext } from "../../context/AppContext";
 import ScrollableCollection from "../../components/ScrollableCollection";
 
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
@@ -26,7 +26,7 @@ const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 const windowWidth = Dimensions.get("window").width;
 
 const Explore = () => {
-	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
+	const { theme, mode, setMode } = useContext<TypeAppContext>(AppContext);
 	const [data, setData] = useState([]);
 	const [updateState, setUpdateState] = useState(0);
 

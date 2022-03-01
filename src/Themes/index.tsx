@@ -1,15 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect, useContext } from "react";
 import { StatusBar, Appearance, NativeEventSubscription } from "react-native";
-import { TypeThemeContext } from "../types/themes";
+import { TypeAppContext } from "../types/themes";
 import darkColor from "./dark";
 import lightColor from "./light";
-import { ThemeContext } from "./ThemeContext";
+import { AppContext } from "../context/AppContext";
 
 var listener: NativeEventSubscription
 
 const Themes = ({ children }) => {
-	const { setTheme, setMode, mode } = useContext<TypeThemeContext>(ThemeContext)
+	const { setTheme, setMode, mode } = useContext<TypeAppContext>(AppContext)
 
 	async function setThemeFromStorage() {
 		//var themeFromStorage = await AsyncStorage.getItem("theme");

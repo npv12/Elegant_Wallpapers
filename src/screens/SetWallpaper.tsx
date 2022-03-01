@@ -28,8 +28,8 @@ import loadAd from "../components/Advert";
 import ColoredBox from "../components/ColoredBox";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../constants";
 import { Text, View as SView } from "../components/StyledComponents";
-import { TypeThemeContext } from "../types/themes";
-import { ThemeContext } from "../Themes/ThemeContext";
+import { TypeAppContext } from "../types/themes";
+import { AppContext } from "../context/AppContext";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -37,7 +37,7 @@ const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const SetWallpaper = ({ route, navigation }) => {
-	const { theme, mode } = useContext<TypeThemeContext>(ThemeContext);
+	const { theme, mode } = useContext<TypeAppContext>(AppContext);
 	const { item } = route.params;
 	const [showApplyModal, setShowApplyModal] = useState(false);
 	const [isFav, setIsFav] = useState(false);

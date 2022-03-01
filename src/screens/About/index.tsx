@@ -15,13 +15,13 @@ import Loader from "../../components/Loader";
 import { Text, View } from "../../components/StyledComponents";
 import styles from "./styles";
 import Authors from "./authors";
-import { TypeThemeContext } from "../../types/themes";
-import { ThemeContext } from "../../Themes/ThemeContext";
+import { TypeAppContext } from "../../types/themes";
+import { AppContext } from "../../context/AppContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const About = () => {
-	const { mode } = useContext<TypeThemeContext>(ThemeContext);
+	const { mode } = useContext<TypeAppContext>(AppContext);
 	const [changelogVisible, setChangelogVisible] = useState(false);
 	const [changelog, setChangelog] = useState("");
 	const [loading, setLoading] = useState(true);

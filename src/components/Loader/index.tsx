@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { View, Modal, ActivityIndicator } from "react-native";
-import { ThemeContext } from "../../Themes/ThemeContext";
-import { TypeThemeContext } from "../../types/themes";
+import { AppContext } from "../../context/AppContext";
+import { TypeAppContext } from "../../types/themes";
 import styles from "./styles";
 
 const Loader = ({ loading }) => {
-	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
+	const { theme, mode, setMode } = useContext<TypeAppContext>(AppContext);
 
 	return (
 		<Modal transparent={true} animationType={"none"} visible={loading}>

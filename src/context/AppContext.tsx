@@ -1,17 +1,17 @@
 import React, { createContext, useState, ReactNode } from "react";
-import { colorScheme, TypeThemeContext } from "../types/themes";
-import lightColor from "./light";
+import { colorScheme, TypeAppContext } from "../types/themes";
+import lightColor from "../Themes/light";
 
-const initialContext: TypeThemeContext = {
+const initialContext: TypeAppContext = {
 	theme: lightColor,
-	setTheme: (): void => {},
+	setTheme: (): void => { },
 	mode: "light",
-	setMode: (): void => {},
+	setMode: (): void => { },
 };
 
-export const ThemeContext = createContext<TypeThemeContext>(initialContext);
+export const AppContext = createContext<TypeAppContext>(initialContext);
 
-export const ThemeContextProvider = ({
+export const AppContextProvider = ({
 	children,
 }: {
 	children: ReactNode;
@@ -20,7 +20,7 @@ export const ThemeContextProvider = ({
 	const [mode, setMode] = useState<string>(initialContext.mode);
 
 	return (
-		<ThemeContext.Provider
+		<AppContext.Provider
 			value={{
 				theme,
 				setTheme,
@@ -29,6 +29,6 @@ export const ThemeContextProvider = ({
 			}}
 		>
 			{children}
-		</ThemeContext.Provider>
+		</AppContext.Provider>
 	);
 };
