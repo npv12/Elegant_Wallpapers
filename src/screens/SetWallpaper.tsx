@@ -23,7 +23,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import _ from "lodash";
 import Loader from "../components/Loader";
 import ImageColors from "react-native-image-colors";
-import styled from "styled-components/native";
 import LoadingImage from "../components/LoadingImage";
 import loadAd from "../components/Advert";
 import ColoredBox from "../components/ColoredBox";

@@ -1,29 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
 	StyleSheet,
-	SafeAreaView,
 	StatusBar,
 	Dimensions,
-	TouchableOpacity,
 } from "react-native";
-import styled from "styled-components/native";
 import ScrollableCollection from "../components/ScrollableCollection";
 import { Text, View } from "../components/StyledComponents";
 import {
-	SECRET_KEY,
 	WALL_URL,
 	STANDARD_HEIGHT,
-	STANDARD_WIDTH,
 } from "../constants";
-import { ThemeContextProvider, ThemeContext } from "../Themes/ThemeContext";
+import { ThemeContext } from "../Themes/ThemeContext";
 import { TypeThemeContext } from "../types/themes";
 
 const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
-const SpecificCollection = ({ navigation, route }) => {
+const SpecificCollection = ({ route }) => {
 	const { value } = route.params;
 	const [data, setData] = useState([]);
 	const { theme, mode } = useContext<TypeThemeContext>(ThemeContext);

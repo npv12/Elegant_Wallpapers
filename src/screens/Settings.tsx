@@ -1,14 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import {
 	View,
 	StyleSheet,
-	Switch,
 	TouchableOpacity,
 	Linking,
 	Dimensions,
 	StatusBar,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ScrollView } from "react-native-gesture-handler";
 import {
 	PRIVACY_POLICY_URL,
@@ -29,7 +27,7 @@ const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Settings = ({ navigation }) => {
-	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
+	const { mode } = useContext<TypeThemeContext>(ThemeContext);
 	return (
 		<Container style={styles.container}>
 			<StatusBar

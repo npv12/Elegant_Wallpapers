@@ -21,7 +21,7 @@ const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 const Stack = createStackNavigator();
 
 export default function HomeScreen() {
-	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
+	const { theme } = useContext<TypeThemeContext>(ThemeContext);
 
 	return (
 		<NavigationContainer>
@@ -53,14 +53,14 @@ export default function HomeScreen() {
 					options={{
 						title: "Settings",
 						headerTitleAlign: "center",
-						headerTintColor: mode == "dark" ? "white" : "black",
+						headerTintColor: theme.text,
 						headerTitleStyle: {
 							fontFamily: "Linotte-Bold",
 							fontWeight: "normal",
 							fontSize: 23 * scaleHeight,
 						},
 						headerStyle: {
-							backgroundColor: !(mode == "dark") ? "white" : "black",
+							backgroundColor: theme.background,
 						},
 					}}
 				/>
@@ -70,14 +70,14 @@ export default function HomeScreen() {
 					options={{
 						title: "About Elegant",
 						headerTitleAlign: "center",
-						headerTintColor: mode == "dark" ? "white" : "black",
+						headerTintColor: theme.text,
 						headerTitleStyle: {
 							fontFamily: "Linotte-Bold",
 							fontWeight: "normal",
 							fontSize: 23 * scaleHeight,
 						},
 						headerStyle: {
-							backgroundColor: !(mode == "dark") ? "white" : "black",
+							backgroundColor: theme.background,
 						},
 					}}
 				/>
@@ -87,14 +87,14 @@ export default function HomeScreen() {
 					options={{
 						title: "About Elegant",
 						headerTitleAlign: "center",
-						headerTintColor: mode == "dark" ? "white" : "black",
+						headerTintColor: theme.text,
 						headerTitleStyle: {
 							fontFamily: "Linotte-Bold",
 							fontWeight: "normal",
 							fontSize: 23 * scaleHeight,
 						},
 						headerStyle: {
-							backgroundColor: !(mode == "dark") ? "white" : "black",
+							backgroundColor: theme.background,
 						},
 					}}
 				/>

@@ -10,7 +10,7 @@ import ScrollableCollection from "../../components/ScrollableCollection";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
-const Favorite = ({ navigation }) => {
+const Favorite = () => {
 	const [data, setData] = useState([]);
 	const { mode } = useContext<TypeThemeContext>(ThemeContext);
 	useEffect(() => {
