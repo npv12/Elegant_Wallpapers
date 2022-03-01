@@ -16,6 +16,7 @@ import TopTabBar from "./TopTabBar";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import { getCollectionsFromData } from "./utils";
+import SplashScreen from "react-native-splash-screen";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
@@ -32,6 +33,7 @@ export default function HomeScreen() {
 			.then((response) => response.json())
 			.then((data) => {
 				setWallpaperData(data);
+				SplashScreen.hide();
 				setCollectionData(getCollectionsFromData(data))
 			})
 			.catch((error) => {

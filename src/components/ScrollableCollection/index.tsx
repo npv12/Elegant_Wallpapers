@@ -5,6 +5,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { Text, View } from "../StyledComponents";
 import styles from "./styles";
 import { useNavigation } from '@react-navigation/native';
+import { collectionData, TypeWallData } from "../../types";
 
 /**  Takes out the scroll logic from inside of collection or a wallpaper scrollable to here to keep the correspoding component less cluttered
  * Pass in data as a data props
@@ -51,7 +52,7 @@ const ScrollableCollection = ({ data, isCollection = false }: { data: Array<any>
 					data={data}
 					numColumns={isCollection ? 1 : 2}
 					renderItem={renderItem}
-					keyExtractor={(item) => item.url}
+					keyExtractor={(item, index) => item.url + index }
 				/>
 			</View>
 		);

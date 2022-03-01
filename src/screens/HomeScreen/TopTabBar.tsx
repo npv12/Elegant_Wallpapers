@@ -3,7 +3,6 @@ import { Dimensions } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { View } from "react-native";
 
-import Explore from "../Explore";
 import Collections from "../Collections";
 import BottomTab from "../../components/BottomTab";
 import { STANDARD_HEIGHT } from "../../constants";
@@ -15,12 +14,12 @@ const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 const Tab = createMaterialTopTabNavigator();
 
 export default function TopTabBar({ navigation }) {
-	const { theme, mode, setMode } = useContext<TypeAppContext>(AppContext);
+	const { theme } = useContext<TypeAppContext>(AppContext);
 	return (
 		<>
 			<View
 				style={{
-					backgroundColor: !(mode == "dark") ? "white" : "black",
+					backgroundColor: theme.background,
 					height: 35 * scaleHeight,
 				}}
 			></View>
@@ -28,17 +27,17 @@ export default function TopTabBar({ navigation }) {
 				tabBarOptions={{
 					labelStyle: {
 						fontSize: 14 * scaleHeight,
-						color: mode == "dark" ? "white" : "black",
+						color: theme.text,
 						fontFamily: "koliko",
 					},
-					style: { backgroundColor: mode == "dark" ? "black" : "white" },
+					style: { backgroundColor: theme.background },
 					indicatorStyle: {
-						backgroundColor: mode == "dark" ? "white" : "black",
+						backgroundColor: theme.background,
 					},
 				}}
 			>
-				<Tab.Screen name="Explore" component={Explore} />
-				<Tab.Screen name="Collections" component={Collections} />
+				<Tab.Screen name="Explore" component={Collections} initialParams={{ isCollection: false }}/>
+				<Tab.Screen name="Collections" component={Collections} initialParams={{ isCollection: true }}/>
 			</Tab.Navigator>
 			<BottomTab navigation={navigation} />
 		</>

@@ -12,7 +12,8 @@ import {
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const styles = StyleSheet.create({
-    container: { justifyContent: "center", flex: 1, alignItems: "center" },
+    container: { flex: 1 },
+    collectionContainer: { justifyContent: "center", flex: 1, alignItems: "center" },
     header: {
 
         fontSize: 20 * scaleHeight,

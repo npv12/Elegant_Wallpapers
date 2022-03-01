@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import {
 	TouchableOpacity,
 	View,
@@ -6,16 +6,12 @@ import {
 } from "react-native";
 import {
 	FREE_APP,
-	VERSION_NUMBER,
-	VERSION_URL,
-	WALL_URL,
 } from "../../constants";
 import { Linking } from "react-native";
 import ScrollableCollection from "../../components/ScrollableCollection";
 import { Text, View as SView } from "../../components/StyledComponents";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
-import { getCollectionsFromData } from "../HomeScreen/utils";
 import styles from "./styles";
 
 /**
@@ -25,8 +21,9 @@ import styles from "./styles";
  * @returns JSX component
  */
 
-const Collections = () => {
+const Collections = ({route}) => {
 	const { mode, wallpaperData, collectionData, updateState } = useContext<TypeAppContext>(AppContext);
+	const { isCollection } = route.params;
 
 	function renderCollections() {
 		if (wallpaperData.length) {
@@ -40,6 +37,23 @@ const Collections = () => {
 			);
 		}
 
+	}
+
+	function renderWallpaper() {
+		if (wallpaperData.length) {
+			return (
+				<View style={{flex:1}}>
+					<StatusBar
+						translucent={true}
+						backgroundColor={"transparent"}
+						barStyle={mode == "dark" ? "light-content" : "dark-content"}
+					/>
+					<View style={{ flex:1}}>
+						<ScrollableCollection data={wallpaperData} />
+					</View>
+				</View>
+			);
+		}
 	}
 
 	if (updateState == 2)
@@ -88,7 +102,7 @@ const Collections = () => {
 						backgroundColor={"transparent"}
 						barStyle={mode == "dark" ? "light-content" : "dark-content"}
 					/>
-					<SView style={styles.container}>{renderCollections()}</SView>
+					<SView style={isCollection ? styles.collectionContainer : styles.container}>{isCollection ? renderCollections() : renderWallpaper()}</SView>
 				</SView>
 			</>
 		);
