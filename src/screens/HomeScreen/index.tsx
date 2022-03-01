@@ -9,7 +9,7 @@ import SetWallpaper from "../../screens/SetWallpaper";
 import SpecificCollection from "../../screens/SpecificCollection";
 import About from "../../screens/About";
 import Settings from "../../screens/Settings";
-import Fav from "../../screens/favorite";
+import Favorite from "../Favorite";
 import SearchScreen from "../../screens/SearchScreen";
 import { STANDARD_HEIGHT } from "../../constants";
 import TopTabBar from "./TopTabBar";
@@ -83,7 +83,7 @@ export default function HomeScreen() {
 				/>
 				<Stack.Screen
 					name="Fav"
-					component={Fav}
+					component={Favorite}
 					options={{
 						title: "About Elegant",
 						headerTitleAlign: "center",
