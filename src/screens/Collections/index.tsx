@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
 	StyleSheet,
 	Dimensions,
@@ -17,12 +17,13 @@ import {
 	STANDARD_HEIGHT,
 	STANDARD_WIDTH,
 } from "../../constants";
-import { useTheme } from "../../themes";
 import { Linking } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import ScrollableCollection from "../../components/ScrollableCollection";
 import { Button } from "react-native";
 import { Text, View as SView } from "../../components/StyledComponents";
+import { TypeThemeContext } from "../../types/themes";
+import { ThemeContext } from "../../Themes/ThemeContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
@@ -32,7 +33,7 @@ const Collections = ({ navigation }) => {
 	const [updateState, setUpdateState] = useState(0);
 	const [fadeAnimation, setFadeAnimation] = useState(new Animated.Value(0));
 	const [offset, setOffset] = useState(0);
-	const theme = useTheme();
+	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
 	const focused = useIsFocused();
 
 	async function getData() {
@@ -93,12 +94,12 @@ const Collections = ({ navigation }) => {
 
 	useEffect(() => {
 		getData();
-		return function () {};
+		return function () { };
 	}, []);
 
 	useEffect(() => {
 		if (focused) fadeIn();
-		return function () {};
+		return function () { };
 	}, [focused]);
 
 	function fadeIn() {
@@ -117,7 +118,7 @@ const Collections = ({ navigation }) => {
 				>
 					<Text
 						style={{
-							color: theme.mode == "dark" ? "#A9A9A9" : "grey",
+							color: mode == "dark" ? "#A9A9A9" : "grey",
 							fontSize: 20 * scaleHeight,
 							fontFamily: "Linotte-Bold",
 						}}
@@ -145,7 +146,7 @@ const Collections = ({ navigation }) => {
 				>
 					<Text
 						style={{
-							color: theme.mode == "dark" ? "#A9A9A9" : "grey",
+							color: mode == "dark" ? "#A9A9A9" : "grey",
 							fontSize: 20 * scaleHeight,
 							fontFamily: "Linotte-Bold",
 						}}
@@ -165,7 +166,7 @@ const Collections = ({ navigation }) => {
 							style={{
 								height: 100 * scaleHeight,
 								width: "100%",
-								backgroundColor: theme.mode == "dark" ? "#AAFF00" : "#7CCC00",
+								backgroundColor: mode == "dark" ? "#AAFF00" : "#7CCC00",
 								justifyContent: "center",
 								padding: 25,
 								alignItems: "center",
@@ -207,7 +208,7 @@ const Collections = ({ navigation }) => {
 						<StatusBar
 							translucent={true}
 							backgroundColor={"transparent"}
-							barStyle={theme.mode == "dark" ? "light-content" : "dark-content"}
+							barStyle={mode == "dark" ? "light-content" : "dark-content"}
 						/>
 						<SView style={styles.container}>{renderCollections()}</SView>
 					</Animated.View>
@@ -220,7 +221,7 @@ const Collections = ({ navigation }) => {
 		<SView style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
 			<Text
 				style={{
-					color: theme.mode == "dark" ? "#A9A9A9" : "grey",
+					color: mode == "dark" ? "#A9A9A9" : "grey",
 					fontSize: 20 * scaleHeight,
 					fontFamily: "Linotte-Bold",
 				}}

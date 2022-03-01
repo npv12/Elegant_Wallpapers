@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import LoadingImage from "../LoadingImage";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../../constants";
-import { useTheme } from "../../themes";
 import { FlatList } from "react-native-gesture-handler";
 import { Text, View } from "../StyledComponents";
+import { TypeThemeContext } from "../../types/themes";
+import { ThemeContext } from "../../Themes/ThemeContext";
 
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
@@ -13,7 +14,7 @@ const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 const windowWidth = Dimensions.get("window").width;
 //TODO: Combine scollableCollection and wall
 const Wall = ({ ...props }) => {
-	const theme = useTheme();
+	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
 	const length = props.data.length;
 
 	function renderWalls() {
@@ -24,7 +25,7 @@ const Wall = ({ ...props }) => {
 				>
 					<Text
 						style={{
-							color: theme.mode == "dark" ? "#A9A9A9" : "grey",
+							color: mode == "dark" ? "#A9A9A9" : "grey",
 							fontSize: 20 * scaleHeight,
 							fontFamily: "Linotte-Bold",
 						}}

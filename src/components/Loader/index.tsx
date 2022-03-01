@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Modal, ActivityIndicator } from "react-native";
-import { useTheme } from "../../themes";
+import { ThemeContext } from "../../Themes/ThemeContext";
+import { TypeThemeContext } from "../../types/themes";
 import styles from "./styles";
 
 const Loader = ({ loading }) => {
-	const theme = useTheme();
+	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
 
 	return (
 		<Modal transparent={true} animationType={"none"} visible={loading}>
@@ -12,13 +13,13 @@ const Loader = ({ loading }) => {
 				<View
 					style={{
 						...styles.activityIndicatorWrapper,
-						backgroundColor: theme.mode == "dark" ? "black" : "white",
+						backgroundColor: mode == "dark" ? "black" : "white",
 					}}
 				>
 					<ActivityIndicator
 						animating={true}
 						size="large"
-						color={theme.mode != "dark" ? "black" : "white"}
+						color={mode != "dark" ? "black" : "white"}
 					/>
 				</View>
 			</View>

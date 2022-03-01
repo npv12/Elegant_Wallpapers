@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { TouchableOpacity, Dimensions, Linking, Animated } from "react-native";
-import { Icon } from "react-native-elements";
-import { useTheme } from "../../themes";
+import { Icon, useTheme } from "react-native-elements";
 import Modal from "react-native-modal";
 import { PRO_APP, STANDARD_HEIGHT } from "../../constants";
 import styles from "./styles";
 import { View, Text } from "../StyledComponents";
+import { TypeThemeContext } from "../../types/themes";
+import { ThemeContext } from "../../Themes/ThemeContext";
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 interface IProps {
@@ -15,7 +16,8 @@ interface IProps {
 }
 
 export default function BottomModal(props: IProps) {
-	const iconColor = useTheme().mode == "dark" ? "white" : "black";
+	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
+	const iconColor = mode == "dark" ? "white" : "black";
 	return (
 		<Modal
 			isVisible={props.visible}
@@ -43,6 +45,7 @@ export default function BottomModal(props: IProps) {
 							size={25 * scaleHeight}
 							style={styles.icon}
 							color={iconColor}
+							tvParallaxProperties
 						/>
 						<Text style={styles.modalTextStyle}>Upgrade to Pro</Text>
 					</View>
@@ -60,6 +63,7 @@ export default function BottomModal(props: IProps) {
 							size={25 * scaleHeight}
 							style={styles.icon}
 							color={iconColor}
+							tvParallaxProperties
 						/>
 						<Text style={styles.modalTextStyle}>Settings</Text>
 					</View>
@@ -77,6 +81,7 @@ export default function BottomModal(props: IProps) {
 							size={25 * scaleHeight}
 							style={styles.icon}
 							color={iconColor}
+							tvParallaxProperties
 						/>
 						<Text style={styles.modalTextStyle}>About</Text>
 					</View>

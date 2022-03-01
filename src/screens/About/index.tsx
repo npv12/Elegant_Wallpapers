@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TouchableOpacity, Dimensions, Linking, StatusBar } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import {
@@ -10,17 +10,18 @@ import {
 	VERSION_NUMBER,
 	STANDARD_HEIGHT,
 } from "../../constants";
-import { useTheme } from "../../themes";
 import ScrollableModal from "../../components/ScrollableModal";
 import Loader from "../../components/Loader";
 import { Text, View } from "../../components/StyledComponents";
 import styles from "./styles";
 import Authors from "./authors";
+import { TypeThemeContext } from "../../types/themes";
+import { ThemeContext } from "../../Themes/ThemeContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const About = () => {
-	const theme = useTheme();
+	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
 	const [changelogVisible, setChangelogVisible] = useState(false);
 	const [changelog, setChangelog] = useState("");
 	const [loading, setLoading] = useState(true);
@@ -53,13 +54,13 @@ const About = () => {
 			<StatusBar
 				translucent={true}
 				backgroundColor={"transparent"}
-				barStyle={theme.mode == "dark" ? "light-content" : "dark-content"}
+				barStyle={mode == "dark" ? "light-content" : "dark-content"}
 			/>
 			<ScrollView>
 				<Text
 					style={{
 						...styles.header,
-						color: theme.mode == "dark" ? "#AAFF00" : "#7CCC00",
+						color: mode == "dark" ? "#AAFF00" : "#7CCC00",
 						paddingTop: 5 * scaleHeight,
 					}}
 				>
@@ -75,7 +76,7 @@ const About = () => {
 				<Text
 					style={{
 						...styles.header,
-						color: theme.mode == "dark" ? "#AAFF00" : "#7CCC00",
+						color: mode == "dark" ? "#AAFF00" : "#7CCC00",
 					}}
 				>
 					Contributors
@@ -84,7 +85,7 @@ const About = () => {
 				<Text
 					style={{
 						...styles.header,
-						color: theme.mode == "dark" ? "#AAFF00" : "#7CCC00",
+						color: mode == "dark" ? "#AAFF00" : "#7CCC00",
 					}}
 				>
 					Support Development
@@ -118,7 +119,7 @@ const About = () => {
 					<Text
 						style={{
 							...styles.header,
-							color: theme.mode == "dark" ? "#AAFF00" : "#7CCC00",
+							color: mode == "dark" ? "#AAFF00" : "#7CCC00",
 						}}
 					>
 						Disclaimer

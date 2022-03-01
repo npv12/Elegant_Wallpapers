@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Dimensions } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { View } from "react-native";
@@ -6,20 +6,21 @@ import { View } from "react-native";
 import Explore from "../Explore";
 import Collections from "../Collections";
 import BottomTab from "../../components/BottomTab";
-import { useTheme } from "../../themes";
 import { STANDARD_HEIGHT } from "../../constants";
+import { TypeThemeContext } from "../../types/themes";
+import { ThemeContext } from "../../Themes/ThemeContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function TopTabBar({ navigation }) {
-	const theme = useTheme();
+	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
 	return (
 		<>
 			<View
 				style={{
-					backgroundColor: !(theme.mode == "dark") ? "white" : "black",
+					backgroundColor: !(mode == "dark") ? "white" : "black",
 					height: 35 * scaleHeight,
 				}}
 			></View>
@@ -27,12 +28,12 @@ export default function TopTabBar({ navigation }) {
 				tabBarOptions={{
 					labelStyle: {
 						fontSize: 14 * scaleHeight,
-						color: theme.mode == "dark" ? "white" : "black",
+						color: mode == "dark" ? "white" : "black",
 						fontFamily: "koliko",
 					},
-					style: { backgroundColor: theme.mode == "dark" ? "black" : "white" },
+					style: { backgroundColor: mode == "dark" ? "black" : "white" },
 					indicatorStyle: {
-						backgroundColor: theme.mode == "dark" ? "white" : "black",
+						backgroundColor: mode == "dark" ? "white" : "black",
 					},
 				}}
 			>

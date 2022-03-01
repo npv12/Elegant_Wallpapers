@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TouchableOpacity, Dimensions } from "react-native";
-import { Icon } from "react-native-elements";
-import { useTheme } from "../../themes";
+import { Icon, useTheme } from "react-native-elements";
 import { STANDARD_HEIGHT } from "../../constants";
 import styles from "./styles";
 import BottomModal from "./modal";
 import { View } from "../StyledComponents";
+import { TypeThemeContext } from "../../types/themes";
+import { ThemeContext } from "../../Themes/ThemeContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const BottomTab = ({ navigation }) => {
-	const iconColor = useTheme().mode == "dark" ? "white" : "black";
+	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
+	const iconColor = mode == "dark" ? "white" : "black";
 	const [modalVisible, setmodalVisible] = useState(false);
 
 	return (
@@ -28,6 +30,7 @@ const BottomTab = ({ navigation }) => {
 							size={25 * scaleHeight}
 							style={styles.icon}
 							color={iconColor}
+							tvParallaxProperties
 						/>
 					</TouchableOpacity>
 					<TouchableOpacity onPress={() => navigation.navigate("Fav")}>
@@ -37,6 +40,7 @@ const BottomTab = ({ navigation }) => {
 							size={25 * scaleHeight}
 							style={styles.icon}
 							color={iconColor}
+							tvParallaxProperties
 						/>
 					</TouchableOpacity>
 				</View>
@@ -52,6 +56,7 @@ const BottomTab = ({ navigation }) => {
 						name="search"
 						type="feather"
 						size={25 * scaleHeight}
+						tvParallaxProperties
 						color={iconColor == "black" ? "white" : "black"}
 					/>
 				</TouchableOpacity>

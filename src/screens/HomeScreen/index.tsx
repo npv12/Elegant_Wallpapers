@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Dimensions } from "react-native";
 import {
 	createStackNavigator,
@@ -11,16 +11,17 @@ import About from "../../screens/About";
 import Settings from "../../screens/Settings";
 import Fav from "../../screens/favorite";
 import SearchScreen from "../../screens/SearchScreen";
-import { useTheme } from "../../themes";
 import { STANDARD_HEIGHT } from "../../constants";
 import TopTabBar from "./TopTabBar";
+import { TypeThemeContext } from "../../types/themes";
+import { ThemeContext } from "../../Themes/ThemeContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Stack = createStackNavigator();
 
 export default function HomeScreen() {
-	const theme = useTheme();
+	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
 
 	return (
 		<NavigationContainer>
@@ -52,14 +53,14 @@ export default function HomeScreen() {
 					options={{
 						title: "Settings",
 						headerTitleAlign: "center",
-						headerTintColor: theme.mode == "dark" ? "white" : "black",
+						headerTintColor: mode == "dark" ? "white" : "black",
 						headerTitleStyle: {
 							fontFamily: "Linotte-Bold",
 							fontWeight: "normal",
 							fontSize: 23 * scaleHeight,
 						},
 						headerStyle: {
-							backgroundColor: !(theme.mode == "dark") ? "white" : "black",
+							backgroundColor: !(mode == "dark") ? "white" : "black",
 						},
 					}}
 				/>
@@ -69,14 +70,14 @@ export default function HomeScreen() {
 					options={{
 						title: "About Elegant",
 						headerTitleAlign: "center",
-						headerTintColor: theme.mode == "dark" ? "white" : "black",
+						headerTintColor: mode == "dark" ? "white" : "black",
 						headerTitleStyle: {
 							fontFamily: "Linotte-Bold",
 							fontWeight: "normal",
 							fontSize: 23 * scaleHeight,
 						},
 						headerStyle: {
-							backgroundColor: !(theme.mode == "dark") ? "white" : "black",
+							backgroundColor: !(mode == "dark") ? "white" : "black",
 						},
 					}}
 				/>
@@ -86,14 +87,14 @@ export default function HomeScreen() {
 					options={{
 						title: "About Elegant",
 						headerTitleAlign: "center",
-						headerTintColor: theme.mode == "dark" ? "white" : "black",
+						headerTintColor: mode == "dark" ? "white" : "black",
 						headerTitleStyle: {
 							fontFamily: "Linotte-Bold",
 							fontWeight: "normal",
 							fontSize: 23 * scaleHeight,
 						},
 						headerStyle: {
-							backgroundColor: !(theme.mode == "dark") ? "white" : "black",
+							backgroundColor: !(mode == "dark") ? "white" : "black",
 						},
 					}}
 				/>

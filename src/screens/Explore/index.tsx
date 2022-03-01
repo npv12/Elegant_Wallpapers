@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
 	StyleSheet,
 	StatusBar,
@@ -18,10 +18,11 @@ import {
 	WALL_URL,
 	FREE_APP,
 } from "../../constants";
-import { useTheme } from "../../themes";
 import SplashScreen from "react-native-splash-screen";
 import { useIsFocused } from "@react-navigation/native";
 import { Text, View } from "../../components/StyledComponents";
+import { TypeThemeContext } from "../../types/themes";
+import { ThemeContext } from "../../Themes/ThemeContext";
 
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
@@ -29,7 +30,7 @@ const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 const windowWidth = Dimensions.get("window").width;
 
 const Explore = ({ navigation }) => {
-	const theme = useTheme();
+	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
 	const [data, setData] = useState([]);
 	const [updateState, setUpdateState] = useState(0);
 	const [fadeAnimation, setFadeAnimation] = useState(new Animated.Value(0));
@@ -66,12 +67,12 @@ const Explore = ({ navigation }) => {
 	useEffect(() => {
 		getData();
 		//scrollToOffset(offset)
-		return function () {};
+		return function () { };
 	}, []);
 
 	useEffect(() => {
 		if (focused) fadeIn();
-		return function () {};
+		return function () { };
 	}, [focused]);
 
 	function fadeIn() {
@@ -95,7 +96,7 @@ const Explore = ({ navigation }) => {
 				>
 					<Text
 						style={{
-							color: theme.mode == "dark" ? "#A9A9A9" : "grey",
+							color: mode == "dark" ? "#A9A9A9" : "grey",
 							fontSize: 20 * scaleHeight,
 							fontFamily: "Linotte-Bold",
 						}}
@@ -110,7 +111,7 @@ const Explore = ({ navigation }) => {
 					<StatusBar
 						translucent={true}
 						backgroundColor={"transparent"}
-						barStyle={theme.mode == "dark" ? "light-content" : "dark-content"}
+						barStyle={mode == "dark" ? "light-content" : "dark-content"}
 					/>
 					<TouchableOpacity
 						activeOpacity={0.6}
@@ -120,7 +121,7 @@ const Explore = ({ navigation }) => {
 							style={{
 								height: 100 * scaleHeight,
 								width: "100%",
-								backgroundColor: theme.mode == "dark" ? "#AAFF00" : "#7CCC00",
+								backgroundColor: mode == "dark" ? "#AAFF00" : "#7CCC00",
 								justifyContent: "center",
 								padding: 25 * scaleHeight,
 								alignItems: "center",
@@ -158,7 +159,7 @@ const Explore = ({ navigation }) => {
 						<StatusBar
 							translucent={true}
 							backgroundColor={"transparent"}
-							barStyle={theme.mode == "dark" ? "light-content" : "dark-content"}
+							barStyle={mode == "dark" ? "light-content" : "dark-content"}
 						/>
 						<View style={{ ...styles.container }}>
 							<Wall data={data} navigation={navigation} />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import {
 	View,
 	StyleSheet,
@@ -18,29 +18,30 @@ import {
 	STANDARD_WIDTH,
 	CREDITS_URL,
 } from "../constants";
-import { useTheme } from "../themes";
 import {
 	Text as Title,
 	View as Container,
 } from "../components/StyledComponents";
+import { TypeThemeContext } from "../types/themes";
+import { ThemeContext } from "../Themes/ThemeContext";
 
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Settings = ({ navigation }) => {
-	const theme = useTheme();
+	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
 	return (
 		<Container style={styles.container}>
 			<StatusBar
 				translucent={true}
 				backgroundColor={"transparent"}
-				barStyle={theme.mode == "dark" ? "light-content" : "dark-content"}
+				barStyle={mode == "dark" ? "light-content" : "dark-content"}
 			/>
 			<ScrollView>
 				<Title
 					style={{
 						...styles.header,
-						color: theme.mode == "dark" ? "#AAFF00" : "#7CCC00",
+						color: mode == "dark" ? "#AAFF00" : "#7CCC00",
 					}}
 				>
 					Appearence
@@ -54,19 +55,19 @@ const Settings = ({ navigation }) => {
 				>
 					<Title style={styles.item}>Dark Theme</Title>
 					<Switch
-						value={theme.mode === "dark"}
+						value={mode === "dark"}
 						onValueChange={(value) => {
-							theme.setMode(value ? "dark" : "light");
+							setMode(value ? "dark" : "light");
 							AsyncStorage.setItem("theme", value ? "dark" : "light");
 						}}
-						thumbColor={theme.mode == "dark" ? "#AAFF00" : "black"}
+						thumbColor={mode == "dark" ? "#AAFF00" : "black"}
 						style={{ ...styles.item }}
 					/>
 				</View>
 				<Title
 					style={{
 						...styles.header,
-						color: theme.mode == "dark" ? "#AAFF00" : "#7CCC00",
+						color: mode == "dark" ? "#AAFF00" : "#7CCC00",
 					}}
 				>
 					Storage
@@ -87,7 +88,7 @@ const Settings = ({ navigation }) => {
 				<Title
 					style={{
 						...styles.header,
-						color: theme.mode == "dark" ? "#AAFF00" : "#7CCC00",
+						color: mode == "dark" ? "#AAFF00" : "#7CCC00",
 					}}
 				>
 					Legal
@@ -120,7 +121,7 @@ const Settings = ({ navigation }) => {
 				<Title
 					style={{
 						...styles.header,
-						color: theme.mode == "dark" ? "#AAFF00" : "#7CCC00",
+						color: mode == "dark" ? "#AAFF00" : "#7CCC00",
 					}}
 				>
 					Version

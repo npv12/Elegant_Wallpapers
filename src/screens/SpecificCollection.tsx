@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
 	StyleSheet,
 	SafeAreaView,
@@ -15,7 +15,8 @@ import {
 	STANDARD_HEIGHT,
 	STANDARD_WIDTH,
 } from "../constants";
-import { useTheme } from "../themes";
+import { ThemeContextProvider, ThemeContext } from "../Themes/ThemeContext";
+import { TypeThemeContext } from "../types/themes";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -25,7 +26,7 @@ const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 const SpecificCollection = ({ navigation, route }) => {
 	const { value } = route.params;
 	const [data, setData] = useState([]);
-	const theme = useTheme();
+	const { theme, mode } = useContext<TypeThemeContext>(ThemeContext);
 
 	async function getData() {
 		fetch(WALL_URL, {
@@ -56,21 +57,21 @@ const SpecificCollection = ({ navigation, route }) => {
 
 	useEffect(() => {
 		getData();
-		return function () {};
+		return function () { };
 	}, []);
 
 	return (
 		<>
 			<View
 				style={{
-					backgroundColor: theme.mode != "dark" ? "white" : "black",
+					backgroundColor: theme.background,
 					height: 35 * scaleHeight,
 				}}
 			></View>
 			<StatusBar
 				translucent={true}
 				backgroundColor={"transparent"}
-				barStyle={theme.mode == "dark" ? "light-content" : "dark-content"}
+				barStyle={mode == "dark" ? "light-content" : "dark-content"}
 			/>
 			<View style={styles.header}>
 				<Text style={styles.headerText}>{value.toUpperCase()}</Text>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
 	StyleSheet,
 	SafeAreaView,
@@ -13,7 +13,8 @@ import { TextInput } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
 import LoadingImage from "../components/LoadingImage";
 import { WALL_URL, STANDARD_HEIGHT, STANDARD_WIDTH } from "../constants";
-import { useTheme } from "../themes";
+import { TypeThemeContext } from "../types/themes";
+import { ThemeContext } from "../Themes/ThemeContext";
 
 const windowWidth = Dimensions.get("window").width;
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
@@ -24,7 +25,7 @@ const SearchScreen = ({ navigation }) => {
 	const [data, setData] = useState([]);
 	const [empty, setEmpty] = useState(true);
 	const [walls, setWalls] = useState([]);
-	const theme = useTheme();
+	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
 
 	async function getData() {
 		fetch(WALL_URL, {
@@ -41,7 +42,7 @@ const SearchScreen = ({ navigation }) => {
 
 	useEffect(() => {
 		getData();
-		return function () {};
+		return function () { };
 	}, []);
 
 	function searchData(val) {
@@ -76,7 +77,7 @@ const SearchScreen = ({ navigation }) => {
 					/>
 					<Text
 						style={{
-							color: theme.mode == "dark" ? "#A9A9A9" : "grey",
+							color: mode == "dark" ? "#A9A9A9" : "grey",
 							fontSize: 20 * scaleHeight,
 							fontFamily: "Linotte-Bold",
 						}}
@@ -111,7 +112,7 @@ const SearchScreen = ({ navigation }) => {
 				/>
 				<Text
 					style={{
-						color: theme.mode == "dark" ? "#A9A9A9" : "grey",
+						color: mode == "dark" ? "#A9A9A9" : "grey",
 						fontSize: 20 * scaleHeight,
 						fontFamily: "Linotte-Bold",
 					}}
@@ -160,19 +161,19 @@ const SearchScreen = ({ navigation }) => {
 						type="feather"
 						size={25}
 						style={styles.icon}
-						color={theme.mode == "dark" ? "white" : "black"}
+						color={mode == "dark" ? "white" : "black"}
 						tvParallaxProperties
 					/>
 				</TouchableOpacity>
 				<TextInput
 					style={{
 						...styles.input,
-						backgroundColor: theme.mode != "dark" ? "white" : "black",
-						color: theme.mode == "dark" ? "white" : "black",
+						backgroundColor: mode != "dark" ? "white" : "black",
+						color: mode == "dark" ? "white" : "black",
 					}}
 					placeholder="Search...."
 					defaultValue={item}
-					placeholderTextColor={theme.mode == "dark" ? "#A9A9A9" : "grey"}
+					placeholderTextColor={mode == "dark" ? "#A9A9A9" : "grey"}
 					onChangeText={(val) => {
 						searchData(val);
 						setItem(val);
@@ -183,7 +184,7 @@ const SearchScreen = ({ navigation }) => {
 					type="feather"
 					size={25}
 					style={styles.icon}
-					color={theme.mode != "dark" ? "white" : "black"}
+					color={mode != "dark" ? "white" : "black"}
 					tvParallaxProperties
 				/>
 			</View>
@@ -194,19 +195,19 @@ const SearchScreen = ({ navigation }) => {
 		<>
 			<View
 				style={{
-					backgroundColor: theme.mode != "dark" ? "white" : "black",
+					backgroundColor: mode != "dark" ? "white" : "black",
 					height: 35 * scaleHeight,
 				}}
 			></View>
 			<StatusBar
 				translucent={true}
 				backgroundColor={"transparent"}
-				barStyle={theme.mode == "dark" ? "light-content" : "dark-content"}
+				barStyle={mode == "dark" ? "light-content" : "dark-content"}
 			/>
 			<View
 				style={{
 					...styles.container,
-					backgroundColor: theme.mode != "dark" ? "white" : "black",
+					backgroundColor: mode != "dark" ? "white" : "black",
 				}}
 			>
 				{renderTextInput()}

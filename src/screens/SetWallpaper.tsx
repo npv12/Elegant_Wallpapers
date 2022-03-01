@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
 	StyleSheet,
 	TouchableOpacity,
@@ -20,7 +20,6 @@ import { BlurView } from "@react-native-community/blur";
 import Modal from "react-native-modal";
 import RNFetchBlob from "rn-fetch-blob";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useTheme } from "../themes";
 import _ from "lodash";
 import Loader from "../components/Loader";
 import ImageColors from "react-native-image-colors";
@@ -30,6 +29,8 @@ import loadAd from "../components/Advert";
 import ColoredBox from "../components/ColoredBox";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../constants";
 import { Text, View as SView } from "../components/StyledComponents";
+import { TypeThemeContext } from "../types/themes";
+import { ThemeContext } from "../Themes/ThemeContext";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -37,7 +38,7 @@ const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const SetWallpaper = ({ route, navigation }) => {
-	const theme = useTheme();
+	const { theme, mode } = useContext<TypeThemeContext>(ThemeContext);
 	const { item } = route.params;
 	const [showApplyModal, setShowApplyModal] = useState(false);
 	const [isFav, setIsFav] = useState(false);
@@ -66,10 +67,10 @@ const SetWallpaper = ({ route, navigation }) => {
 			temp += "...";
 			setNameOfWal(temp);
 		} else setNameOfWal(item.name);
-		if (theme.mode == "dark" && !iconColor) setIconColor(true);
-		else if (theme.mode == "light" && iconColor) setIconColor(false);
+		if (mode == "dark" && !iconColor) setIconColor(true);
+		else if (mode == "light" && iconColor) setIconColor(false);
 		retrieveData();
-		return function () {};
+		return function () { };
 	}, []);
 
 	//retrieve data from storage
@@ -101,7 +102,7 @@ const SetWallpaper = ({ route, navigation }) => {
 		setVariousCollections(item.collections.toLowerCase().split(","));
 
 		//image size for better viewing. currently not in use
-		Image.getSize(item.thumbnail, (w, h) => {}).catch();
+		Image.getSize(item.thumbnail, (w, h) => { }).catch();
 
 		//taking out favorites from storage
 		await AsyncStorage.getItem("favs").then((r) => {
@@ -718,7 +719,7 @@ const SetWallpaper = ({ route, navigation }) => {
 			<StatusBar
 				translucent={true}
 				backgroundColor={"transparent"}
-				barStyle={theme.mode == "dark" ? "light-content" : "dark-content"}
+				barStyle={mode == "dark" ? "light-content" : "dark-content"}
 			/>
 			<View style={styles.container}>
 				<LoadingImage source={item} style={{ height: "100%", width: "100%" }} />
