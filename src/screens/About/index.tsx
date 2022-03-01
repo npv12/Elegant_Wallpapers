@@ -21,7 +21,7 @@ import { ThemeContext } from "../../Themes/ThemeContext";
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const About = () => {
-	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
+	const { mode } = useContext<TypeThemeContext>(ThemeContext);
 	const [changelogVisible, setChangelogVisible] = useState(false);
 	const [changelog, setChangelog] = useState("");
 	const [loading, setLoading] = useState(true);
@@ -43,10 +43,6 @@ const About = () => {
 	useEffect(() => {
 		getVersion();
 	}, []);
-
-	function openChangelog() {
-		setChangelogVisible(!changelogVisible);
-	}
 
 	return (
 		<View style={styles.container}>
@@ -70,7 +66,7 @@ const About = () => {
 					<Text style={styles.item}>Version</Text>
 					<Text style={styles.itemText}>{VERSION_NUMBER}</Text>
 				</View>
-				<TouchableOpacity onPress={() => openChangelog()} activeOpacity={0.6}>
+				<TouchableOpacity onPress={() => setChangelogVisible(!changelogVisible)} activeOpacity={0.6}>
 					<Text style={styles.item}>Changelog</Text>
 				</TouchableOpacity>
 				<Text
