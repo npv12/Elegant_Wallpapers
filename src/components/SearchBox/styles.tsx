@@ -4,7 +4,6 @@ import {
 } from "react-native";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../../constants";
 
-const windowWidth = Dimensions.get("window").width;
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 

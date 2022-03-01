@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import {
 	Dimensions,
 	TouchableOpacity,
-	View,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
@@ -12,6 +11,7 @@ import { AppContext } from "../../context/AppContext";
 import styles from "./styles";
 import { searchForWall } from "./utils";
 import { useNavigation } from "@react-navigation/native";
+import { View } from "../StyledComponents";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 

@@ -2,8 +2,6 @@ import React, { useState, useContext } from "react";
 import {
 	StatusBar,
 	Dimensions,
-	View,
-	Text,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { STANDARD_HEIGHT } from "../../constants";
@@ -11,6 +9,7 @@ import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import ScrollableCollection from "../../components/ScrollableCollection";
 import SearchBox from "../../components/SearchBox";
+import { Text, View } from "../../components/StyledComponents";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
@@ -23,10 +22,9 @@ const SearchScreen = () => {
 		<>
 			<View
 				style={{
-					backgroundColor: mode != "dark" ? "white" : "black",
 					height: 35 * scaleHeight,
 				}}
-			></View>
+			/>
 			<StatusBar
 				translucent={true}
 				backgroundColor={"transparent"}

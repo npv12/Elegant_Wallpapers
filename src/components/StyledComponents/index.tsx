@@ -1,5 +1,5 @@
 import React, { ReactNode, useContext } from "react";
-import { View as RNView, Text as RNText } from "react-native"
+import { View as RNView, Text as RNText, StyleProp, ViewStyle, TextStyle } from "react-native"
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 
@@ -14,24 +14,24 @@ export const View = ({ style,
 	children,
 }: {
 	children?: ReactNode;
-	style?: any
+	style?: StyleProp<ViewStyle>
 }): JSX.Element => {
 	const { theme } = useContext<TypeAppContext>(AppContext)
-	return <RNView style={{
-		backgroundColor: theme.background,
-		...style,
-	}}>{children}</RNView>
+	return <RNView style={[
+		{backgroundColor: theme.background},
+		style]
+	}>{children}</RNView>
 }
 
 export const Text = ({ style,
 	children
 }: {
 	children?: ReactNode;
-	style?: any
+	style?: StyleProp<TextStyle>
 }): JSX.Element => {
 	const { theme } = useContext<TypeAppContext>(AppContext)
-	return <RNText style={{
-		color: theme.text,
-		...style
-	}}>{children}</RNText>
+	return <RNText style={[
+		{backgroundColor: theme.background},
+		style]
+	}>{children}</RNText>
 }
