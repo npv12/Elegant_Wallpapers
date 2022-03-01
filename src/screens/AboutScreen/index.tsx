@@ -20,7 +20,7 @@ import { AppContext } from "../../context/AppContext";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
-const About = () => {
+const AboutScreen = () => {
 	const { mode } = useContext<TypeAppContext>(AppContext);
 	const [changelogVisible, setChangelogVisible] = useState(false);
 	const [changelog, setChangelog] = useState("");
@@ -135,4 +135,4 @@ const About = () => {
 	);
 };
 
-export default About;
+export default AboutScreen;

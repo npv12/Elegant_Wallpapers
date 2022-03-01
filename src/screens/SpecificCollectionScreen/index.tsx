@@ -7,7 +7,7 @@ import { TypeAppContext } from "../../types";
 import { findImagesForCollection } from "../../utils";
 import styles from "./styles";
 
-const SpecificCollection = ({ route }) => {
+const SpecificCollectionScreen = ({ route }) => {
 	const { value } = route.params;
 	const [data, setData] = useState([]);
 	const { theme, mode, wallpaperData } = useContext<TypeAppContext>(AppContext);
@@ -34,4 +34,4 @@ const SpecificCollection = ({ route }) => {
 	);
 };
 
-export default SpecificCollection;
+export default SpecificCollectionScreen;

@@ -6,10 +6,10 @@ import {
 } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import SetWallpaper from "../../screens/SetWallpaper";
-import SpecificCollection from "../../screens/SpecificCollection";
-import About from "../../screens/About";
-import Settings from "../../screens/Settings";
-import Favorite from "../Favorite";
+import SpecificCollectionScreen from "../SpecificCollectionScreen";
+import AboutScreen from "../../screens/AboutScreen";
+import SettingsScreen from "../SettingsScreen";
+import FavoriteScreen from "../FavoriteScreen";
 import SearchScreen from "../../screens/SearchScreen";
 import {
 	STANDARD_HEIGHT,
@@ -84,12 +84,12 @@ export default function HomeScreen() {
 				/>
 				<Stack.Screen
 					name="Collection"
-					component={SpecificCollection}
+					component={SpecificCollectionScreen}
 					options={{ headerShown: false }}
 				/>
 				<Stack.Screen
 					name="Settings"
-					component={Settings}
+					component={SettingsScreen}
 					options={{
 						title: "Settings",
 						headerTitleAlign: "center",
@@ -106,7 +106,7 @@ export default function HomeScreen() {
 				/>
 				<Stack.Screen
 					name="About"
-					component={About}
+					component={AboutScreen}
 					options={{
 						title: "About Elegant",
 						headerTitleAlign: "center",
@@ -123,7 +123,7 @@ export default function HomeScreen() {
 				/>
 				<Stack.Screen
 					name="Fav"
-					component={Favorite}
+					component={FavoriteScreen}
 					options={{
 						title: "About Elegant",
 						headerTitleAlign: "center",

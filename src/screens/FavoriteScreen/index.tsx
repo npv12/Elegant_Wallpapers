@@ -10,7 +10,7 @@ import ScrollableCollection from "../../components/ScrollableCollection";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
-const Favorite = () => {
+const FavoriteScreen = () => {
 	const [data, setData] = useState([]);
 	const { mode } = useContext<TypeAppContext>(AppContext);
 	useEffect(() => {
@@ -41,4 +41,4 @@ const Favorite = () => {
 	);
 };
 
-export default Favorite;
+export default FavoriteScreen;

@@ -3,7 +3,7 @@ import { Dimensions } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { View } from "react-native";
 
-import Collections from "../Collections";
+import CollectionsScreen from "../CollectionsScreen";
 import BottomTab from "../../components/BottomTab";
 import { STANDARD_HEIGHT } from "../../constants";
 import { TypeAppContext } from "../../types";
@@ -38,12 +38,12 @@ export default function TopTabBar({ navigation }) {
 			>
 				<Tab.Screen
 					name="Explore"
-					component={Collections}
+					component={CollectionsScreen}
 					initialParams={{ isCollection: false }}
 				/>
 				<Tab.Screen
 					name="Collections"
-					component={Collections}
+					component={CollectionsScreen}
 					initialParams={{ isCollection: true }}
 				/>
 			</Tab.Navigator>

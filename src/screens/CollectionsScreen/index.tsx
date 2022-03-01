@@ -15,7 +15,7 @@ import styles from "./styles";
  * @returns JSX component
  */
 
-const Collections = ({ route }) => {
+const CollectionsScreen = ({ route }) => {
 	const { mode, wallpaperData, collectionData, updateState } =
 		useContext<TypeAppContext>(AppContext);
 	const { isCollection } = route.params;
@@ -119,4 +119,4 @@ const Collections = ({ route }) => {
 	);
 };
 
-export default Collections;
+export default CollectionsScreen;

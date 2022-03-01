@@ -24,7 +24,7 @@ import styles from "./styles";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
-const Settings = ({ navigation }) => {
+const SettingsScreen = ({ navigation }) => {
 	const { mode } = useContext<TypeAppContext>(AppContext);
 	return (
 		<Container style={styles.container}>
@@ -112,4 +112,4 @@ const Settings = ({ navigation }) => {
 	);
 };
 
-export default Settings;
+export default SettingsScreen;
