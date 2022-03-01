@@ -10,7 +10,9 @@ const initialContext: TypeAppContext = {
 	wallpaperData: [],
 	setWallpaperData: (): void => {},
 	collectionData: [],
-	setCollectionData: (): void => {}
+	setCollectionData: (): void => {},
+	updateState: 0,
+	setUpdateState: (): void => {}
 };
 
 export const AppContext = createContext<TypeAppContext>(initialContext);
@@ -24,6 +26,7 @@ export const AppContextProvider = ({
 	const [mode, setMode] = useState<string>(initialContext.mode);
 	const [wallpaperData, setWallpaperData] = useState<Array<TypeWallData>>(initialContext.wallpaperData)
 	const [collectionData, setCollectionData] = useState<Array<collectionData>>(initialContext.collectionData)
+	const [updateState, setUpdateState] = useState<number>(initialContext.updateState)
 
 	return (
 		<AppContext.Provider
@@ -35,7 +38,9 @@ export const AppContextProvider = ({
 				wallpaperData,
 				setWallpaperData,
 				collectionData,
-				setCollectionData
+				setCollectionData,
+				updateState,
+				setUpdateState
 			}}
 		>
 			{children}
