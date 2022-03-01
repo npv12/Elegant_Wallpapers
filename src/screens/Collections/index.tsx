@@ -18,6 +18,13 @@ import { ThemeContext } from "../../Themes/ThemeContext";
 import { convertData } from "./utils";
 import styles from "./styles";
 
+/**
+ * This is the screen which renders how a colleciton screen should be like. 
+ * This is still a wip TODO
+ * We need to improve how data is fetched in general and commonaise it and better write logaic for update state
+ * @returns JSX component
+ */
+
 const Collections = () => {
 	const [collection, setCollection] = useState([]);
 	const [data, setData] = useState([]);

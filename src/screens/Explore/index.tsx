@@ -7,9 +7,7 @@ import {
 	Linking,
 	Animated,
 } from "react-native";
-import styled from "styled-components/native";
 import {
-	SECRET_KEY,
 	STANDARD_HEIGHT,
 	STANDARD_WIDTH,
 	VERSION_NUMBER,
@@ -29,7 +27,7 @@ const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const windowWidth = Dimensions.get("window").width;
 
-const Explore = ({ navigation }) => {
+const Explore = () => {
 	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
 	const [data, setData] = useState([]);
 	const [updateState, setUpdateState] = useState(0);
