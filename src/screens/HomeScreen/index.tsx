@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Dimensions } from "react-native";
 import {
 	createStackNavigator,
@@ -11,17 +11,49 @@ import About from "../../screens/About";
 import Settings from "../../screens/Settings";
 import Favorite from "../Favorite";
 import SearchScreen from "../../screens/SearchScreen";
-import { STANDARD_HEIGHT } from "../../constants";
+import { STANDARD_HEIGHT, VERSION_NUMBER, VERSION_URL, WALL_URL } from "../../constants";
 import TopTabBar from "./TopTabBar";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
+import { getCollectionsFromData } from "./utils";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Stack = createStackNavigator();
 
 export default function HomeScreen() {
-	const { theme } = useContext<TypeAppContext>(AppContext);
+	const { theme, setWallpaperData, setCollectionData, setUpdateState } = useContext<TypeAppContext>(AppContext);
+
+	// Fetch all data regarding the wallpapers
+	async function getData() {
+		fetch(WALL_URL, {
+			method: "GET",
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				setWallpaperData(data);
+				setCollectionData(getCollectionsFromData(data))
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		fetch(VERSION_URL, {
+			method: "GET",
+		})
+			.then((response) => response.json())
+			.then((responseJson) => {
+				if (responseJson.Lastforceupdate > VERSION_NUMBER) setUpdateState(2);
+				else if (responseJson.Appversion <= VERSION_NUMBER) setUpdateState(0);
+				else setUpdateState(responseJson.Priority);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}
+
+	useEffect(() => {
+		getData();
+	}, []);
 
 	return (
 		<NavigationContainer>

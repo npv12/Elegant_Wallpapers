@@ -15,7 +15,7 @@ import ScrollableCollection from "../../components/ScrollableCollection";
 import { Text, View as SView } from "../../components/StyledComponents";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
-import { getCollectionsFromData } from "./utils";
+import { getCollectionsFromData } from "../HomeScreen/utils";
 import styles from "./styles";
 
 /**
@@ -26,48 +26,14 @@ import styles from "./styles";
  */
 
 const Collections = () => {
-	const [collection, setCollection] = useState([]);
-	const [data, setData] = useState([]);
-	const [updateState, setUpdateState] = useState(0);
-	const { mode } = useContext<TypeAppContext>(AppContext);
-
-	async function getData() {
-		fetch(WALL_URL, {
-			method: "GET",
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				setData(data);
-				setCollection(getCollectionsFromData(data))
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		fetch(VERSION_URL, {
-			method: "GET",
-		})
-			.then((response) => response.json())
-			.then((responseJson) => {
-				if (responseJson.Lastforceupdate > VERSION_NUMBER) setUpdateState(2);
-				else if (responseJson.Appversion <= VERSION_NUMBER) setUpdateState(0);
-				else setUpdateState(responseJson.Priority);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
-
-	useEffect(() => {
-		getData();
-	}, []);
-
+	const { mode, wallpaperData, collectionData, updateState } = useContext<TypeAppContext>(AppContext);
 
 	function renderCollections() {
-		if (data.length) {
+		if (wallpaperData.length) {
 			return (
 				<View style={{ paddingHorizontal: 10, flex: 1 }}>
 					<ScrollableCollection
-						data={collection}
+						data={collectionData}
 						isCollection={true}
 					/>
 				</View>
