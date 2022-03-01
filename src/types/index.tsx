@@ -23,7 +23,7 @@ export type TypeAppContext = {
 
 export type TypeWallData = {
 	author: string,
-	collection: string, 
+	collections: string, 
 	name: string, 
 	thumbnail: string, 
 	url: string, 
