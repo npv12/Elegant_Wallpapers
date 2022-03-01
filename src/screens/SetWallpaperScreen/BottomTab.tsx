@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { TouchableOpacity, Dimensions, Animated, View } from "react-native";
 import { Icon } from "react-native-elements";
-import Modal from "react-native-modal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../../constants";
-import { Text, View as SView } from "../../components/StyledComponents";
+import { Text } from "../../components/StyledComponents";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
-import { showSnackbarText } from "../../utils";
 import styles from "./styles";
-import { handleDownload, setImageAsWall } from "../../utils/wallpaper";
+import { handleDownload } from "../../utils/wallpaper";
 import ExpandedBottomTab from "./ExpandedBottomTab";
+import ApplyWallModal from "./ApplyWallModal";
 
 const windowWidth = Dimensions.get("window").width;
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
@@ -52,17 +51,6 @@ const BottomTab = ({ item }) => {
 				}
 			}
 		});
-	}
-
-	//callback function for setwallpaper
-	function callback(response) {
-		if (response.status == "success") {
-			showSnackbarText("Wallpaper set successfully");
-			//setIsLoading(false);
-		} else {
-			//setIsLoading(false);
-			showSnackbarText("Something went wrong");
-		}
 	}
 
 	//adds the wall to fav and stores it
@@ -235,68 +223,11 @@ const BottomTab = ({ item }) => {
 				<View style={{ height: 35, width: windowWidth }} />
 				<ExpandedBottomTab item={item} />
 			</Animated.View>
-			<Modal
-				animationIn="slideInDown"
-				isVisible={showApplyModal}
-				useNativeDriver={true}
-				onBackdropPress={() => setShowApplyModal(false)}
-			>
-				<SView style={styles.modal}>
-					<TouchableOpacity
-						onPress={() => {
-							setImageAsWall(item.url, "home", callback, setShowApplyModal);
-						}}
-					>
-						<SView style={{ ...styles.modalItem, marginTop: 30 * scaleHeight }}>
-							<Icon
-								name="shopping-bag"
-								type="feather"
-								size={25 * scaleHeight}
-								color={iconColor ? "white" : "black"}
-								tvParallaxProperties
-							/>
-							<Text style={styles.modalText}>Set Homescreen wallpaper</Text>
-						</SView>
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => {
-							setImageAsWall(item.url, "lock", callback, setShowApplyModal);
-						}}
-					>
-						<SView style={styles.modalItem}>
-							<Icon
-								name="settings"
-								type="feather"
-								size={25 * scaleHeight}
-								color={iconColor ? "white" : "black"}
-								tvParallaxProperties
-							/>
-							<Text style={styles.modalText}>Set Lockscreen wallpaper</Text>
-						</SView>
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => {
-							setImageAsWall(item.url, "both", callback, setShowApplyModal);
-						}}
-					>
-						<SView
-							style={{
-								...styles.modalItem,
-								marginBottom: 30 * scaleHeight,
-							}}
-						>
-							<Icon
-								name="info"
-								type="feather"
-								size={25 * scaleHeight}
-								color={iconColor ? "white" : "black"}
-								tvParallaxProperties
-							/>
-							<Text style={styles.modalText}>Set Both</Text>
-						</SView>
-					</TouchableOpacity>
-				</SView>
-			</Modal>
+			<ApplyWallModal
+				item={item}
+				showApplyModal={showApplyModal}
+				setShowApplyModal={setShowApplyModal}
+			/>
 		</>
 	);
 };
