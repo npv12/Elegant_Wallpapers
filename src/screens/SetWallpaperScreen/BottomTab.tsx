@@ -12,13 +12,12 @@ import ApplyWallModal from "./ApplyWallModal";
 const windowWidth = Dimensions.get("window").width;
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
+const translateBottom = new Animated.Value(300 * scaleHeight);
 
 const BottomTab = ({ item }) => {
 	const [showApplyModal, setShowApplyModal] = useState(false);
 	const [isFav, setIsFav] = useState(false);
-	const [translateBottom, setTranslateBottom] = useState(
-		new Animated.Value(300 * scaleHeight)
-	);
+
 	const [bottomMenuVisible, setBottomMenuVisible] = useState(false);
 	const [nameOfWall, setNameOfWal] = useState(item.name);
 

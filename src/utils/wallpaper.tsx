@@ -13,27 +13,27 @@ export async function setImageAsWall(
 	setShowApplyModal(false);
 	// loadAd();
 	// setIsLoading(true);
-	RNFetchBlob.config({
-		fileCache: true,
-		appendExt: "png",
-	})
-		.fetch("GET", url)
-		.then((res) => {
-			console.log("Applying wall " + type);
-			var PATH = "file://" + res.path();
-			ManageWallpaper.setWallpaper(
-				{
-					uri: PATH,
-				},
-				callback,
-				type === "home" ? TYPE.HOME : type === "lock" ? TYPE.LOCK : TYPE.BOTH
-			);
-		})
-		.catch((e) => {
-			console.log(e);
-			//setIsLoading(false);
-			showSnackbarText("Something went wrong");
-		});
+	// RNFetchBlob.config({
+	// 	fileCache: true,
+	// 	appendExt: "png",
+	// })
+	// 	.fetch("GET", url)
+	// 	.then((res) => {
+	// 		console.log("Applying wall " + type);
+	// 		var PATH = "file://" + res.path();
+	// 		ManageWallpaper.setWallpaper(
+	// 			{
+	// 				uri: PATH,
+	// 			},
+	// 			callback,
+	// 			type === "home" ? TYPE.HOME : type === "lock" ? TYPE.LOCK : TYPE.BOTH
+	// 		);
+	// 	})
+	// 	.catch((e) => {
+	// 		console.log(e);
+	// 		//setIsLoading(false);
+	// 		showSnackbarText("Something went wrong");
+	// 	});
 }
 
 export //wallpaper downloader.
@@ -65,29 +65,29 @@ async function handleDownload(item) {
 		item.author +
 		"." +
 		extension;
-	RNFetchBlob.fs
-		.exists(PATH)
-		.then((exist) => {
-			if (!exist) {
-				RNFetchBlob.config({
-					addAndroidDownloads: {
-						useDownloadManager: true,
-						notification: true,
-						mime: "image",
-						path: PATH,
-					},
-				})
-					.fetch("GET", item.url)
-					.then((res) => {
-						showSnackbarText("Download completed");
-					})
-					.catch((error) => showSnackbarText("Something went wrong"));
-			} else {
-				showSnackbarText("File exists");
-				//setIsDownloading(false);
-			}
-		})
-		.catch(() => {
-			console.log("File error");
-		});
+	// RNFetchBlob.fs
+	// 	.exists(PATH)
+	// 	.then((exist) => {
+	// 		if (!exist) {
+	// 			RNFetchBlob.config({
+	// 				addAndroidDownloads: {
+	// 					useDownloadManager: true,
+	// 					notification: true,
+	// 					mime: "image",
+	// 					path: PATH,
+	// 				},
+	// 			})
+	// 				.fetch("GET", item.url)
+	// 				.then((res) => {
+	// 					showSnackbarText("Download completed");
+	// 				})
+	// 				.catch((error) => showSnackbarText("Something went wrong"));
+	// 		} else {
+	// 			showSnackbarText("File exists");
+	// 			//setIsDownloading(false);
+	// 		}
+	// 	})
+	// 	.catch(() => {
+	// 		console.log("File error");
+	// 	});
 }
