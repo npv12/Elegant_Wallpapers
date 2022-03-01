@@ -4,8 +4,6 @@ import {
 	TouchableOpacity,
 	Dimensions,
 	Platform,
-	PermissionsAndroid,
-	Alert,
 	StatusBar,
 	Animated,
 	Image,
@@ -16,7 +14,6 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import ManageWallpaper, { TYPE } from "react-native-manage-wallpaper";
-import { BlurView } from "@react-native-community/blur";
 import Modal from "react-native-modal";
 import RNFetchBlob from "rn-fetch-blob";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -30,6 +27,7 @@ import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../constants";
 import { Text, View as SView } from "../components/StyledComponents";
 import { TypeAppContext } from "../types";
 import { AppContext } from "../context/AppContext";
+import { getStoragePermissionAndroid } from "../utils";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -46,9 +44,6 @@ const SetWallpaper = ({ route, navigation }) => {
 	const [translateBottom, setTranslateBottom] = useState(
 		new Animated.Value(300 * scaleHeight)
 	);
-	const [translateSnack, setTranslateSnack] = useState(
-		new Animated.Value(300 * scaleHeight)
-	);
 	const [bottomMenuVisible, setBottomMenuVisible] = useState(false);
 	const [colors, setColors] = useState<any>({
 		average: "#FFF",
@@ -56,7 +51,6 @@ const SetWallpaper = ({ route, navigation }) => {
 		dominant: "#FFF",
 	});
 	const [variousCollection, setVariousCollections] = useState([]);
-	const [snackVisible, setSnackVisible] = useState(false);
 	const [nameOfWall, setNameOfWal] = useState(item.name);
 	const [isDownloading, setIsDownloading] = useState(false);
 
@@ -69,7 +63,7 @@ const SetWallpaper = ({ route, navigation }) => {
 		if (mode == "dark" && !iconColor) setIconColor(true);
 		else if (mode == "light" && iconColor) setIconColor(false);
 		retrieveData();
-		return function () { };
+		return function () {};
 	}, []);
 
 	//retrieve data from storage
@@ -101,7 +95,7 @@ const SetWallpaper = ({ route, navigation }) => {
 		setVariousCollections(item.collections.toLowerCase().split(","));
 
 		//image size for better viewing. currently not in use
-		Image.getSize(item.thumbnail, (w, h) => { }).catch();
+		Image.getSize(item.thumbnail, (w, h) => {}).catch();
 
 		//taking out favorites from storage
 		await AsyncStorage.getItem("favs").then((r) => {
@@ -255,37 +249,6 @@ const SetWallpaper = ({ route, navigation }) => {
 		}
 	}
 
-	//have to check for perms before the app decides to crash itself up
-	const getPermissionAndroid = async () => {
-		try {
-			const granted = await PermissionsAndroid.request(
-				PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-				{
-					title: "Image Download Permission",
-					message: "Your permission is required to save images to your device",
-					buttonNegative: "Cancel",
-					buttonPositive: "OK",
-				}
-			);
-			if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-				return true;
-			}
-			Alert.alert(
-				"Save remote Image",
-				"Grant Me Permission to save Image",
-				[{ text: "OK", onPress: () => console.log("OK Pressed") }],
-				{ cancelable: false }
-			);
-		} catch (err) {
-			Alert.alert(
-				"Save remote Image",
-				"Failed to save Image: " + err.message,
-				[{ text: "OK", onPress: () => console.log("OK Pressed") }],
-				{ cancelable: false }
-			);
-		}
-	};
-
 	function showSnackbarText(text) {
 		ToastAndroid.showWithGravityAndOffset(
 			text,
@@ -307,7 +270,7 @@ const SetWallpaper = ({ route, navigation }) => {
 		showAd();
 		showSnackbarText("Download Started");
 		if (Platform.OS === "android") {
-			const granted = await getPermissionAndroid();
+			const granted = await getStoragePermissionAndroid();
 			if (!granted) {
 				return;
 			}
@@ -591,7 +554,6 @@ const SetWallpaper = ({ route, navigation }) => {
 							<View style={{ flexDirection: "row" }}>
 								<TouchableOpacity
 									style={{
-										...styles.icon,
 										marginLeft: 30 * scaleHeight,
 										flexDirection: "row",
 									}}
@@ -607,7 +569,6 @@ const SetWallpaper = ({ route, navigation }) => {
 								style={{ flexDirection: "row", justifyContent: "flex-end" }}
 							>
 								<TouchableOpacity
-									style={styles.icon}
 									onPress={() => {
 										handleDownload();
 									}}
@@ -622,10 +583,7 @@ const SetWallpaper = ({ route, navigation }) => {
 										/>
 									</View>
 								</TouchableOpacity>
-								<TouchableOpacity
-									style={styles.icon}
-									onPress={() => setShowApplyModal(true)}
-								>
+								<TouchableOpacity onPress={() => setShowApplyModal(true)}>
 									<View style={styles.iconView}>
 										<Icon
 											name="arrow-up-circle"
@@ -637,7 +595,7 @@ const SetWallpaper = ({ route, navigation }) => {
 									</View>
 								</TouchableOpacity>
 								<TouchableOpacity
-									style={{ ...styles.icon, marginRight: 30 * scaleWidth }}
+									style={{ marginRight: 30 * scaleWidth }}
 									onPress={() => {
 										addToFav();
 									}}
@@ -668,7 +626,6 @@ const SetWallpaper = ({ route, navigation }) => {
 										name="shopping-bag"
 										type="feather"
 										size={25 * scaleHeight}
-										style={styles.icon}
 										color={iconColor ? "white" : "black"}
 										tvParallaxProperties
 									/>
@@ -681,7 +638,6 @@ const SetWallpaper = ({ route, navigation }) => {
 										name="settings"
 										type="feather"
 										size={25 * scaleHeight}
-										style={styles.icon}
 										color={iconColor ? "white" : "black"}
 										tvParallaxProperties
 									/>
@@ -699,7 +655,6 @@ const SetWallpaper = ({ route, navigation }) => {
 										name="info"
 										type="feather"
 										size={25 * scaleHeight}
-										style={styles.icon}
 										color={iconColor ? "white" : "black"}
 										tvParallaxProperties
 									/>
@@ -809,7 +764,6 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontFamily: "Linotte-Bold",
 	},
-	icon: {},
 });
 
 export default SetWallpaper;
