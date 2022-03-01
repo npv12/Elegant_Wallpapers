@@ -1,22 +1,11 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../../constants";
 
-const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-	snackbar: {
-		marginBottom: -100 * scaleHeight,
-		width: "80%",
-		alignSelf: "center",
-		borderTopLeftRadius: 15,
-		borderTopRightRadius: 15,
-		fontFamily: "Linotte-Bold",
-	},
 	bottomTab: {
 		width: "100%",
 		height: 500 * scaleHeight,
@@ -50,16 +39,6 @@ const styles = StyleSheet.create({
 		marginVertical: 5,
 		alignItems: "center",
 	},
-	activityIndicatorWrapper: {
-		height: 250 * scaleHeight,
-		position: "absolute",
-		width: "100%",
-		borderRadius: 10,
-		top: windowHeight / 2 - 150,
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "space-around",
-	},
 	NameHeader: {
 		fontSize: 20 * scaleHeight,
 		fontFamily: "Linotte-Bold",
@@ -70,8 +49,6 @@ const styles = StyleSheet.create({
 		paddingTop: 15 * scaleHeight,
 	},
 	box: {
-		height: 50,
-		width: 85,
 		margin: 10,
 		justifyContent: "center",
 		alignItems: "center",
@@ -79,6 +56,21 @@ const styles = StyleSheet.create({
 		borderTopRightRadius: 15,
 		borderBottomLeftRadius: 15,
 		borderBottomRightRadius: 15,
+		backgroundColor: "rgba(0,0,0,0.38)",
+		width: windowWidth / 3,
+		height: 55,
+	},
+	biggerBox: {
+		margin: 10,
+		justifyContent: "center",
+		alignItems: "center",
+		borderTopLeftRadius: 15,
+		borderTopRightRadius: 15,
+		borderBottomLeftRadius: 15,
+		borderBottomRightRadius: 15,
+		backgroundColor: "rgba(0,0,0,0.38)",
+		width: windowWidth / 2 - 40,
+		height: 55,
 	},
 	bottomHeader: {
 		fontSize: 16,

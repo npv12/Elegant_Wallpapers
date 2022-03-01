@@ -4,8 +4,6 @@ import { Icon } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../../constants";
 import { Text } from "../../components/StyledComponents";
-import { TypeAppContext } from "../../types";
-import { AppContext } from "../../context/AppContext";
 import styles from "./styles";
 import { handleDownload } from "../../utils/wallpaper";
 import ExpandedBottomTab from "./ExpandedBottomTab";
@@ -16,10 +14,8 @@ const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const BottomTab = ({ item }) => {
-	const { mode } = useContext<TypeAppContext>(AppContext);
 	const [showApplyModal, setShowApplyModal] = useState(false);
 	const [isFav, setIsFav] = useState(false);
-	const [iconColor, setIconColor] = useState(false);
 	const [translateBottom, setTranslateBottom] = useState(
 		new Animated.Value(300 * scaleHeight)
 	);
@@ -32,10 +28,7 @@ const BottomTab = ({ item }) => {
 			temp += "...";
 			setNameOfWal(temp);
 		} else setNameOfWal(item.name);
-		if (mode == "dark" && !iconColor) setIconColor(true);
-		else if (mode == "light" && iconColor) setIconColor(false);
 		retrieveData();
-		return function () {};
 	}, []);
 
 	//retrieve data from storage
@@ -87,23 +80,10 @@ const BottomTab = ({ item }) => {
 
 	//lets make everything into separate components coz why not?
 	function renderHeart() {
-		if (isFav) {
-			return (
-				<View style={styles.iconView}>
-					<Icon
-						name="heart"
-						type="antdesign"
-						size={25 * scaleHeight}
-						color="white"
-						tvParallaxProperties
-					/>
-				</View>
-			);
-		}
 		return (
 			<View style={styles.iconView}>
 				<Icon
-					name="hearto"
+					name={isFav ? "heart" : "hearto"}
 					type="antdesign"
 					size={25 * scaleHeight}
 					color="white"
@@ -131,26 +111,12 @@ const BottomTab = ({ item }) => {
 
 	//renders the arrow on the bottom tab
 	function renderArrow() {
-		if (bottomMenuVisible)
-			return (
-				<View
-					style={{ marginTop: 17 * scaleHeight, paddingRight: 10 * scaleWidth }}
-				>
-					<Icon
-						name="down"
-						type="antdesign"
-						size={22 * scaleHeight}
-						color="white"
-						tvParallaxProperties
-					/>
-				</View>
-			);
 		return (
 			<View
 				style={{ marginTop: 17 * scaleHeight, paddingRight: 10 * scaleWidth }}
 			>
 				<Icon
-					name="up"
+					name={bottomMenuVisible ? "down" : "up"}
 					type="antdesign"
 					size={22 * scaleHeight}
 					color="white"
