@@ -24,16 +24,14 @@ export default function TopTabBar({ navigation }) {
 				}}
 			></View>
 			<Tab.Navigator
-				tabBarOptions={{
-					labelStyle: {
+				screenOptions={{
+					tabBarLabelStyle: {
 						fontSize: 14 * scaleHeight,
 						color: theme.text,
 						fontFamily: "koliko",
 					},
-					style: { backgroundColor: theme.background },
-					indicatorStyle: {
-						backgroundColor: theme.background,
-					},
+					tabBarStyle: { backgroundColor: theme.background },
+					tabBarIndicatorStyle: { backgroundColor: theme.background },
 				}}
 			>
 				<Tab.Screen
