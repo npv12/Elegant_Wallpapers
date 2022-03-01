@@ -1,40 +1,28 @@
 import React, { useState, useEffect, useContext } from "react";
 import {
-	StyleSheet,
-	Dimensions,
 	TouchableOpacity,
 	View,
 	StatusBar,
-	Animated,
 } from "react-native";
-import _ from "lodash";
-import styled from "styled-components/native";
 import {
 	FREE_APP,
 	VERSION_NUMBER,
 	VERSION_URL,
 	WALL_URL,
-	STANDARD_HEIGHT,
-	STANDARD_WIDTH,
 } from "../../constants";
 import { Linking } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
 import ScrollableCollection from "../../components/ScrollableCollection";
-import { Button } from "react-native";
 import { Text, View as SView } from "../../components/StyledComponents";
 import { TypeThemeContext } from "../../types/themes";
 import { ThemeContext } from "../../Themes/ThemeContext";
+import { convertData } from "./utils";
+import styles from "./styles";
 
-const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
-
-const Collections = ({ navigation }) => {
+const Collections = () => {
 	const [collection, setCollection] = useState([]);
 	const [data, setData] = useState([]);
 	const [updateState, setUpdateState] = useState(0);
-	const [fadeAnimation, setFadeAnimation] = useState(new Animated.Value(0));
-	const [offset, setOffset] = useState(0);
-	const { theme, mode, setMode } = useContext<TypeThemeContext>(ThemeContext);
-	const focused = useIsFocused();
+	const { mode } = useContext<TypeThemeContext>(ThemeContext);
 
 	async function getData() {
 		fetch(WALL_URL, {
@@ -43,7 +31,7 @@ const Collections = ({ navigation }) => {
 			.then((response) => response.json())
 			.then((data) => {
 				setData(data);
-				convertData(data);
+				setCollection(convertData(data))
 			})
 			.catch((error) => {
 				console.log(error);
@@ -62,162 +50,82 @@ const Collections = ({ navigation }) => {
 			});
 	}
 
-	function convertData(data) {
-		var c = [];
-		var fin = [];
-		var key = 0;
-		for (var i = 0; i < data.length; i++) {
-			var temp = data[i].collections.toLowerCase().split(",");
-			for (var j = 0; j < temp.length; j++) {
-				if (!c.includes(temp[j])) {
-					var t = {
-						collections: temp[j],
-						url: data[i].url,
-						thumbnail: data[i].thumbnail,
-						key: key.toString(),
-					};
-					c.push(temp[j]);
-					fin.push(t);
-					key = key + 1;
-					break;
-				}
-			}
-		}
-		setCollection(fin);
-	}
-
 	useEffect(() => {
 		getData();
-		return function () { };
 	}, []);
 
-	useEffect(() => {
-		if (focused) fadeIn();
-		return function () { };
-	}, [focused]);
-
-	function fadeIn() {
-		Animated.timing(fadeAnimation, {
-			toValue: 1,
-			duration: 800,
-			useNativeDriver: true,
-		}).start();
-	}
 
 	function renderCollections() {
-		if (!data.length) {
+		if (data.length) {
 			return (
-				<View
-					style={{ justifyContent: "center", flex: 1, alignItems: "center" }}
-				>
-					<Text
-						style={{
-							color: mode == "dark" ? "#A9A9A9" : "grey",
-							fontSize: 20 * scaleHeight,
-							fontFamily: "Linotte-Bold",
-						}}
-					>
-						Loading your favorite walls.....
-					</Text>
+				<View style={{ paddingHorizontal: 10, flex: 1 }}>
+					<ScrollableCollection
+						data={collection}
+						isCollection={true}
+					/>
 				</View>
 			);
 		}
-		return (
-			<View style={{ paddingHorizontal: 10, flex: 1 }}>
-				<ScrollableCollection
-					data={collection}
-					isCollection={true}
-				/>
-			</View>
-		);
+
 	}
 
-	if (updateState != 0) {
-		if (updateState == 2)
-			return (
+	if (updateState == 2)
+		return (
+			<TouchableOpacity
+				activeOpacity={0.6}
+				onPress={() => Linking.openURL(FREE_APP)}
+			>
 				<SView
 					style={{ justifyContent: "center", flex: 1, alignItems: "center" }}
 				>
 					<Text
 						style={{
 							color: mode == "dark" ? "#A9A9A9" : "grey",
-							fontSize: 20 * scaleHeight,
-							fontFamily: "Linotte-Bold",
+							...styles.header
 						}}
 					>
 						Update the app to view the walls.
 					</Text>
 				</SView>
-			);
-		else if (updateState == 1) {
-			return (
-				<>
-					<TouchableOpacity
-						activeOpacity={0.6}
-						onPress={() => Linking.openURL(FREE_APP)}
-					>
-						<SView
-							style={{
-								height: 100 * scaleHeight,
-								width: "100%",
-								backgroundColor: mode == "dark" ? "#AAFF00" : "#7CCC00",
-								justifyContent: "center",
-								padding: 25,
-								alignItems: "center",
-							}}
-						>
-							<Text
-								style={{
-									color: "black",
-									fontSize: 20 * scaleHeight,
-									fontFamily: "Linotte-Bold",
-								}}
-							>
-								Update the app for best possible experience
-							</Text>
-						</SView>
-					</TouchableOpacity>
-					{mainElement()}
-				</>
-			);
-		}
-	}
-
-	if (focused) {
-		return <>{mainElement()}</>;
-	}
-
-	function mainElement() {
+			</TouchableOpacity>
+		);
+	else if (updateState == 1)
 		return (
 			<>
-				<SView style={styles.container}>
-					<Animated.View
-						style={[
-							styles.container,
-							{
-								opacity: fadeAnimation,
-							},
-						]}
+				<TouchableOpacity
+					activeOpacity={0.6}
+					onPress={() => Linking.openURL(FREE_APP)}
+				>
+					<SView
+						style={{ ...styles.forceUpdateContainer, backgroundColor: mode == "dark" ? "#AAFF00" : "#7CCC00" }}
 					>
-						<StatusBar
-							translucent={true}
-							backgroundColor={"transparent"}
-							barStyle={mode == "dark" ? "light-content" : "dark-content"}
-						/>
-						<SView style={styles.container}>{renderCollections()}</SView>
-					</Animated.View>
+						<Text
+							style={{
+								color: "black",
+								...styles.header
+							}}
+						>
+							Update the app for best possible experience
+						</Text>
+					</SView>
+				</TouchableOpacity>
+				<SView style={styles.container}>
+					<StatusBar
+						translucent={true}
+						backgroundColor={"transparent"}
+						barStyle={mode == "dark" ? "light-content" : "dark-content"}
+					/>
+					<SView style={styles.container}>{renderCollections()}</SView>
 				</SView>
 			</>
 		);
-	}
 
 	return (
-		<SView style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
+		<SView style={styles.container}>
 			<Text
 				style={{
 					color: mode == "dark" ? "#A9A9A9" : "grey",
-					fontSize: 20 * scaleHeight,
-					fontFamily: "Linotte-Bold",
+					...styles.header
 				}}
 			>
 				Loading your favorite collections.....
@@ -225,11 +133,5 @@ const Collections = ({ navigation }) => {
 		</SView>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-});
 
 export default Collections;
