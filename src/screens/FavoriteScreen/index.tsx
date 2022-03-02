@@ -20,7 +20,7 @@ const FavoriteScreen = () => {
 
 	return (
 		<>
-			<View isInverted style={{ height: 35 * scaleHeight }} />
+			<View style={{ height: 35 * scaleHeight }} />
 			<StatusBar />
 			<View style={styles.container}>
 				<ScrollableCollection data={data} />
