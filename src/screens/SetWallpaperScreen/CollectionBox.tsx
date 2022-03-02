@@ -11,9 +11,12 @@ const BottomTab = ({ item }) => {
 		<TouchableOpacity
 			style={styles.box}
 			onPress={() => {
-				navigation.navigate("Collection", {
-					value: item,
-				});
+				navigation.navigate(
+					"Collection" as never,
+					{
+						value: item,
+					} as never
+				);
 			}}
 		>
 			<Text style={{ fontSize: 20, color: "white" }}>{item.toUpperCase()}</Text>
