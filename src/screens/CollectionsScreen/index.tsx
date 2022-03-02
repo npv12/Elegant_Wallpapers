@@ -55,12 +55,7 @@ const CollectionsScreen = ({ isCollection }) => {
 				<SView
 					style={{ justifyContent: "center", flex: 1, alignItems: "center" }}
 				>
-					<Text
-						style={{
-							color: mode == "dark" ? "#A9A9A9" : "grey",
-							...styles.header,
-						}}
-					>
+					<Text useAlt style={styles.header}>
 						Update the app to view the walls.
 					</Text>
 				</SView>
@@ -79,12 +74,7 @@ const CollectionsScreen = ({ isCollection }) => {
 							backgroundColor: mode == "dark" ? "#AAFF00" : "#7CCC00",
 						}}
 					>
-						<Text
-							style={{
-								color: "black",
-								...styles.header,
-							}}
-						>
+						<Text color="black" style={styles.header}>
 							Update the app for best possible experience
 						</Text>
 					</SView>

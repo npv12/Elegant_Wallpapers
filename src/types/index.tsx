@@ -4,8 +4,10 @@ export type colorScheme = {
 	background: string;
 	border: string;
 	backgroundAlt: string;
+	backgroundInverted: string;
 	borderAlt: string;
 	text: string;
+	textAlt: string;
 	statusbarContent: "dark-content" | "light-content";
 	iconColor: string;
 	iconColorInverted: string;

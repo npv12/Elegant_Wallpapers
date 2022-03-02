@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { TouchableOpacity, Dimensions } from "react-native";
 import Modal from "react-native-modal";
 import { STANDARD_HEIGHT } from "../../constants";
 import { Icon, Text, View as SView } from "../../components/StyledComponents";
-import { TypeAppContext } from "../../types";
-import { AppContext } from "../../context/AppContext";
 import { showSnackbarText } from "../../utils";
 import styles from "./styles";
 import { setImageAsWall } from "../../utils/wallpaper";
@@ -15,8 +13,6 @@ export default function ApplyWallModal({
 	setShowApplyModal,
 	item,
 }) {
-	const { mode } = useContext<TypeAppContext>(AppContext);
-
 	function callback(response) {
 		if (response.status == "success") {
 			showSnackbarText("Wallpaper set successfully");

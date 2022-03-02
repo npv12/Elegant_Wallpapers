@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View, TouchableOpacity, Linking, Dimensions } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import {
@@ -13,35 +13,22 @@ import {
 	View as Container,
 	StatusBar,
 } from "../../components/StyledComponents";
-import { TypeAppContext } from "../../types";
-import { AppContext } from "../../context/AppContext";
 import styles from "./styles";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const SettingsScreen = ({ navigation }) => {
-	const { mode } = useContext<TypeAppContext>(AppContext);
 	return (
 		<Container style={styles.container}>
 			<StatusBar />
 			<ScrollView>
-				<Title
-					style={{
-						...styles.header,
-						color: mode == "dark" ? "#AAFF00" : "#7CCC00",
-					}}
-				>
+				<Title useAlt style={styles.header}>
 					Appearence
 				</Title>
 				<View style={styles.appearanceContainer}>
 					<Title style={styles.item}>Dark Theme</Title>
 				</View>
-				<Title
-					style={{
-						...styles.header,
-						color: mode == "dark" ? "#AAFF00" : "#7CCC00",
-					}}
-				>
+				<Title useAlt style={styles.header}>
 					Storage
 				</Title>
 				<View>
@@ -50,12 +37,7 @@ const SettingsScreen = ({ navigation }) => {
 						/storage/emulated/0/Pictures/Elegant-Walls
 					</Title>
 				</View>
-				<Title
-					style={{
-						...styles.header,
-						color: mode == "dark" ? "#AAFF00" : "#7CCC00",
-					}}
-				>
+				<Title useAlt style={styles.header}>
 					Legal
 				</Title>
 				<View>
@@ -83,12 +65,7 @@ const SettingsScreen = ({ navigation }) => {
 						</Title>
 					</TouchableOpacity>
 				</View>
-				<Title
-					style={{
-						...styles.header,
-						color: mode == "dark" ? "#AAFF00" : "#7CCC00",
-					}}
-				>
+				<Title useAlt style={styles.header}>
 					Version
 				</Title>
 				<TouchableOpacity

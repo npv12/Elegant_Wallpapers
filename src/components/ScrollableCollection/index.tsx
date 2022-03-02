@@ -28,12 +28,18 @@ const ScrollableCollection = ({
 				<TouchableOpacity
 					onPress={() =>
 						isCollection
-							? navigation.navigate("Collection", {
-									value: item.collections,
-							  })
-							: navigation.navigate("Wall", {
-									item: item,
-							  })
+							? navigation.navigate(
+									"Collection" as never,
+									{
+										value: item.collections,
+									} as never
+							  )
+							: navigation.navigate(
+									"Wall" as never,
+									{
+										item: item,
+									} as never
+							  )
 					}
 					activeOpacity={0.9}
 				>

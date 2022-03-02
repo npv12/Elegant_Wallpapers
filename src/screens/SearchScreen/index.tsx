@@ -1,33 +1,26 @@
-import React, { useState, useContext } from "react";
-import { Dimensions, View, Text } from "react-native";
+import React, { useState } from "react";
+import { Dimensions } from "react-native";
 import { STANDARD_HEIGHT } from "../../constants";
-import { TypeAppContext } from "../../types";
-import { AppContext } from "../../context/AppContext";
 import ScrollableCollection from "../../components/ScrollableCollection";
 import SearchBox from "../../components/SearchBox";
-import { Icon, StatusBar } from "../../components/StyledComponents";
+import { Icon, StatusBar, View, Text } from "../../components/StyledComponents";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const SearchScreen = () => {
 	const [empty, setEmpty] = useState(true);
 	const [walls, setWalls] = useState([]);
-	const { theme, mode, setMode } = useContext<TypeAppContext>(AppContext);
 
 	return (
 		<>
 			<View
+				isInverted
 				style={{
-					backgroundColor: mode != "dark" ? "white" : "black",
 					height: 35 * scaleHeight,
 				}}
 			></View>
 			<StatusBar />
-			<View
-				style={{
-					backgroundColor: mode != "dark" ? "white" : "black",
-				}}
-			>
+			<View isInverted>
 				<SearchBox setEmpty={setEmpty} setWalls={setWalls} />
 				{!empty ? (
 					<ScrollableCollection data={walls} />
@@ -42,8 +35,8 @@ const SearchScreen = () => {
 							style={{ paddingBottom: 35 * scaleHeight }}
 						/>
 						<Text
+							useAlt
 							style={{
-								color: mode == "dark" ? "#A9A9A9" : "grey",
 								fontSize: 20 * scaleHeight,
 								fontFamily: "Linotte-Bold",
 							}}

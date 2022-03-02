@@ -3,8 +3,11 @@ import {
 	View as RNView,
 	Text as RNText,
 	StatusBar as RNStatusbar,
+	TouchableOpacity as RNTouchableOpacity,
 	Dimensions,
 	TextStyle,
+	ViewStyle,
+	ActivityIndicator as RNActivityIndicator,
 } from "react-native";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
@@ -22,15 +25,19 @@ Though they can be a standalone component, I am commanising them here for easy m
 export const View = ({
 	style,
 	children,
+	isInverted,
 }: {
 	children?: ReactNode;
-	style?: any;
+	style?: ViewStyle;
+	isInverted?: boolean;
 }): JSX.Element => {
 	const { theme } = useContext<TypeAppContext>(AppContext);
 	return (
 		<RNView
 			style={{
-				backgroundColor: theme.background,
+				backgroundColor: isInverted
+					? theme.backgroundInverted
+					: theme.background,
 				...style,
 			}}
 		>
@@ -42,15 +49,19 @@ export const View = ({
 export const Text = ({
 	style,
 	children,
+	color,
+	useAlt,
 }: {
 	children?: ReactNode;
-	style?: any;
+	style?: TextStyle;
+	color?: string;
+	useAlt?: boolean;
 }): JSX.Element => {
 	const { theme } = useContext<TypeAppContext>(AppContext);
 	return (
 		<RNText
 			style={{
-				color: theme.text,
+				color: color || useAlt ? theme.textAlt : theme.text,
 				...style,
 			}}
 		>
@@ -91,9 +102,55 @@ export const Icon = ({
 			name={name || "search"}
 			type={type || "feather"}
 			size={size || 45 * scaleHeight}
-			color={color || isInverted ? theme.iconColor : theme.iconColor}
+			color={color || isInverted ? theme.iconColorInverted : theme.iconColor}
 			style={style}
 			tvParallaxProperties
+		/>
+	);
+};
+
+export const TouchableOpacity = ({
+	onPress,
+	children,
+	style,
+	isInverted,
+}: {
+	onPress: any;
+	children?: ReactNode;
+	style?: ViewStyle;
+	isInverted?: boolean;
+}) => {
+	const { theme } = useContext<TypeAppContext>(AppContext);
+	return (
+		<RNTouchableOpacity
+			onPress={onPress}
+			style={{
+				backgroundColor: isInverted
+					? theme.backgroundInverted
+					: theme.background,
+				...style,
+			}}
+		>
+			{children}
+		</RNTouchableOpacity>
+	);
+};
+
+export const ActivityIndicator = ({
+	size,
+	isInverted,
+	color,
+}: {
+	size?: "large" | "small";
+	isInverted?: boolean;
+	color?: string;
+}) => {
+	const { theme } = useContext<TypeAppContext>(AppContext);
+	return (
+		<RNActivityIndicator
+			animating={true}
+			size={size || "large"}
+			color={color || isInverted ? theme.iconColorInverted : theme.iconColor}
 		/>
 	);
 };

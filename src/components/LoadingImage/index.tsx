@@ -1,6 +1,6 @@
 import React from "react";
-import { Image, ActivityIndicator } from "react-native";
-import { View } from "../StyledComponents";
+import { Image } from "react-native";
+import { ActivityIndicator, View } from "../StyledComponents";
 import styles from "./styles";
 
 interface IProps {
@@ -12,7 +12,7 @@ const LoadingImage = (props: IProps) => {
 	return (
 		<View>
 			<View style={styles.activityIndicatorWrapper}>
-				<ActivityIndicator animating={true} size="large" color="#00bd84" />
+				<ActivityIndicator color="#00bd84" />
 			</View>
 			<View
 				style={{

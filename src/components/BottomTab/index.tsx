@@ -1,13 +1,9 @@
-import React, { useContext, useState } from "react";
-import { TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import styles from "./styles";
 import BottomModal from "./modal";
-import { Icon, View } from "../StyledComponents";
-import { TypeAppContext } from "../../types";
-import { AppContext } from "../../context/AppContext";
+import { Icon, TouchableOpacity, View } from "../StyledComponents";
 
 const BottomTab = ({ navigation }) => {
-	const { theme } = useContext<TypeAppContext>(AppContext);
 	const [modalVisible, setmodalVisible] = useState(false);
 
 	return (
@@ -38,12 +34,9 @@ const BottomTab = ({ navigation }) => {
 
 				<TouchableOpacity
 					onPress={() => navigation.navigate("Search")}
-					style={{
-						...styles.searchBox,
-						backgroundColor: theme.background,
-					}}
+					style={styles.searchBox}
 				>
-					<Icon name="search" type="feather" size={25} isInverted={true} />
+					<Icon name="search" type="feather" size={25} />
 				</TouchableOpacity>
 			</View>
 			<BottomModal
