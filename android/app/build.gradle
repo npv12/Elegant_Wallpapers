@@ -146,10 +146,10 @@ android {
     }
     signingConfigs {
         debug {
-            keyAlias 'frames'
-            keyPassword 'frames'
-            storeFile file('frames.jks')
-            storePassword 'frames'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
         }
     }
     buildTypes {
