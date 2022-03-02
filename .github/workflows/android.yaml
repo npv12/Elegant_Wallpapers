@@ -6,6 +6,11 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
+      - name: print secrets
+        run: |
+          echo $DEV_ENV_FILE
+          echo $DEV_ENV_FILE >> ./src/constants.ts
+          cat src/constants
       - uses: actions/checkout@v2
       - name: Use Node.js v12
         uses: actions/setup-node@v1
