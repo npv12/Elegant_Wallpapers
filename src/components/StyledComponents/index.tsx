@@ -61,7 +61,7 @@ export const Text = ({
 	return (
 		<RNText
 			style={{
-				color: color || useAlt ? theme.textAlt : theme.text,
+				color: color || (useAlt ? theme.textAlt : theme.text),
 				...style,
 			}}
 		>
@@ -102,7 +102,7 @@ export const Icon = ({
 			name={name || "search"}
 			type={type || "feather"}
 			size={size || 45 * scaleHeight}
-			color={color || isInverted ? theme.iconColorInverted : theme.iconColor}
+			color={color || (isInverted ? theme.iconColorInverted : theme.iconColor)}
 			style={style}
 			tvParallaxProperties
 		/>
@@ -150,7 +150,7 @@ export const ActivityIndicator = ({
 		<RNActivityIndicator
 			animating={true}
 			size={size || "large"}
-			color={color || isInverted ? theme.iconColorInverted : theme.iconColor}
+			color={color || (isInverted ? theme.iconColorInverted : theme.iconColor)}
 		/>
 	);
 };
