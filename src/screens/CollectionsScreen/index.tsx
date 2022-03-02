@@ -102,14 +102,7 @@ const CollectionsScreen = ({ isCollection }) => {
 
 	return (
 		<SView style={styles.container}>
-			<Text
-				style={{
-					color: mode == "dark" ? "#A9A9A9" : "grey",
-					...styles.header,
-				}}
-			>
-				Loading your favorite collections.....
-			</Text>
+			{isCollection ? renderCollections() : renderWallpaper()}
 		</SView>
 	);
 };
