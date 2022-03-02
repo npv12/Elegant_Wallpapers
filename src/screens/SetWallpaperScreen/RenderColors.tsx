@@ -21,6 +21,7 @@ export default function RenderColors({ item }) {
 			setColors(col);
 		}
 	}
+
 	return (
 		<>
 			{colors != null ? (

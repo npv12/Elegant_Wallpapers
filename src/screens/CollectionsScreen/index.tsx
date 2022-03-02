@@ -19,10 +19,9 @@ import styles from "./styles";
  * @returns JSX component
  */
 
-const CollectionsScreen = ({ route }) => {
+const CollectionsScreen = ({ isCollection }) => {
 	const { mode, wallpaperData, collectionData, updateState } =
 		useContext<TypeAppContext>(AppContext);
-	const { isCollection } = route.params;
 
 	function renderCollections() {
 		if (wallpaperData.length) {

@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { Dimensions } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { View } from "react-native";
-
-import CollectionsScreen from "../CollectionsScreen";
 import BottomTab from "../../components/BottomTab";
 import { STANDARD_HEIGHT } from "../../constants";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
+import CollectionPage from "../CollectionsScreen/CollectionPage";
+import ExplorePage from "../CollectionsScreen/ExplorePage";
+import { View } from "../../components/StyledComponents";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
@@ -34,14 +34,10 @@ export default function TopTabBar({ navigation }) {
 					tabBarIndicatorStyle: { backgroundColor: theme.background },
 				}}
 			>
-				<Tab.Screen
-					name="Explore"
-					component={CollectionsScreen}
-					initialParams={{ isCollection: false }}
-				/>
+				<Tab.Screen name="Explore" component={ExplorePage} />
 				<Tab.Screen
 					name="Collections"
-					component={CollectionsScreen}
+					component={CollectionPage}
 					initialParams={{ isCollection: true }}
 				/>
 			</Tab.Navigator>

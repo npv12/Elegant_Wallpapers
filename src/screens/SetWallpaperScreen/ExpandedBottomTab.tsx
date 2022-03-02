@@ -37,7 +37,8 @@ const ExpandedBottomTab = ({ item }) => {
 						"Collection" as never,
 						{
 							value: item,
-					});
+						} as never
+					);
 				}}
 			>
 				<Text style={{ fontSize: 20, color: "white" }}>
