@@ -2,6 +2,7 @@ import ReactNativeBlobUtil from "react-native-blob-util";
 import ManageWallpaper from "react-native-manage-wallpaper";
 import { getStoragePermissionAndroid, showSnackbarText } from ".";
 import { Platform } from "react-native";
+import loadAd from "../components/Advert";
 
 //sets wall by first downloading using rnfetch so that app doesn't crash
 export async function setImageAsWall(

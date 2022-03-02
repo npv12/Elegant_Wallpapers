@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import OneSignal from "react-native-onesignal";
 import { ONE_SIGNAL } from "./src/constants";
-import { preloadAd } from "./src/components/Advert";
 import { getStoragePermissionAndroid } from "./src/utils";
 import HomeScreen from "./src/screens/HomeScreen";
 import Themes from "./src/Themes";
 import { AppContextProvider } from "./src/context/AppContext";
+import { initAdmob } from "./src/components/Advert";
 
 function App() {
 	async function setOneSignal() {
@@ -15,7 +15,7 @@ function App() {
 	}
 
 	useEffect(() => {
-		preloadAd();
+		initAdmob();
 		getStoragePermissionAndroid();
 		setOneSignal();
 	}, []);
