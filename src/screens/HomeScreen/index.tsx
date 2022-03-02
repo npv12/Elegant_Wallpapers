@@ -66,17 +66,17 @@ export default function HomeScreen() {
 				<Stack.Screen
 					name="Home"
 					component={TopTabBar}
-					options={{ headerShown: false }}
+					options={{ headerShown: false, animation: "fade_from_bottom" }}
 				/>
 				<Stack.Screen
 					name="Wall"
 					component={SetWallpaperScreen}
-					options={{ headerShown: false }}
+					options={{ headerShown: false, animation: "fade_from_bottom" }}
 				/>
 				<Stack.Screen
 					name="Collection"
 					component={SpecificCollectionScreen}
-					options={{ headerShown: false }}
+					options={{ headerShown: false, animation: "fade_from_bottom" }}
 				/>
 				<Stack.Screen
 					name="Settings"
@@ -93,6 +93,7 @@ export default function HomeScreen() {
 						headerStyle: {
 							backgroundColor: theme.background,
 						},
+						animation: "fade_from_bottom",
 					}}
 				/>
 				<Stack.Screen
@@ -110,6 +111,7 @@ export default function HomeScreen() {
 						headerStyle: {
 							backgroundColor: theme.background,
 						},
+						animation: "fade_from_bottom",
 					}}
 				/>
 				<Stack.Screen
@@ -127,12 +129,13 @@ export default function HomeScreen() {
 						headerStyle: {
 							backgroundColor: theme.background,
 						},
+						animation: "fade_from_bottom",
 					}}
 				/>
 				<Stack.Screen
 					name="Search"
 					component={SearchScreen}
-					options={{ headerShown: false }}
+					options={{ headerShown: false, animation: "fade_from_bottom" }}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
