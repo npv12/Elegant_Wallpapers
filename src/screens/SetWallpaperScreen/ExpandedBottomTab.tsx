@@ -33,8 +33,10 @@ const ExpandedBottomTab = ({ item }) => {
 					height: 55,
 				}}
 				onPress={() => {
-					navigation.navigate("Collection", {
-						value: item,
+					navigation.navigate(
+						"Collection" as never,
+						{
+							value: item,
 					});
 				}}
 			>
