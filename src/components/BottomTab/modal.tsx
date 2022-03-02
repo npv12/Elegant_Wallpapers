@@ -1,13 +1,9 @@
-import React, { useContext, useEffect } from "react";
-import { TouchableOpacity, Dimensions, Linking, Animated } from "react-native";
-import { Icon, useTheme } from "react-native-elements";
+import React from "react";
+import { TouchableOpacity, Linking } from "react-native";
 import Modal from "react-native-modal";
-import { PRO_APP, STANDARD_HEIGHT } from "../../constants";
+import { PRO_APP } from "../../constants";
 import styles from "./styles";
-import { View, Text } from "../StyledComponents";
-import { TypeAppContext } from "../../types";
-import { AppContext } from "../../context/AppContext";
-const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
+import { View, Text, Icon } from "../StyledComponents";
 
 interface IProps {
 	visible: boolean;
@@ -16,8 +12,6 @@ interface IProps {
 }
 
 export default function BottomModal(props: IProps) {
-	const { theme, mode, setMode } = useContext<TypeAppContext>(AppContext);
-	const iconColor = mode == "dark" ? "white" : "black";
 	return (
 		<Modal
 			isVisible={props.visible}
@@ -39,14 +33,7 @@ export default function BottomModal(props: IProps) {
 				<View style={styles.pill}></View>
 				<TouchableOpacity onPress={() => Linking.openURL(PRO_APP)}>
 					<View style={styles.modalItem}>
-						<Icon
-							name="shopping-bag"
-							type="feather"
-							size={25 * scaleHeight}
-							style={styles.icon}
-							color={iconColor}
-							tvParallaxProperties
-						/>
+						<Icon name="shopping-bag" size={25} style={styles.icon} />
 						<Text style={styles.modalTextStyle}>Upgrade to Pro</Text>
 					</View>
 				</TouchableOpacity>
@@ -57,14 +44,7 @@ export default function BottomModal(props: IProps) {
 					}}
 				>
 					<View style={styles.modalItem}>
-						<Icon
-							name="settings"
-							type="feather"
-							size={25 * scaleHeight}
-							style={styles.icon}
-							color={iconColor}
-							tvParallaxProperties
-						/>
+						<Icon name="settings" size={25} style={styles.icon} />
 						<Text style={styles.modalTextStyle}>Settings</Text>
 					</View>
 				</TouchableOpacity>
@@ -75,14 +55,7 @@ export default function BottomModal(props: IProps) {
 					}}
 				>
 					<View style={styles.modalItem}>
-						<Icon
-							name="info"
-							type="feather"
-							size={25 * scaleHeight}
-							style={styles.icon}
-							color={iconColor}
-							tvParallaxProperties
-						/>
+						<Icon name="info" size={25} style={styles.icon} />
 						<Text style={styles.modalTextStyle}>About</Text>
 					</View>
 				</TouchableOpacity>

@@ -1,18 +1,13 @@
 import React, { useContext, useState } from "react";
-import { TouchableOpacity, Dimensions } from "react-native";
-import { Icon, useTheme } from "react-native-elements";
-import { STANDARD_HEIGHT } from "../../constants";
+import { TouchableOpacity } from "react-native";
 import styles from "./styles";
 import BottomModal from "./modal";
-import { View } from "../StyledComponents";
+import { Icon, View } from "../StyledComponents";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 
-const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
-
 const BottomTab = ({ navigation }) => {
-	const { theme, mode, setMode } = useContext<TypeAppContext>(AppContext);
-	const iconColor = mode == "dark" ? "white" : "black";
+	const { theme } = useContext<TypeAppContext>(AppContext);
 	const [modalVisible, setmodalVisible] = useState(false);
 
 	return (
@@ -27,20 +22,16 @@ const BottomTab = ({ navigation }) => {
 						<Icon
 							name="align-justify"
 							type="feather"
-							size={25 * scaleHeight}
+							size={25}
 							style={styles.icon}
-							color={iconColor}
-							tvParallaxProperties
 						/>
 					</TouchableOpacity>
 					<TouchableOpacity onPress={() => navigation.navigate("Fav")}>
 						<Icon
 							name="hearto"
 							type="antdesign"
-							size={25 * scaleHeight}
+							size={25}
 							style={styles.icon}
-							color={iconColor}
-							tvParallaxProperties
 						/>
 					</TouchableOpacity>
 				</View>
@@ -49,16 +40,10 @@ const BottomTab = ({ navigation }) => {
 					onPress={() => navigation.navigate("Search")}
 					style={{
 						...styles.searchBox,
-						backgroundColor: iconColor,
+						backgroundColor: theme.background,
 					}}
 				>
-					<Icon
-						name="search"
-						type="feather"
-						size={25 * scaleHeight}
-						tvParallaxProperties
-						color={iconColor == "black" ? "white" : "black"}
-					/>
+					<Icon name="search" type="feather" size={25} isInverted={true} />
 				</TouchableOpacity>
 			</View>
 			<BottomModal

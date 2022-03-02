@@ -1,12 +1,11 @@
 import React, { useState, useContext } from "react";
 import { Dimensions, View, Text } from "react-native";
-import { Icon } from "react-native-elements";
 import { STANDARD_HEIGHT } from "../../constants";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import ScrollableCollection from "../../components/ScrollableCollection";
 import SearchBox from "../../components/SearchBox";
-import { StatusBar } from "../../components/StyledComponents";
+import { Icon, StatusBar } from "../../components/StyledComponents";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
@@ -38,11 +37,9 @@ const SearchScreen = () => {
 					>
 						<Icon
 							name="search"
-							type="feather"
-							size={45 * scaleHeight}
+							size={45}
 							color="grey"
 							style={{ paddingBottom: 35 * scaleHeight }}
-							tvParallaxProperties
 						/>
 						<Text
 							style={{

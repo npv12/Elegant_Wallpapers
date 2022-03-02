@@ -7,6 +7,8 @@ const darkColor: colorScheme = {
 	borderAlt: "#2E3440",
 	text: "#ECEFF4",
 	statusbarContent: "dark-content",
+	iconColor: "white",
+	iconColorInverted: "black",
 };
 
 export default darkColor;

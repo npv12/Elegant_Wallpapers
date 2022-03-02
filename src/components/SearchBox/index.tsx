@@ -1,13 +1,13 @@
 import React, { useState, useContext } from "react";
 import { Dimensions, TouchableOpacity, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import { Icon } from "react-native-elements";
 import { STANDARD_HEIGHT } from "../../constants";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { searchForWall } from "../../utils";
+import { Icon } from "../StyledComponents";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
@@ -28,14 +28,7 @@ const SearchBox = ({ setEmpty, setWalls }) => {
 			}}
 		>
 			<TouchableOpacity onPress={() => navigation.goBack()}>
-				<Icon
-					name="arrow-left"
-					type="feather"
-					size={25}
-					style={styles.icon}
-					color={mode == "dark" ? "white" : "black"}
-					tvParallaxProperties
-				/>
+				<Icon name="arrow-left" size={25} style={styles.icon} />
 			</TouchableOpacity>
 			<TextInput
 				style={{
@@ -51,14 +44,7 @@ const SearchBox = ({ setEmpty, setWalls }) => {
 					setSearchString(val);
 				}}
 			/>
-			<Icon
-				name="search"
-				type="feather"
-				size={25}
-				style={styles.icon}
-				color={mode != "dark" ? "white" : "black"}
-				tvParallaxProperties
-			/>
+			<Icon name="search" size={25} style={styles.icon} />
 		</View>
 	);
 };

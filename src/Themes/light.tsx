@@ -7,6 +7,8 @@ const lightColor: colorScheme = {
 	borderAlt: "#bdbdbd",
 	text: "#171717",
 	statusbarContent: "light-content",
+	iconColor: "black",
+	iconColorInverted: "white",
 };
 
 export default lightColor;

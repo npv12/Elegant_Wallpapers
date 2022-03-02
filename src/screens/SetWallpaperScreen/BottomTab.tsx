@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity, Dimensions, Animated, View } from "react-native";
-import { Icon } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../../constants";
-import { Text } from "../../components/StyledComponents";
+import { Icon, Text } from "../../components/StyledComponents";
 import styles from "./styles";
 import { handleDownload } from "../../utils/wallpaper";
 import ExpandedBottomTab from "./ExpandedBottomTab";
@@ -86,9 +85,8 @@ const BottomTab = ({ item }) => {
 				<Icon
 					name={isFav ? "heart" : "hearto"}
 					type="antdesign"
-					size={25 * scaleHeight}
+					size={25}
 					color="white"
-					tvParallaxProperties
 				/>
 			</View>
 		);
@@ -119,9 +117,8 @@ const BottomTab = ({ item }) => {
 				<Icon
 					name={bottomMenuVisible ? "down" : "up"}
 					type="antdesign"
-					size={22 * scaleHeight}
+					size={22}
 					color="white"
-					tvParallaxProperties
 				/>
 			</View>
 		);
@@ -157,13 +154,7 @@ const BottomTab = ({ item }) => {
 							}}
 						>
 							<View style={styles.iconView}>
-								<Icon
-									name="download"
-									type="feather"
-									size={25 * scaleHeight}
-									color="white"
-									tvParallaxProperties
-								/>
+								<Icon name="download" type="feather" size={25} color="white" />
 							</View>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={() => setShowApplyModal(true)}>
@@ -171,9 +162,8 @@ const BottomTab = ({ item }) => {
 								<Icon
 									name="arrow-up-circle"
 									type="feather"
-									size={25 * scaleHeight}
+									size={25}
 									color="white"
-									tvParallaxProperties
 								/>
 							</View>
 						</TouchableOpacity>

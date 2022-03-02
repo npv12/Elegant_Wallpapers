@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
 import { TouchableOpacity, Dimensions } from "react-native";
-import { Icon } from "react-native-elements";
 import Modal from "react-native-modal";
 import { STANDARD_HEIGHT } from "../../constants";
-import { Text, View as SView } from "../../components/StyledComponents";
+import { Icon, Text, View as SView } from "../../components/StyledComponents";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import { showSnackbarText } from "../../utils";
@@ -41,13 +40,7 @@ export default function ApplyWallModal({
 					}}
 				>
 					<SView style={{ ...styles.modalItem, marginTop: 30 * scaleHeight }}>
-						<Icon
-							name="shopping-bag"
-							type="feather"
-							size={25 * scaleHeight}
-							color={mode == "dark" ? "white" : "black"}
-							tvParallaxProperties
-						/>
+						<Icon name="shopping-bag" size={25} />
 						<Text style={styles.modalText}>Set Homescreen wallpaper</Text>
 					</SView>
 				</TouchableOpacity>
@@ -57,13 +50,7 @@ export default function ApplyWallModal({
 					}}
 				>
 					<SView style={styles.modalItem}>
-						<Icon
-							name="settings"
-							type="feather"
-							size={25 * scaleHeight}
-							color={mode == "dark" ? "white" : "black"}
-							tvParallaxProperties
-						/>
+						<Icon name="settings" size={25} />
 						<Text style={styles.modalText}>Set Lockscreen wallpaper</Text>
 					</SView>
 				</TouchableOpacity>
@@ -78,13 +65,7 @@ export default function ApplyWallModal({
 							marginBottom: 30 * scaleHeight,
 						}}
 					>
-						<Icon
-							name="info"
-							type="feather"
-							size={25 * scaleHeight}
-							color={mode == "dark" ? "white" : "black"}
-							tvParallaxProperties
-						/>
+						<Icon name="info" size={25} />
 						<Text style={styles.modalText}>Set Both</Text>
 					</SView>
 				</TouchableOpacity>

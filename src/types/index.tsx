@@ -7,6 +7,8 @@ export type colorScheme = {
 	borderAlt: string;
 	text: string;
 	statusbarContent: "dark-content" | "light-content";
+	iconColor: string;
+	iconColorInverted: string;
 };
 
 export type TypeAppContext = {
