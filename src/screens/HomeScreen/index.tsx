@@ -1,9 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Dimensions } from "react-native";
-import {
-	createStackNavigator,
-	CardStyleInterpolators,
-} from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import SetWallpaperScreen from "../../screens/SetWallpaperScreen";
 import SpecificCollectionScreen from "../SpecificCollectionScreen";
@@ -25,7 +22,7 @@ import { getCollectionsFromData } from "../../utils";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function HomeScreen() {
 	const { theme, setWallpaperData, setCollectionData, setUpdateState } =
@@ -65,13 +62,7 @@ export default function HomeScreen() {
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator
-				initialRouteName="Home"
-				screenOptions={{
-					cardStyleInterpolator:
-						CardStyleInterpolators.forRevealFromBottomAndroid,
-				}}
-			>
+			<Stack.Navigator initialRouteName="Home">
 				<Stack.Screen
 					name="Home"
 					component={TopTabBar}
