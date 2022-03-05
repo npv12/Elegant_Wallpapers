@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { TouchableOpacity, Dimensions, Animated, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { STANDARD_HEIGHT, STANDARD_WIDTH } from "../../constants";
@@ -7,6 +7,8 @@ import styles from "./styles";
 import { handleDownload } from "../../utils/wallpaper";
 import ExpandedBottomTab from "./ExpandedBottomTab";
 import ApplyWallModal from "./ApplyWallModal";
+import { TypeAppContext } from "../../types";
+import { AppContext } from "../../context/AppContext";
 
 const windowWidth = Dimensions.get("window").width;
 const scaleWidth = Dimensions.get("window").width / STANDARD_WIDTH;
@@ -21,6 +23,7 @@ const BottomTab = ({ item }) => {
 	const [translateBottom, setTranslateBottom] = useState(
 		new Animated.Value(300 * scaleHeight)
 	);
+	const { setIsLoading } = useContext<TypeAppContext>(AppContext);
 
 	useEffect(() => {
 		if (item.name.length > 17) {
@@ -150,7 +153,7 @@ const BottomTab = ({ item }) => {
 					<View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
 						<TouchableOpacity
 							onPress={() => {
-								handleDownload(item);
+								handleDownload(item, setIsLoading);
 							}}
 						>
 							<View style={styles.iconView}>
