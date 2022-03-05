@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TouchableOpacity, Dimensions } from "react-native";
 import Modal from "react-native-modal";
+import { TYPE } from "react-native-manage-wallpaper";
 import { STANDARD_HEIGHT } from "../../constants";
 import { Icon, Text, View as SView } from "../../components/StyledComponents";
 import { showSnackbarText } from "../../utils";
 import styles from "./styles";
 import { setImageAsWall } from "../../utils/wallpaper";
+import { TypeAppContext } from "../../types";
+import { AppContext } from "../../context/AppContext";
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 export default function ApplyWallModal({
@@ -13,15 +16,16 @@ export default function ApplyWallModal({
 	setShowApplyModal,
 	item,
 }) {
+	const { setIsLoading } = useContext<TypeAppContext>(AppContext);
 	function callback(response) {
-		if (response.status == "success") {
+		if (response!! && response.status == "success") {
 			showSnackbarText("Wallpaper set successfully");
-			//setIsLoading(false);
 		} else {
-			//setIsLoading(false);
 			showSnackbarText("Something went wrong");
 		}
+		setIsLoading(false);
 	}
+
 	return (
 		<Modal
 			animationIn="slideInDown"
@@ -32,7 +36,8 @@ export default function ApplyWallModal({
 			<SView style={styles.modal}>
 				<TouchableOpacity
 					onPress={() => {
-						setImageAsWall(item.url, "home", callback, setShowApplyModal);
+						setIsLoading(true);
+						setImageAsWall(item.url, TYPE.HOME, callback, setShowApplyModal);
 					}}
 				>
 					<SView style={{ ...styles.modalItem, marginTop: 30 * scaleHeight }}>
@@ -42,7 +47,8 @@ export default function ApplyWallModal({
 				</TouchableOpacity>
 				<TouchableOpacity
 					onPress={() => {
-						setImageAsWall(item.url, "lock", callback, setShowApplyModal);
+						setIsLoading(true);
+						setImageAsWall(item.url, TYPE.LOCK, callback, setShowApplyModal);
 					}}
 				>
 					<SView style={styles.modalItem}>
@@ -52,7 +58,8 @@ export default function ApplyWallModal({
 				</TouchableOpacity>
 				<TouchableOpacity
 					onPress={() => {
-						setImageAsWall(item.url, "both", callback, setShowApplyModal);
+						setIsLoading(true);
+						setImageAsWall(item.url, TYPE.BOTH, callback, setShowApplyModal);
 					}}
 				>
 					<SView

@@ -1,5 +1,5 @@
 import ReactNativeBlobUtil from "react-native-blob-util";
-import ManageWallpaper, { TYPE } from "react-native-manage-wallpaper";
+import ManageWallpaper from "react-native-manage-wallpaper";
 import { getStoragePermissionAndroid, showSnackbarText } from ".";
 import { Platform } from "react-native";
 
@@ -11,8 +11,6 @@ export async function setImageAsWall(
 	setShowApplyModal
 ) {
 	setShowApplyModal(false);
-	// loadAd();
-	// setIsLoading(true);
 	ReactNativeBlobUtil.config({
 		fileCache: true,
 		appendExt: "png",
@@ -26,12 +24,11 @@ export async function setImageAsWall(
 					uri: PATH,
 				},
 				callback,
-				type === "home" ? TYPE.HOME : type === "lock" ? TYPE.LOCK : TYPE.BOTH
+				type
 			);
 		})
 		.catch((e) => {
 			console.log(e);
-			//setIsLoading(false);
 			showSnackbarText("Something went wrong");
 		});
 }

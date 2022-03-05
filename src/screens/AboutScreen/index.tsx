@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TouchableOpacity, Linking } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import {
@@ -9,15 +9,16 @@ import {
 	VERSION_NUMBER,
 } from "../../constants";
 import ScrollableModal from "../../components/ScrollableModal";
-import Loader from "../../components/Loader";
 import { StatusBar, Text, View } from "../../components/StyledComponents";
 import styles from "./styles";
 import Authors from "./authors";
+import { TypeAppContext } from "../../types";
+import { AppContext } from "../../context/AppContext";
 
 const AboutScreen = () => {
+	const { setIsLoading } = useContext<TypeAppContext>(AppContext);
 	const [changelogVisible, setChangelogVisible] = useState(false);
 	const [changelog, setChangelog] = useState("");
-	const [loading, setLoading] = useState(true);
 
 	async function getVersion() {
 		fetch(VERSION_URL, {
@@ -26,7 +27,7 @@ const AboutScreen = () => {
 			.then((response) => response.json())
 			.then((responseJson) => {
 				setChangelog(responseJson.Changelogs);
-				setLoading(false);
+				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -34,12 +35,12 @@ const AboutScreen = () => {
 	}
 
 	useEffect(() => {
+		setIsLoading(true);
 		getVersion();
 	}, []);
 
 	return (
 		<View style={styles.container}>
-			<Loader loading={loading} />
 			<StatusBar />
 			<ScrollView>
 				<Text

@@ -19,24 +19,32 @@ import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import SplashScreen from "react-native-splash-screen";
 import { getCollectionsFromData } from "../../utils";
+import Loader from "../../components/Loader";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 
 const Stack = createNativeStackNavigator();
 
 export default function HomeScreen() {
-	const { theme, setWallpaperData, setCollectionData, setUpdateState } =
-		useContext<TypeAppContext>(AppContext);
+	const {
+		theme,
+		setWallpaperData,
+		setCollectionData,
+		setUpdateState,
+		isLoading,
+		setIsLoading,
+	} = useContext<TypeAppContext>(AppContext);
 
 	// Fetch all data regarding the wallpapers
 	async function getData() {
+		SplashScreen.hide();
 		fetch(WALL_URL, {
 			method: "GET",
 		})
 			.then((response) => response.json())
 			.then((data) => {
+				setIsLoading(false);
 				setWallpaperData(data);
-				SplashScreen.hide();
 				setCollectionData(getCollectionsFromData(data));
 			})
 			.catch((error) => {
@@ -61,83 +69,86 @@ export default function HomeScreen() {
 	}, []);
 
 	return (
-		<NavigationContainer>
-			<Stack.Navigator initialRouteName="Home">
-				<Stack.Screen
-					name="Home"
-					component={TopTabBar}
-					options={{ headerShown: false, animation: "fade_from_bottom" }}
-				/>
-				<Stack.Screen
-					name="Wall"
-					component={SetWallpaperScreen}
-					options={{ headerShown: false, animation: "fade_from_bottom" }}
-				/>
-				<Stack.Screen
-					name="Collection"
-					component={SpecificCollectionScreen}
-					options={{ headerShown: false, animation: "fade_from_bottom" }}
-				/>
-				<Stack.Screen
-					name="Settings"
-					component={SettingsScreen}
-					options={{
-						title: "Settings",
-						headerTitleAlign: "center",
-						headerTintColor: theme.text,
-						headerTitleStyle: {
-							fontFamily: "Linotte-Bold",
-							fontWeight: "normal",
-							fontSize: 23 * scaleHeight,
-						},
-						headerStyle: {
-							backgroundColor: theme.background,
-						},
-						animation: "fade_from_bottom",
-					}}
-				/>
-				<Stack.Screen
-					name="About"
-					component={AboutScreen}
-					options={{
-						title: "About Elegant",
-						headerTitleAlign: "center",
-						headerTintColor: theme.text,
-						headerTitleStyle: {
-							fontFamily: "Linotte-Bold",
-							fontWeight: "normal",
-							fontSize: 23 * scaleHeight,
-						},
-						headerStyle: {
-							backgroundColor: theme.background,
-						},
-						animation: "fade_from_bottom",
-					}}
-				/>
-				<Stack.Screen
-					name="Fav"
-					component={FavoriteScreen}
-					options={{
-						title: "About Elegant",
-						headerTitleAlign: "center",
-						headerTintColor: theme.text,
-						headerTitleStyle: {
-							fontFamily: "Linotte-Bold",
-							fontWeight: "normal",
-							fontSize: 23 * scaleHeight,
-						},
-						headerStyle: {
-							backgroundColor: theme.background,
-						},
-						animation: "fade_from_bottom",
-					}}
-				/>
-				<Stack.Screen
-					name="Search"
-					component={SearchScreen}
-					options={{ headerShown: false, animation: "fade_from_bottom" }}
-				/>
-			</Stack.Navigator>
-		</NavigationContainer>
+		<>
+			<NavigationContainer>
+				<Stack.Navigator initialRouteName="Home">
+					<Stack.Screen
+						name="Home"
+						component={TopTabBar}
+						options={{ headerShown: false, animation: "fade_from_bottom" }}
+					/>
+					<Stack.Screen
+						name="Wall"
+						component={SetWallpaperScreen}
+						options={{ headerShown: false, animation: "fade_from_bottom" }}
+					/>
+					<Stack.Screen
+						name="Collection"
+						component={SpecificCollectionScreen}
+						options={{ headerShown: false, animation: "fade_from_bottom" }}
+					/>
+					<Stack.Screen
+						name="Settings"
+						component={SettingsScreen}
+						options={{
+							title: "Settings",
+							headerTitleAlign: "center",
+							headerTintColor: theme.text,
+							headerTitleStyle: {
+								fontFamily: "Linotte-Bold",
+								fontWeight: "normal",
+								fontSize: 23 * scaleHeight,
+							},
+							headerStyle: {
+								backgroundColor: theme.background,
+							},
+							animation: "fade_from_bottom",
+						}}
+					/>
+					<Stack.Screen
+						name="About"
+						component={AboutScreen}
+						options={{
+							title: "About Elegant",
+							headerTitleAlign: "center",
+							headerTintColor: theme.text,
+							headerTitleStyle: {
+								fontFamily: "Linotte-Bold",
+								fontWeight: "normal",
+								fontSize: 23 * scaleHeight,
+							},
+							headerStyle: {
+								backgroundColor: theme.background,
+							},
+							animation: "fade_from_bottom",
+						}}
+					/>
+					<Stack.Screen
+						name="Fav"
+						component={FavoriteScreen}
+						options={{
+							title: "About Elegant",
+							headerTitleAlign: "center",
+							headerTintColor: theme.text,
+							headerTitleStyle: {
+								fontFamily: "Linotte-Bold",
+								fontWeight: "normal",
+								fontSize: 23 * scaleHeight,
+							},
+							headerStyle: {
+								backgroundColor: theme.background,
+							},
+							animation: "fade_from_bottom",
+						}}
+					/>
+					<Stack.Screen
+						name="Search"
+						component={SearchScreen}
+						options={{ headerShown: false, animation: "fade_from_bottom" }}
+					/>
+				</Stack.Navigator>
+			</NavigationContainer>
+			<Loader loading={isLoading} />
+		</>
 	);
 }

@@ -18,6 +18,8 @@ const initialContext: TypeAppContext = {
 	setCollectionData: (): void => {},
 	updateState: 0,
 	setUpdateState: (): void => {},
+	isLoading: true,
+	setIsLoading: (): void => {},
 };
 
 export const AppContext = createContext<TypeAppContext>(initialContext);
@@ -39,6 +41,8 @@ export const AppContextProvider = ({
 		initialContext.updateState
 	);
 
+	const [isLoading, setIsLoading] = useState<boolean>(initialContext.isLoading);
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -52,6 +56,8 @@ export const AppContextProvider = ({
 				setCollectionData,
 				updateState,
 				setUpdateState,
+				isLoading,
+				setIsLoading,
 			}}
 		>
 			{children}

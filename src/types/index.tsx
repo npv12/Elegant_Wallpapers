@@ -24,6 +24,8 @@ export type TypeAppContext = {
 	setCollectionData: Dispatch<SetStateAction<Array<collectionData>>>;
 	updateState: number; // Contains the update state of the app. If it is 0 then app is fine, If onw then ping user to update. If 2 then force user to do the same
 	setUpdateState: Dispatch<SetStateAction<number>>;
+	isLoading: boolean;
+	setIsLoading: Dispatch<SetStateAction<boolean>>;
 };
 
 export type TypeWallData = {
