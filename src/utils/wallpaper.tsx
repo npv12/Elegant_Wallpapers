@@ -11,26 +11,13 @@ export async function setImageAsWall(
 	setShowApplyModal
 ) {
 	setShowApplyModal(false);
-	ReactNativeBlobUtil.config({
-		fileCache: true,
-		appendExt: "png",
-	})
-		.fetch("GET", url)
-		.then((res) => {
-			console.log("Applying wall " + type);
-			var PATH = "file://" + res.path();
-			ManageWallpaper.setWallpaper(
-				{
-					uri: PATH,
-				},
-				callback,
-				type
-			);
-		})
-		.catch((e) => {
-			console.log(e);
-			showSnackbarText("Something went wrong");
-		});
+	ManageWallpaper.setWallpaper(
+		{
+			uri: url,
+		},
+		callback,
+		type
+	);
 }
 
 export //wallpaper downloader.
