@@ -23,7 +23,7 @@ const BottomTab = ({ item }) => {
 	const [translateBottom, setTranslateBottom] = useState(
 		new Animated.Value(300 * scaleHeight)
 	);
-	const { setIsLoading } = useContext<TypeAppContext>(AppContext);
+	const [isDownloading, setIsDownloading] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (item.name.length > 17) {
@@ -153,7 +153,7 @@ const BottomTab = ({ item }) => {
 					<View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
 						<TouchableOpacity
 							onPress={() => {
-								handleDownload(item, setIsLoading);
+								handleDownload(item, isDownloading, setIsDownloading);
 							}}
 						>
 							<View style={styles.iconView}>

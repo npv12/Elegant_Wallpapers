@@ -21,15 +21,12 @@ export async function setImageAsWall(
 }
 
 export //wallpaper downloader.
-async function handleDownload(item, setIsLoading) {
-	// if (isDownloading) {
-	//     showSnackbarText("File is downloading");
-	//     return;
-	// } else {
-	//     setIsDownloading(true);
-	// }
+async function handleDownload(item, isDownloading: boolean, setIsDownloading) {
+	if (isDownloading) {
+		showSnackbarText("File is downloading");
+		return;
+	}
 	//showAd();
-	showSnackbarText("Download Started");
 	if (Platform.OS === "android") {
 		const granted = await getStoragePermissionAndroid();
 		if (!granted) {
@@ -53,7 +50,8 @@ async function handleDownload(item, setIsLoading) {
 		.exists(PATH)
 		.then((exist) => {
 			if (!exist) {
-				setIsLoading(true);
+				setIsDownloading(true);
+				showSnackbarText("Download Started");
 				ReactNativeBlobUtil.config({
 					addAndroidDownloads: {
 						useDownloadManager: true,
@@ -64,16 +62,16 @@ async function handleDownload(item, setIsLoading) {
 				})
 					.fetch("GET", item.url)
 					.then((res) => {
-						setIsLoading(false);
 						showSnackbarText("Download completed");
+						setIsDownloading(false);
 					})
 					.catch((error) => {
 						showSnackbarText("Something went wrong");
-						setIsLoading(false);
+						setIsDownloading(false);
 					});
 			} else {
 				showSnackbarText("File exists");
-				//setIsDownloading(false);
+				setIsDownloading(false);
 			}
 		})
 		.catch(() => {
