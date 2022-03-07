@@ -1,6 +1,8 @@
 import { ADMOB_UNIT_ID } from "../constants";
-import mobileAds from "react-native-google-mobile-ads";
-import { InterstitialAd, AdEventType } from "react-native-google-mobile-ads";
+import mobileAds, {
+	InterstitialAd,
+	AdEventType,
+} from "react-native-google-mobile-ads";
 
 export function initAdmob() {
 	mobileAds()

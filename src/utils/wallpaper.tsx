@@ -2,6 +2,7 @@ import ReactNativeBlobUtil from "react-native-blob-util";
 import ManageWallpaper from "react-native-manage-wallpaper";
 import { getStoragePermissionAndroid, showSnackbarText } from ".";
 import { Platform } from "react-native";
+import showAdv from "../components/Advert";
 
 //sets wall by first downloading using rnfetch so that app doesn't crash
 export async function setImageAsWall(
@@ -11,6 +12,7 @@ export async function setImageAsWall(
 	setShowApplyModal
 ) {
 	setShowApplyModal(false);
+	showAdv();
 	ManageWallpaper.setWallpaper(
 		{
 			uri: url,
@@ -51,6 +53,7 @@ async function handleDownload(item, isDownloading: boolean, setIsDownloading) {
 		.then((exist) => {
 			if (!exist) {
 				setIsDownloading(true);
+				showAdv();
 				showSnackbarText("Download Started");
 				ReactNativeBlobUtil.config({
 					addAndroidDownloads: {
