@@ -25,16 +25,18 @@ interstitial.onAdEvent((type) => {
 	}
 	if (type === AdEventType.CLOSED) {
 		console.log("AD CLOSED");
+		loadAdv(); // Load adv on close is the best way to go.
 	}
 });
 
 export default function showAdv() {
 	try {
-		interstitial.show();
+		interstitial
+			.show()
+			.then(() => loadAdv() /** In case loadadb onclose fails */);
 	} catch (e) {
 		console.log(e);
 	}
-	loadAdv();
 }
 
 export function loadAdv() {
