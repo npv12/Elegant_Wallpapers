@@ -14,7 +14,7 @@ export function initAdmob() {
 		});
 }
 
-const interstitial = InterstitialAd.createForAdRequest(ADMOB_UNIT_ID, {});
+const interstitial = InterstitialAd.createForAdRequest(ADMOB_UNIT_ID);
 
 interstitial.onAdEvent((type) => {
 	if (type === AdEventType.LOADED) {
@@ -30,6 +30,10 @@ interstitial.onAdEvent((type) => {
 });
 
 export default function showAdv() {
+	if (!interstitial.loaded) {
+		loadAdv(); // incase adv load fails.
+		return;
+	}
 	try {
 		interstitial
 			.show()
@@ -40,8 +44,8 @@ export default function showAdv() {
 }
 
 export function loadAdv() {
+	if (interstitial.loaded) return; // Don't load if it is already loaded.
 	try {
-		console.log("PRELOAD CALLED");
 		interstitial.load();
 	} catch (e) {
 		console.log(e);
