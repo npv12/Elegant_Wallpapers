@@ -1,6 +1,5 @@
-constants.js
 app.json
-src/constants*
+src/Secrets*
 firebase.json
 android/app/google-services.json
 android/app/frames.jks

@@ -1,4 +1,4 @@
-import { ADMOB_UNIT_ID } from "../constants";
+import { ADMOB_UNIT_ID } from "../Secrets";
 import mobileAds, {
 	InterstitialAd,
 	AdEventType,

@@ -8,18 +8,14 @@ import AboutScreen from "../../screens/AboutScreen";
 import SettingsScreen from "../SettingsScreen";
 import FavoriteScreen from "../FavoriteScreen";
 import SearchScreen from "../../screens/SearchScreen";
-import {
-	STANDARD_HEIGHT,
-	VERSION_NUMBER,
-	VERSION_URL,
-	WALL_URL,
-} from "../../constants";
+import { STANDARD_HEIGHT, VERSION_NUMBER, VERSION_URL } from "../../constants";
 import TopTabBar from "./TopTabBar";
 import { TypeAppContext } from "../../types";
 import { AppContext } from "../../context/AppContext";
 import SplashScreen from "react-native-splash-screen";
 import { getCollectionsFromData } from "../../utils";
 import Loader from "../../components/Loader";
+import { WALL_URL } from "../../Secrets";
 
 const scaleHeight = Dimensions.get("window").height / STANDARD_HEIGHT;
 

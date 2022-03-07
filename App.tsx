@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import OneSignal from "react-native-onesignal";
-import { ONE_SIGNAL } from "./src/constants";
+import { ONE_SIGNAL } from "./src/Secrets";
 import { getStoragePermissionAndroid } from "./src/utils";
 import HomeScreen from "./src/screens/HomeScreen";
 import Themes from "./src/Themes";
